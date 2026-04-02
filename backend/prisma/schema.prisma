@@ -50,13 +50,13 @@ enum Role{
 }
 
 model users {
-  id           String         @id @db.Uuid
+  id           String         @id @default(uuid()) @db.Uuid
   name         String         @db.VarChar(100)
   email        String         @unique @db.VarChar(150)
   password     String
   role         Role           @default(USER)
 
-  refresh_token String?
+  refresh_token String?       @unique
   
   created_at   DateTime       @default(now()) @db.Timestamp(6)
   updated_at   DateTime       @default(now()) @db.Timestamp(6)

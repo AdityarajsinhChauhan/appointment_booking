@@ -23,7 +23,7 @@ model appointments {
 
 model availability_slots {
   id          String    @id @db.Uuid
-  provider_id String    @unique @db.Uuid
+  provider_id String    @db.Uuid
   start_time  DateTime  @db.Timestamp(6)
   end_time    DateTime  @db.Timestamp(6)
   is_booked   Boolean   @default(false)
@@ -32,32 +32,32 @@ model availability_slots {
 }
 
 model providers {
-  id                 String              @id @db.Uuid
-  user_id            String              @unique @db.Uuid
-  specialization     String              @db.VarChar(100)
+  id                 String               @id @default(uuid()) @db.Uuid
+  user_id            String               @unique @db.Uuid
+  specialization     String               @db.VarChar(100)
   experience_years   Int
-  created_at         DateTime            @default(now()) @db.Timestamp(6)
-  updated_at         DateTime            @default(now()) @db.Timestamp(6)
+  created_at         DateTime             @default(now()) @db.Timestamp(6)
+  updated_at         DateTime             @default(now()) @db.Timestamp(6)
   appointments       appointments[]
-  availability_slots availability_slots?
-  users              users               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  availability_slots availability_slots[]
+  users              users                @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-enum Role{
+enum Role {
   USER
   PROVIDER
   ADMIN
 }
 
 model users {
-  id           String         @id @default(uuid()) @db.Uuid
-  name         String         @db.VarChar(100)
-  email        String         @unique @db.VarChar(150)
-  password     String
-  role         Role           @default(USER)
+  id       String @id @default(uuid()) @db.Uuid
+  name     String @db.VarChar(100)
+  email    String @unique @db.VarChar(150)
+  password String
+  role     Role   @default(USER)
 
-  refresh_token String?       @unique
-  
+  refresh_token String? @unique
+
   created_at   DateTime       @default(now()) @db.Timestamp(6)
   updated_at   DateTime       @default(now()) @db.Timestamp(6)
   appointments appointments[]

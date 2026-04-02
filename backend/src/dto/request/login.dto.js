@@ -1,3 +1,5 @@
+const AppError = require("../../utils/appError");
+
 class LoginDTO{
     constructor(data){
         this.email = data.email;
@@ -5,7 +7,7 @@ class LoginDTO{
     }
     static validate(data){
         if(!data.email || !data.password){
-            throw new Error("Missing input fields");
+            throw new AppError("Missing input fields",400);
         }
         return new LoginDTO(data);
     }

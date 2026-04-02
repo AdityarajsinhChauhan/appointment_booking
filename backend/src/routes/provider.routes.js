@@ -10,5 +10,10 @@ router.post('/create',
     authorizeRoles('ADMIN'),
     ( req, res, next ) => providerController.createProvider( req, res, next)
  );
+ router.post('/slot',
+    authMiddleware,
+    authorizeRoles('PROVIDER'),
+    ( req, res, next ) => providerController.createSlot( req, res, next)
+ );
 
  module.exports = router;

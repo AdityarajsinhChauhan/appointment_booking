@@ -1,3 +1,5 @@
+const AppError = require("../../utils/appError");
+
 class RegisterDTO{
     constructor (data){
         this.name = data.name;
@@ -7,7 +9,7 @@ class RegisterDTO{
 
     static validate(data){
         if( !data.name || !data.email || !data.password){
-            throw new Error("Missing input fields");
+            throw new AppError("Missing input fields",400);
             
         }
         return new RegisterDTO(data);

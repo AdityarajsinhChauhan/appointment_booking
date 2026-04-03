@@ -6,7 +6,7 @@ class ProviderService{
         const existing = await providerRepo.findProviderByUserId(dto.user_id);
 
         if(existing){
-            throw new Error("User is already a provider");
+            throw new AppErrorError("User is already a provider",400);
         }
 
         const provider = await providerRepo.createProvider({
@@ -25,7 +25,7 @@ class ProviderService{
         const provider = await providerRepo.findProviderByUserId(userId);
 
         if(!provider){
-            throw new Error("Provider not found");
+            throw new AppError("Provider not found",404);
         }
 
         const start = new Date(dto.start_time);
@@ -38,7 +38,7 @@ class ProviderService{
     }
 
         if(start >= end){
-            throw new Error("Start time must be before then end time");
+            throw new AppError("Start time must be before then end time",400);
         }
 
         const overlapping = await providerRepo.findOverlappingSlot( provider.id, start, end );

@@ -1,6 +1,6 @@
 const { prisma } = require("../config/db.config");
 const appointmentRepo = require("../repositories/appointment.repository");
-const providerRepo = require('../repositories/provider.repository');
+const providerRepo = require("../repositories/provider.repository");
 const AppError = require("../utils/appError");
 
 class AppointmentService {
@@ -55,6 +55,73 @@ class AppointmentService {
 
   async getAllAppointments() {
     return await appointmentRepo.getAllAppointments();
+  }
+
+  async rescheduleAppointment(user, dto) {
+    const { appointmentId, newSlotId } = dto;
+
+    return await prisma.$transaction(async (tx) => {
+      const appointment = await appointmentRepo.findAppointmentById(
+        appointmentId,
+        tx,
+      );
+
+      if (!appointment) {
+        throw new AppError("Appointment not found", 404);
+      }
+
+      if (appointment.user_id !== user.id) {
+        throw new AppError("Unauthorized", 403);
+      }
+
+      const result = await appointmentRepo.findByIdForUpdate(newSlotId, tx);
+
+      if (!result) {
+        throw new AppError("Slot not found", 404);
+      }
+
+      if (result.is_booked) {
+        throw new AppError("Slot is already booked", 400);
+      }
+
+      await appointmentRepo.markAsAvailable(appointment.slot_id, tx);
+
+      await appointmentRepo.markAsBooked(newSlotId, tx);
+
+      await appointmentRepo.updateAppointment(appointment.id, newSlotId, tx);
+
+      return { message: "Recheduled successfully" };
+    });
+  }
+
+  async getAvailableSlots(providerId) {
+    return await appointmentRepo.getAvailableSlots(providerId);
+  }
+
+  async cancelAppointment(user, appointmentId) {
+    return await prisma.$transaction(async (tx) => {
+      const appointment = await appointmentRepo.findAppointmentById(
+        appointmentId,
+        tx,
+      );
+
+      if (!appointment) {
+        throw new AppError("Appointment not found", 404);
+      }
+
+      // Ownership check
+      if (user.role === "USER" && appointment.user_id !== user.id) {
+        throw new AppError("Unauthorized", 403);
+      }
+
+      // Cancel appointment
+      await appointmentRepo.cancelAppointment(appointmentId, tx);
+
+      // Free slot
+      await appointmentRepo.markAsAvailable(appointment.slot_id, tx);
+
+      return { message: "Appointment cancelled successfully" };
+    });
   }
 }
 

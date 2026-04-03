@@ -1,6 +1,6 @@
 class CreateAppointmentDTO{
     constructor({ slotId }){
-        this.slotId  = slotId
+        this.slotId  = slotId;
     }
 }
 

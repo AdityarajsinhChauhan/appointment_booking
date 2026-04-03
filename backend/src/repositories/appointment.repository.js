@@ -16,6 +16,12 @@ class AppointmentRepository {
     });
   }
 
+  async findAppointmentById( appointmentId, tx){
+    return await tx.appointments.findUnique({
+      where: { id: appointmentId}
+    })
+  }
+
   async findByIdForUpdate(slotId, tx) {
     const result = await tx.$queryRaw`
       SELECT * FROM availability_slots
@@ -31,6 +37,24 @@ class AppointmentRepository {
       data: { is_booked: true },
     });
   }
+
+  async markAsAvailable(slotId, tx){
+    return await tx.availability_slots.update({
+      where: { id: slotId },
+      data: { is_booked: false}
+    });
+  }
+
+ 
+
+  async updateAppointment( appointmentId, newSlotId, tx ){
+    return await tx.appointments.update({
+      where:{ id: appointmentId },
+      data: { slot_id: newSlotId}
+    });
+  }
+
+
 
   async getUserAppointments(userId) {
     return await prisma.appointments.findMany({
@@ -51,6 +75,33 @@ class AppointmentRepository {
       include: { slot: true },
     });
   }
+
+  async getAvailableSlots(providerId){
+    return await prisma.availability_slots.findMany({
+      where: { provider_id: providerId,
+        is_booked: false,
+        start_time: { gte: new Date()}
+       },
+       orderBy:{
+        start_time: 'asc'
+       }
+
+    });
+
+  }
+
+  async findAppointmentById(appointmentId, tx) {
+  return tx.appointments.findUnique({
+    where: { id: appointmentId }
+  });
+}
+
+async cancelAppointment(appointmentId, tx) {
+  return tx.appointments.update({
+    where: { id: appointmentId },
+    data: { status: 'CANCELLED' }
+  });
+}
 }
 
 module.exports = new AppointmentRepository();

@@ -1,8 +1,8 @@
 class CreateProviderDTO{
     constructor(data){
-        this.user_id = data.user_id;
+        this.email = data.email;
         this.specialization = data.specialization;
-        this.experience_years = data.experience_years;
+        this.experience_years = data.experience;
     }
 }
 

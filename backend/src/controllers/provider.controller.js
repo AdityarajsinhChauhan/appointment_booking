@@ -3,6 +3,7 @@ const CreateProviderDTO = require('../dto/request/createProvider.dto');
 const ProviderResponseDTO = require('../dto/response/provider.response.dto');
 const CreateSlotDTO = require('../dto/request/createSlot.dto');
 const SlotResponseDTO = require('../dto/response/slot.response.dto');
+const createBulkSlots = require('../dto/request/createBulkSlots.dto')
 
 
 class ProviderController{
@@ -28,7 +29,6 @@ class ProviderController{
     async createSlot( req, res, next ){
         try {
 
-            console.log(req.body);
             const dto = new CreateSlotDTO(req.body) ;
 
             const slot = await providerService.createSlot(req.user.id,dto);
@@ -40,6 +40,22 @@ class ProviderController{
                 message: "slot created successfully",
                 data: response
             })
+            
+        } catch (err) {
+            next(err);
+            
+        }
+    }
+
+    async createBulkSlots( req, res, next ){
+        try {
+            const dto = new createBulkSlots(req.body, req.user.id);
+            const response = await providerService.createBulkSlots(dto,req.user.id)
+            res.status(201).json({
+                success:true,
+                message:"slots created successfully",
+                data: response
+            });
             
         } catch (err) {
             next(err);

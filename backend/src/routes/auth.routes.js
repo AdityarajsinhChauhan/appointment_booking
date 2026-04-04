@@ -3,6 +3,7 @@ const router = express.Router();
 
 const authController = require('../controllers/auth.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
+const authorizeRoles = require('../middlewares/role.middleware');
 
 router.post('/register',async ( req, res, next) => {
     await authController.register( req, res, next )
@@ -26,6 +27,8 @@ router.get('/me',authMiddleware, (req,res) => {
         user:req.user
     });
 });
+
+router.get('/',authMiddleware,authController.getAllUsers);
 
 module.exports = router;
 

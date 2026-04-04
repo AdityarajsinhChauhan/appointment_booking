@@ -9,6 +9,14 @@ class AppointmentResponseDTO {
       startTime: appointment.slot.start_time,
       endTime: appointment.slot.end_time
     };
+
+    this.provider = appointment.provider
+      ? {
+          id: appointment.provider.id,
+          name: appointment.provider.name,
+          email: appointment.provider.email,
+        }
+      : null;
   }
 }
 

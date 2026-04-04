@@ -9,6 +9,7 @@ router.post("/", authMiddleware, (req, res, next) => appointmentController.creat
 
 router.post("/reschedule", authMiddleware, (req, res, next) => appointmentController.rescheduleAppointment(req, res, next),);
 
+
 router.get('/my', authMiddleware, appointmentController.getMyAppointments);
 
 router.get('/provider',

@@ -18,4 +18,6 @@ router.post(
   (req, res, next) => providerController.createSlot(req, res, next),
 );
 
+router.post("/slots/bulk",authMiddleware,authorizeRoles("PROVIDER"),( req, res, next) =>  providerController.createBulkSlots( req, res, next));
+
 module.exports = router;

@@ -68,6 +68,10 @@ class AuthService {
   async logout(userId){
     return UserRepo.updateRefreshToken( userId, null );
   }
+
+  async getAllUsers(){
+    return UserRepo.getAllUsers();
+  }
 }
 
 module.exports = new AuthService();

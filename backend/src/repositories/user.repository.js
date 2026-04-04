@@ -30,6 +30,12 @@ class UserRepository{
             where: { refresh_token: token}
         });
     }
+    
+    async getAllUsers(){
+        return prisma.users.findMany({
+            include:{ providers:true}
+        });
+    }
 
 }
 

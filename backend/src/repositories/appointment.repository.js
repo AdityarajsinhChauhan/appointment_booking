@@ -58,21 +58,30 @@ class AppointmentRepository {
 
   async getUserAppointments(userId) {
     return await prisma.appointments.findMany({
-      where: { user_id: userId },
-      include: { slot: true },
+      include: { slot: true,
+        providers:true,
+        users:true
+       },
     });
   }
 
   async getProviderAppointments(providerId) {
     return await prisma.appointments.findMany({
       where: { provider_id: providerId },
-      include: { slot: true },
+      include: { slot: true,
+        providers:true,
+        users:true
+       },
     });
   }
 
   async getAllAppointments() {
     return await prisma.appointments.findMany({
-      include: { slot: true },
+      include: { slot: true,
+        providers:true,
+        users:true
+       },
+
     });
   }
 

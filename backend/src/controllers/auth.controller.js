@@ -61,6 +61,17 @@ class AuthController {
       next(err);
     }
   }
+
+  async getAllUsers( req, res, next){
+    try {
+      const users = await authService.getAllUsers();
+      res.json(users);
+      
+    } catch (err) {
+      next(err);
+      
+    }
+  }
 }
 
 module.exports = new AuthController();

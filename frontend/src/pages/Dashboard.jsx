@@ -1,7 +1,27 @@
 import { Calendar, Clock, User, MapPin } from 'lucide-react'
 import React from 'react'
+import CardWithIcon from '../components/common/CardWithIcon'
+import BlackButton from '../components/common/BlackButton'
+import WhiteButton from '../components/common/WhiteButton'
 
 const Dashboard = () => {
+  const  cardInfo = [
+    {
+      title: "Upcoming",
+      number: 2,
+      Icon: Calendar
+    },
+    {
+      title: "Completed",
+      number: 8,
+      Icon: Clock
+    },
+    {
+      title: "Providers",
+      number: 2,
+      Icon: User
+    },
+  ]
   return (
     <div>
 
@@ -14,29 +34,8 @@ const Dashboard = () => {
         {/* Cards */}
 
         <div className='flex w-full gap-5 px-5 mt-10'>
-          <div className='flex justify-between w-[32%] border border-gray-300 rounded-xl py-14 px-5'>
-            <div className='flex flex-col'>
-              <span>Upcoming</span>
-              <span className='text-3xl font-bold'>2</span>
-            </div>
-            <div className='bg-gray-200 w-fit h-fit p-3 rounded-xl'><Calendar/></div>
-          </div>
 
-          <div className='flex justify-between w-[32%] border border-gray-300 rounded-xl py-14 px-5'>
-            <div className='flex flex-col'>
-              <span>Completed</span>
-              <span className='text-3xl font-bold'>8</span>
-            </div>
-            <div className='bg-gray-200 w-fit h-fit p-3 rounded-xl'><Clock/></div>
-          </div>
-
-          <div className='flex justify-between w-[32%] border border-gray-300 rounded-xl py-14 px-5'>
-            <div className='flex flex-col'>
-              <span>Providers</span>
-              <span className='text-3xl font-bold'>3</span>
-            </div>
-            <div className='bg-gray-200 w-fit h-fit p-3 rounded-xl'><User/></div>
-          </div>
+          {cardInfo.map((item)=>(<CardWithIcon title={item.title} number={item.number} Icon={item.Icon}/>))}
           
         </div>
 
@@ -45,7 +44,7 @@ const Dashboard = () => {
 
         <div className='flex justify-between mx-5 mt-10'>
           <h2 className='text-2xl'>Upcoming Appointments</h2>
-          <button className='bg-black text-white px-2 py-1 rounded-lg'>Book New</button>
+          <BlackButton title="Book New"/>
         </div>
 
         <div className='w-[96%] mx-5 border border-gray-300 rounded-xl flex flex-col p-5 mt-5'>
@@ -56,8 +55,8 @@ const Dashboard = () => {
           <span className='mt-4 flex gap-2'><Clock/>10:00 to 10:30</span>
           <span className='mt-4 flex gap-2'><MapPin/>Office building A, romm 201</span>
           <div className='w=96% pt-5 border-t mt-5 border-gray-300'>
-            <button className='w-1/2 border border-gray-300 rounded-lg py-1'>Reschedule</button>
-            <button className='w-1/2 border border-gray-300 rounded-lg py-1 text-red-600'>Cancel</button>
+            <WhiteButton title="Reschedule" textColor="black" width="w-1/2"/>
+            <WhiteButton title="Cancel" textColor="red-600" width="w-1/2"/>
           </div>
         </div>
 
@@ -66,7 +65,7 @@ const Dashboard = () => {
 
 
         <div className='flex justify-between mx-5 my-10'>
-          <h2 className='text-2xl'>Upcoming Appointments</h2>
+          <h2 className='text-2xl'>Recent Appointments</h2>
           <button className='bg-black text-white px-2 py-1 rounded-lg'>Book New</button>
         </div>
 

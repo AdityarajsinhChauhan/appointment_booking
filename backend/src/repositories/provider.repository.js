@@ -17,6 +17,12 @@ class ProviderRepository {
     });
   }
 
+  async findProviderById(providerId){
+    return await prisma.providers.findUnique({
+      where: {id: providerId}
+    })
+  }
+
   async updateUserRoleToProvider(userId) {
     return await prisma.users.update({
       where: { id: userId },
@@ -24,26 +30,8 @@ class ProviderRepository {
     });
   }
 
-  async createSlot(data) {
-    return await prisma.availability_slots.create({ data });
-  }
-
-  async createBulkSlots(slots){
-    return await prisma.availability_slots.createMany( { data: slots 
-
-      
-    })
-
-  }
-
-  async findOverlappingSlot(providerId, start, end) {
-    return await prisma.availability_slots.findFirst({
-      where: {
-        provider_id: providerId,
-        start_time: { lt: end },
-        end_time: { gt: start },
-      },
-    });
+  async getProviders(){
+    return await prisma.providers.findMany({include:{ users:true}});
   }
 }
 

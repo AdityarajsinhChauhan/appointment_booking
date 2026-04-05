@@ -78,24 +78,7 @@ class AppointmentController {
     }
   }
 
-  async getAvailableSlots( req, res, next){
-    try {
-        const { providerId } = req.params;
-
-        
-
-        const slots = await appointmentService.getAvailableSlots(providerId);
-
-        res.status(200).json({
-            success: true,
-            data: slots
-        })
-        
-    } catch (err) {
-        next(err);
-        
-    }
-  }
+  
 
   async cancelAppointment(req, res, next) {
   try {

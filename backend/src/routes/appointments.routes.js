@@ -24,11 +24,7 @@ router.get('/',
   appointmentController.getAllAppointments
 );
 
-router.get(
-  '/:providerId/slots',
-  authMiddleware,
-  appointmentController.getAvailableSlots
-);
+
 
 router.patch(
   '/:appointmentId/cancel',

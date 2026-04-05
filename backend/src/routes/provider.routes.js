@@ -11,13 +11,8 @@ router.post(
   authorizeRoles("ADMIN"),
   (req, res, next) => providerController.createProvider(req, res, next),
 );
-router.post(
-  "/slot",
-  authMiddleware,
-  authorizeRoles("PROVIDER"),
-  (req, res, next) => providerController.createSlot(req, res, next),
-);
 
-router.post("/slots/bulk",authMiddleware,authorizeRoles("PROVIDER"),( req, res, next) =>  providerController.createBulkSlots( req, res, next));
+router.get("/",authMiddleware,( req, res, next) => providerController.getProvider( req, res, next));
+
 
 module.exports = router;

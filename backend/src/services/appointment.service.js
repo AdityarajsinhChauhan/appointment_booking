@@ -1,14 +1,16 @@
 const { prisma } = require("../config/db.config");
 const appointmentRepo = require("../repositories/appointment.repository");
 const providerRepo = require("../repositories/provider.repository");
+const slotRepo = require('../repositories/slot.repository');
 const AppError = require("../utils/appError");
+const { convertToIST } = require("../utils/time");
 
 class AppointmentService {
   async createAppointment(userId, dto) {
     const { slotId } = dto;
 
     return await prisma.$transaction(async (tx) => {
-      const slot = await appointmentRepo.findByIdForUpdate(slotId, tx);
+      const slot = await slotRepo.findByIdForUpdate(slotId, tx);
       console.log(slot);
 
       if (!slot) {
@@ -33,7 +35,7 @@ class AppointmentService {
         tx,
       );
 
-      await appointmentRepo.markAsBooked(slotId, tx);
+      await slotRepo.markAsBooked(slotId, tx);
 
       return appointment;
     });
@@ -74,7 +76,7 @@ class AppointmentService {
         throw new AppError("Unauthorized", 403);
       }
 
-      const result = await appointmentRepo.findByIdForUpdate(newSlotId, tx);
+      const result = await slotRepo.findByIdForUpdate(newSlotId, tx);
 
       if (!result) {
         throw new AppError("Slot not found", 404);
@@ -84,18 +86,14 @@ class AppointmentService {
         throw new AppError("Slot is already booked", 400);
       }
 
-      await appointmentRepo.markAsAvailable(appointment.slot_id, tx);
+      await slotRepo.markAsAvailable(appointment.slot_id, tx);
 
-      await appointmentRepo.markAsBooked(newSlotId, tx);
+      await slotRepo.markAsBooked(newSlotId, tx);
 
       await appointmentRepo.updateAppointment(appointment.id, newSlotId, tx);
 
       return { message: "Recheduled successfully" };
     });
-  }
-
-  async getAvailableSlots(providerId) {
-    return await appointmentRepo.getAvailableSlots(providerId);
   }
 
   async cancelAppointment(user, appointmentId) {
@@ -118,7 +116,7 @@ class AppointmentService {
       await appointmentRepo.cancelAppointment(appointmentId, tx);
 
       // Free slot
-      await appointmentRepo.markAsAvailable(appointment.slot_id, tx);
+      await slotRepo.markAsAvailable(appointment.slot_id, tx);
 
       return { message: "Appointment cancelled successfully" };
     });

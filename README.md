@@ -6,8 +6,8 @@ The system supports role-based access for Admin, Provider, and Users to manage a
 ---
 
 ## Live Demo
-Frontend: https://your-frontend-url.vercel.app  
-Backend: https://your-backend-url.onrender.com  
+Frontend: https://appointment-booking-psi-teal.vercel.app/
+Backend: https://appointment-booking-scgr.onrender.com  
 
 ---
 

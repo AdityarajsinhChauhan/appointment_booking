@@ -1,35 +1,33 @@
 import AppointmentCard from "../components/AppointmentCard";
 import React, { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
-import { getAppointments } from "../services/appointment.service";
+import { useAppointments } from "../context/AppointmentContext";
 import Card from "../components/common/Card";
-import { Car } from "lucide-react";
 
 const Appointment = () => {
   const { user } = useAuth();
-  const [appointments, setAppointments] = useState([]);
+  const { appointments = [], fetchAppointments, loading } = useAppointments();
 
-  useEffect(() => {
-    if (!user) return;
+useEffect(() => {
+  fetchAppointments();
+}, []);
 
-    const fetchData = async () => {
-      const data = await getAppointments(user.role);
-      setAppointments(data);
-    };
+const cardInfo = React.useMemo(() => {
+  const now = new Date();
 
-    fetchData();
-  }, [user]);
+  const upcoming =
+    appointments.filter(
+      (a) => new Date(a.date) >= now && a.status !== "COMPLETED"
+    ).length || 0;
 
-  const cardInfo = [
-    {
-      title: "Upcoming",
-      number: "1",
-    },
-    {
-      title: "Completed",
-      number: "5",
-    },
+  const completed =
+    appointments.filter((a) => a.status === "COMPLETED").length || 0;
+
+  return [
+    { title: "Upcoming", number: upcoming },
+    { title: "Completed", number: completed },
   ];
+}, [appointments]);
 
   return (
     <div>
@@ -50,9 +48,9 @@ const Appointment = () => {
 
       <div className="flex justify-between mx-5 mt-10">
         <h2 className="text-2xl">Upcoming Appointments</h2>
-        <button className="bg-black text-white px-2 py-1 rounded-lg">
+        { user.role== "USER" && <button className="bg-black text-white px-2 py-1 rounded-lg">
           Book New
-        </button>
+        </button>}
       </div>
 
       {appointments.map((appointment) => (

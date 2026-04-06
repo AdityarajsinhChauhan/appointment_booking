@@ -1,7 +1,28 @@
 import React from 'react'
 import { Calendar, Clock, MapPin } from "lucide-react";
+import { formatDate ,formatTimeRange } from '../utils/formatDate';
+import { useAppointments } from '../context/AppointmentContext';
 
 const AppointmentCard = ({ appointment }) => {
+
+  const { handleCancelAppointment } = useAppointments();
+
+  const getStatusStyles = (status) => {
+  switch (status) {
+    case "BOOKED":
+      return "bg-blue-100 text-blue-800";
+
+    case "COMPLETED":
+      return "bg-green-100 text-green-800";
+
+    case "CANCELLED":
+      return "bg-red-100 text-red-800";
+
+    default:
+      return "bg-gray-100 text-gray-800";
+  }
+};
+
   return (
     <div className="w-[96%] mx-5 border border-gray-300 rounded-xl flex flex-col p-5 mt-5">
         <div className="flex justify-between">
@@ -11,27 +32,29 @@ const AppointmentCard = ({ appointment }) => {
               {appointment.users.name}
             </span>
           </div>
-          <span className="bg-blue-100 text-blue-800 rounded-full px-2 h-fit">{appointment.status}</span>
+          <span
+  className={`rounded-full px-2 h-fit text-sm font-medium ${getStatusStyles(
+    appointment.status
+  )}`}
+>
+  {appointment.status}
+</span>
         </div>
         <span className="mt-4 flex gap-2">
           <Calendar />
-          {appointment.slot.start_time}
+          {formatDate(appointment.slot.start_time)}
         </span>
         <span className="mt-4 flex gap-2">
           <Clock />
           
-    {appointment.slot.start_time},
-    {appointment.slot.end_time}
-        </span>
-        <span className="mt-4 flex gap-2">
-          <MapPin />
-          Office building A, romm 201
+    {formatTimeRange(appointment.slot.start_time,
+    appointment.slot.end_time)}
         </span>
         <div className="w=96% pt-5 border-t mt-5 border-gray-300">
-          <button className="w-1/2 border border-gray-300 rounded-lg py-1">
+          <button className="w-1/2 border border-gray-300 rounded-l-lg py-1">
             Reschedule
           </button>
-          <button className="w-1/2 border border-gray-300 rounded-lg py-1 text-red-600">
+          <button onClick={() => handleCancelAppointment(appointment.id)} className="w-1/2 border border-gray-300 rounded-r-lg py-1 text-red-600">
             Cancel
           </button>
         </div>

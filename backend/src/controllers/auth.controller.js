@@ -2,7 +2,6 @@ const RegisterDTO = require("../dto/request/register.dto");
 const LoginDTO = require("../dto/request/login.dto");
 const AuthResponseDTO = require("../dto/response/auth.response.dto");
 const authService = require("../services/auth.service");
-const { response } = require("express");
 
 class AuthController {
   async register(req, res, next) {
@@ -17,7 +16,12 @@ class AuthController {
         result.refreshToken,
       );
 
-      res.status(201).json(response);
+      res.status(201).json({
+        success:true,
+        message: "Registration successful",
+        data: response,
+      }
+      );
     } catch (err) {
       next(err);
     }
@@ -35,7 +39,12 @@ class AuthController {
         result.refreshToken,
       );
 
-      res.json(response);
+      res.json({
+        success:true,
+        message: "Logged In successfully",
+        data:response,
+      });
+      
     } catch (err) {
       next(err);
     }
@@ -47,7 +56,11 @@ class AuthController {
 
       const result = await authService.refreshToken(refreshToken);
 
-      res.json(result);
+      res.json({
+        success:true,
+        message: "Refresh successful",
+        data:result,
+      });
     } catch (err) {
       next(err);
     }
@@ -56,20 +69,25 @@ class AuthController {
   async logout(req, res, next) {
     try {
       await authService.logout(req.user.id);
-      res.json({ message: "Logged out successfully" });
+      res.json({ 
+        success:true,
+        message: "Logged out",
+       });
     } catch (err) {
       next(err);
     }
   }
 
-  async getAllUsers( req, res, next){
+  async getAllUsers(req, res, next) {
     try {
       const users = await authService.getAllUsers();
-      res.json(users);
-      
+      res.json({
+        success:true,
+        message: "Fetched all users",
+        data:users,
+      });
     } catch (err) {
       next(err);
-      
     }
   }
 }

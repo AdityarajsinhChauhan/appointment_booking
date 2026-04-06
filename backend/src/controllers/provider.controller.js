@@ -1,45 +1,38 @@
-const providerService = require('../services/provider.service');
-const CreateProviderDTO = require('../dto/request/createProvider.dto');
-const ProviderResponseDTO = require('../dto/response/provider.response.dto');
+const providerService = require("../services/provider.service");
+const CreateProviderDTO = require("../dto/request/createProvider.dto");
+const ProviderResponseDTO = require("../dto/response/provider.response.dto");
 
+class ProviderController {
+  async createProvider(req, res, next) {
+    try {
+      const dto = new CreateProviderDTO(req.body);
 
+      const provider = await providerService.createProvider(dto);
 
-class ProviderController{
-    async createProvider( req, res, next ){
-        try {
-            const dto = new CreateProviderDTO(req.body);
+      const response = new ProviderResponseDTO(provider);
 
-            const provider = await providerService.createProvider(dto);
-
-            const response = new ProviderResponseDTO(provider)
-
-            return res.status(201).json({
-                message:"Provider created successfully",
-                data: response
-            });
-            
-        } catch (err) {
-            next(err);
-            
-        }
+      return res.status(201).json({
+        success:true,
+        message: "Provider created successfully",
+        data:response,
+      });
+    } catch (err) {
+      next(err);
     }
+  }
 
-    async getProvider( req, res, next ){
-        try {
-            const response = await providerService.getProviders();
-            res.status(200).json({
-                success:true,
-                response
-            })
-            
-        } catch (err) {
-            next(err);
-            
-        }
-
+  async getProvider(req, res, next) {
+    try {
+      const response = await providerService.getProviders();
+      res.status(200).json({
+        success:true,
+        message: "Providers Fetched successfully",
+        data:response,
+      });
+    } catch (err) {
+      next(err);
     }
-
-
+  }
 }
 
 module.exports = new ProviderController();

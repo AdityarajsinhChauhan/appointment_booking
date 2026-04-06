@@ -29,7 +29,7 @@ model availability_slots {
   is_booked    Boolean        @default(false)
   created_at   DateTime       @default(now()) @db.Timestamp(6)
   providers    providers      @relation(fields: [provider_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  appointments appointments[] 
+  appointments appointments[]
 }
 
 model providers {
@@ -51,11 +51,12 @@ enum Role {
 }
 
 model users {
-  id       String @id @default(uuid()) @db.Uuid
-  name     String @db.VarChar(100)
-  email    String @unique @db.VarChar(150)
-  password String
-  role     Role   @default(USER)
+  id             String  @id @default(uuid()) @db.Uuid
+  name           String  @db.VarChar(100)
+  email          String  @unique @db.VarChar(150)
+  password       String
+  role           Role    @default(USER)
+  contact_number String? @db.VarChar(15)
 
   refresh_token String? @unique
 

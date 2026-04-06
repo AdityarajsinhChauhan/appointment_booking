@@ -3,8 +3,12 @@ const AppError = require("../utils/appError.js");
 
 class ProviderService {
   async createProvider(dto) {
-    console.log(dto)
+    console.log(dto);
     const user = await providerRepo.findUserByEmail(dto.email);
+
+    if(!user){
+      throw new AppError("Invalid email",400);
+    }
 
     console.log(user);
 
@@ -25,13 +29,9 @@ class ProviderService {
     return provider;
   }
 
-  async getProviders(){
+  async getProviders() {
     return await providerRepo.getProviders();
   }
-
-  
-
-  
 }
 
 module.exports = new ProviderService();

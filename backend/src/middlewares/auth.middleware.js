@@ -9,7 +9,8 @@ const authMiddleware = (req, res, next) => {
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       res.status(401).json({
-        message: "No token provided",
+        success: false,
+        message: "Token not found",
       });
     }
     const token = authHeader.split(" ").filter(Boolean)[1];
@@ -18,9 +19,11 @@ const authMiddleware = (req, res, next) => {
 
     req.user = decoded;
     next();
-  } catch (error) {
+  } catch (err) {
     return res.status(401).json({
+      success: false,
       message: "Invalid or expired token",
+      error: err,
     });
   }
 };

@@ -51,10 +51,10 @@ const Sidebar = () => {
           return (
             <button
               key={item.path}
-              className={` w-full cursor-pointer flex p-3 rounded-xl gap-3 ${
+              className={` w-full cursor-pointer  flex p-3 rounded-xl gap-3 ${
                 location.pathname === item.path
                   ? "bg-black text-white"
-                  : ""
+                  : "hover:bg-gray-200"
               }`}
               onClick={() => handleClick(item.path)}
             >

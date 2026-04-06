@@ -48,6 +48,7 @@ class AppointmentRepository {
     });
   }
 
+
   async cancelAppointment(appointmentId, tx) {
     return tx.appointments.update({
       where: { id: appointmentId },

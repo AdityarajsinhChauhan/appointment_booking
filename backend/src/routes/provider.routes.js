@@ -12,7 +12,8 @@ router.post(
   (req, res, next) => providerController.createProvider(req, res, next),
 );
 
-router.get("/",authMiddleware,( req, res, next) => providerController.getProvider( req, res, next));
-
+router.get("/", authMiddleware, (req, res, next) =>
+  providerController.getProvider(req, res, next),
+);
 
 module.exports = router;

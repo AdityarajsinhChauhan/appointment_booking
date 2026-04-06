@@ -1,7 +1,9 @@
 import React from "react";
 import { Calendar, User , Clock, MapPin } from "lucide-react";
+import { useNavigate } from "react-router";
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <header className="p-5">
@@ -51,8 +53,8 @@ const AdminDashboard = () => {
       <div className="flex my-5 mx-5 gap-5">
         <div className="flex gap-3 flex-col items-start w-[45%] border border-gray-300 rounded-lg p-5">
             <h2 className="text-lg font-bold">Admin Actions</h2>
-            <button className="border border-gray-300 rounded-lg w-full py-1 px-2">Manage Providers</button>
-            <button className="border border-gray-300 rounded-lg w-full py-1 px-2">View All Appointments</button>
+            <button onClick={()=>navigate('/manageProviders')} className="border border-gray-300 rounded-lg w-full py-1 px-2">Manage Providers</button>
+            <button onClick={()=>navigate('/appointment')} className="border border-gray-300 rounded-lg w-full py-1 px-2">View All Appointments</button>
         </div>
         <div className="w-[45%] border border-gray-300 rounded-lg p-5">
             <h2 className="text-lg font-bold mb-5">System Status</h2>

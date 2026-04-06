@@ -1,35 +1,38 @@
-const express  = require('express');
+const express = require("express");
 const router = express.Router();
 
-const appointmentController = require('../controllers/appointment.controller');
-const authMiddleware = require('../middlewares/auth.middleware');
-const  authorizeRoles = require('../middlewares/role.middleware');
+const appointmentController = require("../controllers/appointment.controller");
+const authMiddleware = require("../middlewares/auth.middleware");
+const authorizeRoles = require("../middlewares/role.middleware");
 
-router.post("/", authMiddleware, (req, res, next) => appointmentController.createAppointment(req, res, next),);
+router.post("/", authMiddleware, (req, res, next) =>
+  appointmentController.createAppointment(req, res, next),
+);
 
-router.post("/reschedule", authMiddleware, (req, res, next) => appointmentController.rescheduleAppointment(req, res, next),);
+router.post("/reschedule", authMiddleware, (req, res, next) =>
+  appointmentController.rescheduleAppointment(req, res, next),
+);
 
+router.get("/my", authMiddleware, appointmentController.getMyAppointments);
 
-router.get('/my', authMiddleware, appointmentController.getMyAppointments);
-
-router.get('/provider',
+router.get(
+  "/provider",
   authMiddleware,
   authorizeRoles("PROVIDER"),
-  appointmentController.getProviderAppointments
+  appointmentController.getProviderAppointments,
 );
 
-router.get('/',
+router.get(
+  "/",
   authMiddleware,
   authorizeRoles("ADMIN"),
-  appointmentController.getAllAppointments
+  appointmentController.getAllAppointments,
 );
 
-
-
 router.patch(
-  '/:appointmentId/cancel',
+  "/:appointmentId/cancel",
   authMiddleware,
-  appointmentController.cancelAppointment
+  appointmentController.cancelAppointment,
 );
 
 module.exports = router;

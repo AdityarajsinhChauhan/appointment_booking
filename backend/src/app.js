@@ -1,16 +1,18 @@
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
 const errorMiddleware = require("./middlewares/error.middleware");
+
+dotenv.config();
 
 const app = express();
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
     credentials: true, 
   }));
 app.use(express.json());
-app.use(errorMiddleware);
 
 const routes = require('./routes/index');
 

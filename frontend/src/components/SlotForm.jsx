@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import BlackButton from "./common/BlackButton";
 import WhiteButton from "./common/WhiteButton";
-import { createSlot } from "../services/slot.service"; // your API function
+import { createSlot } from "../services/slot.service";
 
 const SlotForm = () => {
+
+  const today = new Date();
+const maxDate = new Date();
+maxDate.setDate(today.getDate() + 30);
+
+const formatDate = (date) => date.toISOString().split("T")[0];
   const [mode, setMode] = useState("multi");
 
   const [formData, setFormData] = useState({
@@ -31,6 +37,12 @@ const SlotForm = () => {
 
   // submit
   const handleSubmit = async () => {
+
+    const today = new Date();
+const maxDate = new Date();
+maxDate.setDate(today.getDate() + 30);
+
+const formatDate = (date) => date.toISOString().split("T")[0];
     try {
       const startISO = buildISO(formData.date, formData.start_time);
       const endISO = buildISO(formData.date, formData.end_time);
@@ -110,17 +122,23 @@ const SlotForm = () => {
         </div>
       </header>
 
+      <p className="text-sm text-gray-500 mb-2">
+  ⚠️ You can only create slots for the next 30 days (including today)
+</p>
+
       {/* Row 1 */}
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="flex flex-col">
           <label className="text-sm mb-1">Date</label>
           <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            className="border border-gray-300 rounded-lg px-3 py-2"
-          />
+  type="date"
+  name="date"
+  value={formData.date}
+  onChange={handleChange}
+  min={formatDate(today)}
+  max={formatDate(maxDate)}
+  className="border border-gray-300 rounded-lg px-3 py-2"
+/>
         </div>
 
         <div className="flex flex-col">

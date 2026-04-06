@@ -1,7 +1,7 @@
 const { prisma } = require("../config/db.config");
 const appointmentRepo = require("../repositories/appointment.repository");
 const providerRepo = require("../repositories/provider.repository");
-const slotRepo = require('../repositories/slot.repository');
+const slotRepo = require("../repositories/slot.repository");
 const AppError = require("../utils/appError");
 const { convertToIST } = require("../utils/time");
 
@@ -107,15 +107,12 @@ class AppointmentService {
         throw new AppError("Appointment not found", 404);
       }
 
-      // Ownership check
       if (user.role === "USER" && appointment.user_id !== user.id) {
         throw new AppError("Unauthorized", 403);
       }
 
-      // Cancel appointment
       await appointmentRepo.cancelAppointment(appointmentId, tx);
 
-      // Free slot
       await slotRepo.markAsAvailable(appointment.slot_id, tx);
 
       return { message: "Appointment cancelled successfully" };

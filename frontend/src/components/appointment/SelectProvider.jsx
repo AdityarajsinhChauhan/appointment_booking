@@ -10,7 +10,7 @@ const SelectProvider = ({ setProvider, setStep }) => {
       try {
         const res = await getProviders();
         console.log(res);
-        setProviders(res.response);
+        setProviders(res);
       } catch (err) {
         console.error("Error fetching providers:", err);
       }

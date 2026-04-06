@@ -12,6 +12,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ManageSlots from "./pages/ManageSlots";
 import { AuthProvider } from "./context/AuthContext";
+import Landing from "./pages/Landing";
+import { AppointmentProvider } from "./context/AppointmentContext";
 
 import Layout from "./components/Layout";
 
@@ -21,22 +23,35 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <Routes>
+        <AppointmentProvider>
+          <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Landing />}></Route>
 
           <Route element={<PrivateRoute />}>
-            <Route element={<Layout />}>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/booking" element={<Booking />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/appointment" element={<Appointment />} />
-              <Route path="/adminDashboard" element={<AdminDashboard />} />
-              <Route path="/manageProviders" element={<ManageProviders />} />
-              <Route path="/manageSlots" element={<ManageSlots />} />
-            </Route>
+            
+              <Route element={<Layout />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/booking" element={<Booking />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/appointment" element={<Appointment />} />
+
+                <Route element={<PrivateRoute allowedRoles={"ADMIN"} />}>
+                  <Route path="/adminDashboard" element={<AdminDashboard />} />
+                  <Route
+                    path="/manageProviders"
+                    element={<ManageProviders />}
+                  />
+                </Route>
+
+                <Route element={<PrivateRoute allowedRoles={"PROVIDER"} />}>
+                  <Route path="/manageSlots" element={<ManageSlots />} />
+                </Route>
+              </Route>
           </Route>
         </Routes>
+        </AppointmentProvider>
       </AuthProvider>
     </>
   );

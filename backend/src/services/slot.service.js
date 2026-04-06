@@ -1,7 +1,7 @@
 const slotRepo = require('../repositories/slot.repository');
 const providerRepo = require('../repositories/provider.repository');
 const AppError = require("../utils/appError");
-const { convertToIST} = require('../utils/time')
+const { convertToIST } = require('../utils/time')
 
 class SlotService{
     async getSlotsByDate(providerId, date) {
@@ -34,6 +34,7 @@ class SlotService{
     start_time: convertToIST(slot.start_time),
     end_time: convertToIST(slot.end_time),
   }));
+
 
 
     return formattedslots;

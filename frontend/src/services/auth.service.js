@@ -14,3 +14,11 @@ export const logoutUser = async () => {
   return await api.post("/auth/logout");
 };
 
+export const refreshTokenApi = async (refreshToken) => {
+  const res = await api.post("/auth/refresh", {
+    refreshToken,
+  });
+
+  return res.data;
+};
+

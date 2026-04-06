@@ -11,7 +11,7 @@ import {
 export const sidebarMenu = [
   {
     label: "Dashboard",
-    path: "/",
+    path: "/dashboard",
     roles: ["USER", "PROVIDER"],
     icon: ChartColumnIncreasing,
   },
@@ -46,7 +46,7 @@ export const sidebarMenu = [
     icon: Calendar,
   },
   {
-    label:"Appointments",
+    label:"Your Appointments",
     path: "/appointment",
     roles: ["USER", "PROVIDER", "ADMIN"],
     icon: Clock,

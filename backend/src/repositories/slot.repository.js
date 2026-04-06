@@ -75,8 +75,6 @@ class slotRepository {
       },
     });
   }
-
-  
 }
 
-module.exports  = new slotRepository();
+module.exports = new slotRepository();

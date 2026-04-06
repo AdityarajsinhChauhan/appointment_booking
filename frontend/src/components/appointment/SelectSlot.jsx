@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getSlotsByDate } from "../../services/slot.service";
 import { formatTimeRange } from "../../utils/formatDate";
 
-const SelectSlot = ({ providerId , setStep ,setSlot }) => {
+const SelectSlot = ({ providerId , setStep , setSlot }) => {
   const [dates, setDates] = useState([]);
   const [slots, setSlots] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null); // store string YYYY-MM-DD
@@ -23,7 +23,11 @@ const SelectSlot = ({ providerId , setStep ,setSlot }) => {
   }, []);
 
   const handleDateClick = async (date) => {
-    const formattedDate = date.toISOString().split("T")[0];
+    const formattedDate = date.getFullYear() +
+  "-" +
+  String(date.getMonth() + 1).padStart(2, "0") +
+  "-" +
+  String(date.getDate()).padStart(2, "0");
 
     setSelectedDate(formattedDate);
     setSelectedSlot(null);
@@ -36,10 +40,12 @@ const SelectSlot = ({ providerId , setStep ,setSlot }) => {
       console.error("Error fetching slots:", err);
       setSlots([]);
     }
+    
   };
 
   const handleSlotClick = (slot) => {
     setSelectedSlot(slot);
+    console.log(slot)
   };
 
   const handleClick= () => {
@@ -59,7 +65,11 @@ const SelectSlot = ({ providerId , setStep ,setSlot }) => {
 
         <div className="flex flex-wrap">
           {dates.map((date, index) => {
-            const formattedDate = date.toISOString().split("T")[0];
+            const formattedDate = date.getFullYear() +
+  "-" +
+  String(date.getMonth() + 1).padStart(2, "0") +
+  "-" +
+  String(date.getDate()).padStart(2, "0");
 
             const month = date.toLocaleDateString("en-IN", {
               month: "short",
@@ -101,12 +111,17 @@ const SelectSlot = ({ providerId , setStep ,setSlot }) => {
               slots.map((slot) => (
                 <button
                   key={slot.id}
+                  disabled={slot.is_booked}
                   onClick={() => handleSlotClick(slot)}
                   className={`border rounded-lg hover:border-black w-fit py-3 px-5 cursor-pointer text-lg transition ${
-                    selectedSlot?.id === slot.id
+                    selectedSlot?.id === slot.id && !slot.is_booked
                       ? "bg-black text-white border-black"
                       : "bg-white border-gray-300"
-                  }`}
+                  }
+                  ${
+                    slot.is_booked ? "bg-gray-300 border-gray-300": ""
+                  }`
+                }
                 >
                   {formatTimeRange(slot.start_time, slot.end_time)}
                 </button>
@@ -116,20 +131,8 @@ const SelectSlot = ({ providerId , setStep ,setSlot }) => {
         )}
       </div>
 
-      {/* SELECTED SLOT PREVIEW */}
-      {selectedSlot && (
-        <div className="mt-5 px-5">
-          <h4 className="font-bold">Selected Slot:</h4>
-          <p>
-            {formatTimeRange(
-              selectedSlot.start_time,
-              selectedSlot.end_time
-            )}
-          </p>
-        </div>
-      )}
-      <div className="flex justify-between px-5">
-        <button onClick={()=>setStep(1)}className="bg-black text-white rounded-lg py-1 px-3">Back</button>
+      <div className="flex justify-between px-5 my-5">
+        <button onClick={()=>setStep(1)}className="bg-black text-white rounded-lg py-1 px-3 h-fit">Back</button>
         <button onClick={()=>handleClick()} disabled={!selectedSlot} className={`py-1 px-3 border border-gray-300 rounded-lg mt-5 ${ selectedSlot ? "bg-white cursor-pointer" : "bg-gray-300 cursor-no-drop"}`} >Review Booking</button>
 
       </div>

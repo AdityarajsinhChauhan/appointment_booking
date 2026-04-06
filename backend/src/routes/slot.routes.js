@@ -21,6 +21,6 @@ router.post(
 
 // routes/slot.routes.js
 
-router.get("/bydate",authMiddleware, slotController.getSlotsByDate);
+router.get("/bydate", authMiddleware, slotController.getSlotsByDate);
 
 module.exports = router;

@@ -28,10 +28,15 @@ export const getSlotsByProvider = async (providerId) => {
 
 export const createAppointment = async (slotId) => {
   const res = await api.post("/appointment", { slotId });
-  return res.data;
+  return res.data.data;
 };
 
 export const getProviders = async () => {
   const res = await api.get("/provider"); 
+  return res.data.data;
+};
+
+export const cancelAppointment = async (appointmentId) => {
+  const res = await api.patch(`/appointment/${appointmentId}/cancel`);
   return res.data;
 };

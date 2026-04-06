@@ -1,11 +1,11 @@
 const slotService = require("../services/slot.service");
 
-const CreateSlotDTO = require("../dto/request/createSlot.dto");
+const CreateSingleSlotDTO = require("../dto/request/createSlot.dto");
 const SlotResponseDTO = require("../dto/response/slot.response.dto");
-const createBulkSlots = require("../dto/request/createBulkSlots.dto");
+const CreateBulkSlotDTO = require("../dto/request/createBulkSlots.dto");
 
 class SlotController {
-  async getSlotsByDate(req, res, next) {
+   async getSlotsByDate(req, res, next) {
     try {
       const { provider_id, date } = req.query;
 
@@ -30,16 +30,16 @@ class SlotController {
 
   async createSlot(req, res, next) {
     try {
-      const dto = new CreateSlotDTO(req.body);
+      const dto = new CreateSingleSlotDTO(req.body);
 
       const slot = await slotService.createSlot(req.user.id, dto);
 
       const response = new SlotResponseDTO(slot);
 
       res.status(201).json({
-        success: true,
-        message: "slot created successfully",
-        data: response,
+        success:true,
+        message: "Slot created successfully",
+        data:response,
       });
     } catch (err) {
       next(err);
@@ -48,12 +48,12 @@ class SlotController {
 
   async createBulkSlots(req, res, next) {
     try {
-      const dto = new createBulkSlots(req.body, req.user.id);
+      const dto = new CreateBulkSlotDTO(req.body, req.user.id);
       const response = await slotService.createBulkSlots(dto, req.user.id);
       res.status(201).json({
-        success: true,
-        message: "slots created successfully",
-        data: response,
+        success:true,
+        message: "Slots created successfully",
+        data:response,
       });
     } catch (err) {
       next(err);

@@ -7,7 +7,7 @@ import { getUsers } from '../services/user.service'
 const ManageProviders = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState([]);
-  const [activeTab, setActiveTab] = useState("all");
+  const [activeTab, setActiveTab] = useState("ALL");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -23,7 +23,7 @@ const ManageProviders = () => {
   }, []);
 
   const filteredUsers = users.filter((user) => {
-    if (activeTab === "all") return true;
+    if (activeTab === "ALL") return true;
     return user.role === activeTab;
   });
   
@@ -47,7 +47,7 @@ const ManageProviders = () => {
       </header>
 
        <div className="px-5 flex gap-3 mb-4">
-        {["all", "provider", "user"].map((tab) => (
+        {["ALL", "PROVIDER", "USER"].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}

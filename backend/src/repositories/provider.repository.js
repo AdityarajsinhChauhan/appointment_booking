@@ -17,10 +17,10 @@ class ProviderRepository {
     });
   }
 
-  async findProviderById(providerId){
+  async findProviderById(providerId) {
     return await prisma.providers.findUnique({
-      where: {id: providerId}
-    })
+      where: { id: providerId },
+    });
   }
 
   async updateUserRoleToProvider(userId) {
@@ -30,8 +30,8 @@ class ProviderRepository {
     });
   }
 
-  async getProviders(){
-    return await prisma.providers.findMany({include:{ users:true}});
+  async getProviders() {
+    return await prisma.providers.findMany({ include: { users: true } });
   }
 }
 

@@ -8,11 +8,21 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://appointment-booking-psi-teal.vercel.app"
+];
+
 app.use(cors({
-    origin: "*",
-    credentials: true, 
-  }));
-app.use(express.json());
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // mobile/postman
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true
+}));
 
 const routes = require('./routes/index');
 

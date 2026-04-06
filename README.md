@@ -63,10 +63,10 @@ git clone https://github.com/AdityarajsinhChauhan/appointment_booking.git
 cd appointment-booking
 ```
 ### 2.Backend Setup
-
+```bash
 cd backend
 npm install
-
+```
 -create env file:
 
 PORT=5000
@@ -75,17 +75,17 @@ JWT_ACCESS_SECRET=
 JWT_REFRESH_SECRET=
 BCRYPT_SALT_ROUNDS=
 FRONTEND_URL="
-
+```bash
 npx prisma generate
 npx prisma migrate deploy
 npm run dev
-
+```
 ### 3. . Frontend Setup
-
+```bash
 cd frontend
 npm install
 npm run dev
-
+```
 -Create .env file::
 
 VITE_API_BASE_URL= "

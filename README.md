@@ -59,8 +59,9 @@ Backend: https://appointment-booking-scgr.onrender.com
 ### 1. Clone the repository
 
 git clone https://github.com/AdityarajsinhChauhan/appointment_booking.git
+```bash
 cd appointment-booking
-
+```
 ### 2.Backend Setup
 
 cd backend

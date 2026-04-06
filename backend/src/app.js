@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin:"*",
+    origin: "https://appointment-booking-psi-teal.vercel.app",
     credentials: true, 
   }));
 app.use(express.json());

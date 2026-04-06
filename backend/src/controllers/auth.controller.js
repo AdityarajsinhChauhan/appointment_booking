@@ -29,6 +29,7 @@ class AuthController {
 
   async login(req, res, next) {
     try {
+      console.log(req.body);
       const dto = LoginDTO.validate(req.body);
 
       const result = await authService.login(dto);

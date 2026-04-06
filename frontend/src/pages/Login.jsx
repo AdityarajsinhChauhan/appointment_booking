@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { loginUser } from "../services/auth.service";
 import useAuth from "../hooks/useAuth";
+import { useLoading } from "../context/LoadingContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const { loading , setLoading } = useLoading();
 
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -21,6 +24,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const data = await loginUser(formData);
@@ -31,6 +35,7 @@ const Login = () => {
       console.error(err);
       alert("Login Failed");
     }
+    setLoading(false)
   };
   return (
     <div className="w-screnn h-screen flex flex-col items-center bg-gray-100">
@@ -62,7 +67,7 @@ const Login = () => {
           type="submit"
           className="bg-black text-white py-1 rounded-lg my-5"
         >
-          Sign In
+          {loading ? "loading..." : "Sign In"}
         </button>
         <div className="text-gray-600 flex justify-center">
           Don't have an account?{" "}

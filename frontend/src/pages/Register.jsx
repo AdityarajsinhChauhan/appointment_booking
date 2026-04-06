@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/auth.service";
+import { useLoading } from "../context/LoadingContext";
 
 import React from "react";
 
@@ -12,6 +13,8 @@ const Register = () => {
   repassword: "", // ✅ add this
 });
 
+const { loading , setLoading } = useLoading();
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -22,6 +25,7 @@ const Register = () => {
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true);
   e.preventDefault();
 
   if (formData.password !== formData.repassword) {
@@ -40,6 +44,7 @@ const Register = () => {
     console.error(err);
     alert("Register failed");
   }
+  setLoading(false)
 };
 
   return (
@@ -78,7 +83,9 @@ const Register = () => {
           placeholder="**********"
           className='border border-gray-300 rounded-lg py-1 px-3 mb-5'
         />
-        <button type="submit" className='bg-black text-white py-1 rounded-lg my-5'>Register</button>
+        <button type="submit" className='bg-black text-white py-1 rounded-lg my-5'>
+          { loading ? "saving..." : "Register"}
+        </button>
         <div className='text-gray-600 flex justify-center'>Already have an account? <span onClick={()=>{navigate('/register')}} className='text-black hover:underline cursor-pointer'> Sign In</span></div>
       </form>
     </div>

@@ -11,9 +11,7 @@ import PrivateRoute from "./components/common/PrivateRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ManageSlots from "./pages/ManageSlots";
-import { AuthProvider } from "./context/AuthContext";
 import Landing from "./pages/Landing";
-import { AppointmentProvider } from "./context/AppointmentContext";
 
 import Layout from "./components/Layout";
 
@@ -22,8 +20,6 @@ function App() {
 
   return (
     <>
-      <AuthProvider>
-        <AppointmentProvider>
           <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -51,8 +47,6 @@ function App() {
               </Route>
           </Route>
         </Routes>
-        </AppointmentProvider>
-      </AuthProvider>
     </>
   );
 }

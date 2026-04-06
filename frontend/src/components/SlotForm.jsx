@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import BlackButton from "./common/BlackButton";
 import WhiteButton from "./common/WhiteButton";
 import { createSlot } from "../services/slot.service";
+import { useLoading } from "../context/LoadingContext";
 
 const SlotForm = () => {
+  const { loading , setLoading } = useLoading();
 
   const today = new Date();
 const maxDate = new Date();
@@ -192,7 +194,6 @@ const formatDate = (date) => date.toISOString().split("T")[0];
       {/* Buttons */}
       <div className="flex gap-4">
         <div onClick={handleSubmit} className="flex-1">
-          <BlackButton title="Create Slot" />
         </div>
         <div onClick={handleReset} className="flex-1">
           <WhiteButton title="Reset Form" textColor="black" />

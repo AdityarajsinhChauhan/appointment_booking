@@ -1,6 +1,7 @@
 import api from "./api";
 
 export const loginUser = async(formData) => {
+    console.log(formData)
     const res = await api.post('/auth/login', formData);
     return res.data;
 }

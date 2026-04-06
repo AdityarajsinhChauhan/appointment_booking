@@ -8,6 +8,8 @@ dotenv.config();
 
 const app = express();
 
+app.use(express.json());
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://appointment-booking-psi-teal.vercel.app"

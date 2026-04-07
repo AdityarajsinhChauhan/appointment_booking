@@ -65,7 +65,6 @@ const Confirmation = ({ slot, provider, setStep }) => {
         >
           Saving...
         </button> : <button
-          disabled
           className="w-44 border border-gray-200  font-bold py-1 px-5 rounded-lg"
           onClick={() => handleClick()}
         >

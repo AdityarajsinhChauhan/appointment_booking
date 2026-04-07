@@ -62,7 +62,7 @@ const handleReschedule = (id) => {
     {formatTimeRange(appointment.slot.start_time,
     appointment.slot.end_time)}
         </span>
-        { (appointment.status !== 'CANCELLED') || (user.role == 'USER') && <div className="w=96% pt-5 border-t mt-5 border-gray-300">
+        { appointment.status !== "CANCELLED" && user.role == "USER" && <div className="w=96% pt-5 border-t mt-5 border-gray-300">
           <button onClick={()=>handleReschedule(appointment.id)} className="w-1/2 border border-gray-300 rounded-l-lg py-1">
             Reschedule
           </button>

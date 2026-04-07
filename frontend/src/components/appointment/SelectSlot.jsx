@@ -66,9 +66,6 @@ const SelectSlot = ({ providerId, setStep, setSlot }) => {
       {/* DATE SECTION */}
       <div className="border border-gray-300 rounded-xl mt-5 p-5">
         <h3 className="font-bold text-gray-600 text-lg mb-3">Choose a Date</h3>
-        {loading ? (
-          <Spinner />
-        ) : (
           <div className="flex flex-wrap">
             {dates.map((date, index) => {
               const formattedDate =
@@ -102,7 +99,6 @@ const SelectSlot = ({ providerId, setStep, setSlot }) => {
               );
             })}
           </div>
-        )}
       </div>
 
       {/* SLOT SECTION */}

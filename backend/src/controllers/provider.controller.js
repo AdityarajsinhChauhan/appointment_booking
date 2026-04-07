@@ -1,6 +1,7 @@
 const providerService = require("../services/provider.service");
 const CreateProviderDTO = require("../dto/request/createProvider.dto");
 const ProviderResponseDTO = require("../dto/response/provider.response.dto");
+const GetSlotsBYProviderDTO = require('../dto/request/getSlotsByProvider.dto.');
 
 class ProviderController {
   async createProvider(req, res, next) {
@@ -33,6 +34,22 @@ class ProviderController {
       next(err);
     }
   }
+
+  async getSlotsByProvider(req, res, next) {
+  try {
+    const userId = req.user.id; 
+
+    const slots = await providerService.getSlotsByProvider(userId);
+
+    return res.status(200).json({
+      success: true,
+      data: slots,
+    });
+
+  } catch (err) {
+    next(err);
+  }
+}
 }
 
 module.exports = new ProviderController();

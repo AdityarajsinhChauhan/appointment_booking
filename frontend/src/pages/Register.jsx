@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/auth.service";
 import { useLoading } from "../context/LoadingContext";
@@ -12,6 +12,11 @@ const Register = () => {
   password: "",
   repassword: "", // ✅ add this
 });
+
+useEffect(() => {
+    localStorage.removeItem("appointmentId");
+    fetchAppointments();
+  }, []);
 
 const { loading , setLoading } = useLoading();
 

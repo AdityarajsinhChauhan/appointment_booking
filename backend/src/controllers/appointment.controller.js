@@ -26,6 +26,8 @@ class AppointmentController {
 
   async rescheduleAppointment(req, res, next) {
     try {
+
+      console.log(req.body)
       const dto = new RescheduleDTO(req.body);
 
       const rescheduledAppointment =

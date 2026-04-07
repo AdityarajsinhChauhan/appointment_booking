@@ -21,10 +21,7 @@ export const getAppointments = async (role) => {
 
 
 
-export const getSlotsByProvider = async (providerId) => {
-  const res = await api.get(`/appointment/${providerId}/slots`);
-  return res.data.data;
-};
+
 
 export const createAppointment = async (slotId) => {
   const res = await api.post("/appointment", { slotId });
@@ -40,3 +37,8 @@ export const cancelAppointment = async (appointmentId) => {
   const res = await api.patch(`/appointment/${appointmentId}/cancel`);
   return res.data;
 };
+
+export const reScheduleAppointment = async(appointmentId,newSlotId) => {
+  const res = await api.post('appointment/reschedule',{ appointmentId :appointmentId, newSlotId:newSlotId});
+  return res.data
+}

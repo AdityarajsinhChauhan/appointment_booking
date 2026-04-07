@@ -4,8 +4,10 @@ import SelectProvider from "../components/appointment/SelectProvider";
 import SelectSlot from "../components/appointment/SelectSlot";
 import Confirmation from "../components/appointment/Confirmation";
 
+
 const Booking = () => {
   const [step, setStep] = useState(1);
+
 
   const [provider, setProvider] = useState({})
 
@@ -13,9 +15,7 @@ const Booking = () => {
 
   const [slot, setSlot] = useState(null);
 
-  useEffect(() => {
-    console.log(provider)
-  }, [])
+
   
   
   

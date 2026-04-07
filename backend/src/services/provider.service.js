@@ -1,5 +1,6 @@
 const providerRepo = require("../repositories/provider.repository.js");
 const AppError = require("../utils/appError.js");
+const { convertToIST } = require('../utils/time.js');
 
 class ProviderService {
   async createProvider(dto) {
@@ -32,6 +33,23 @@ class ProviderService {
   async getProviders() {
     return await providerRepo.getProviders();
   }
+  
+  async getSlotsByProvider(userId) {
+  const provider = await providerRepo.findProviderByUserId(userId);
+
+  if (!provider) {
+    throw new AppError("Provider not found", 404);
+  }
+
+  const slots = await providerRepo.getSlotsByProviderId(provider.id);
+  const updatedSlots = slots.map((slot) => ({
+    ...slot,
+    start_time: convertToIST(slot.start_time),
+    end_time: convertToIST(slot.end_time),
+  }));
+
+  return updatedSlots;
+}
 }
 
 module.exports = new ProviderService();

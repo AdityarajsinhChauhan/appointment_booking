@@ -1,0 +1,107 @@
+[33mcommit dc567ed3cafd27d8a6cd87662b0ebd4c5c3f88bf[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Mon Apr 6 09:47:37 2026 +0530
+
+    add loading context
+
+[33mcommit 89f0e0ff75044e740eeb756813c83765a6816080[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Mon Apr 6 09:27:04 2026 +0530
+
+    debug error
+
+[33mcommit 7e649398b747a1427d90029a5eb0a69ea4d3c490[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Mon Apr 6 09:15:49 2026 +0530
+
+    debug error
+
+[33mcommit f9dbc132bca9af2e75fb563b5ff1df655b4ff9b1[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Mon Apr 6 09:06:27 2026 +0530
+
+    cors config
+
+[33mcommit 368315d6bd23ba1173e58b7be96b64570abedf42[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Mon Apr 6 09:04:15 2026 +0530
+
+    cors config
+
+[33mcommit 344a97116d69cbf959c47736991ebd891faefdc0[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Mon Apr 6 08:45:47 2026 +0530
+
+    cors config
+
+[33mcommit 83071ae953ad3f4be3bd22f5d04399ffaa382053[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Mon Apr 6 08:39:32 2026 +0530
+
+    cors config
+
+[33mcommit dd183abd4c6a8fef076b8a04ae90be9174f093f6[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Mon Apr 6 08:28:54 2026 +0530
+
+    vercel.json file added
+
+[33mcommit 73a05d7dfd34fb1e1287cba7ba6d08860cb8faa8[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Mon Apr 6 08:03:18 2026 +0530
+
+    feat: near completion of core features, adding final improvements
+
+[33mcommit 91b3a945acdc7addb7bf2d88fd3de234ddc04993[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Sun Apr 5 19:00:02 2026 +0530
+
+    feat: complete booking flow UI with API integration (refinements pending)
+
+[33mcommit 52a69a8c77f806700896abb567be59f6c4ed3c4d[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Sat Apr 4 23:37:08 2026 +0530
+
+    feat: align backend APIs with UI by modifying and adding endpoints; frontend nearly done with some API integration pending
+
+[33mcommit f6eb7073c07ccaa440aed3bc0df6736c597e265d[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Fri Apr 3 23:53:04 2026 +0530
+
+    feat(frontend): build static UI for core pages including dashboard, booking and layout
+
+[33mcommit 50b74c09026527cf457c88bb0f162d82d41dcf4e[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Fri Apr 3 16:40:05 2026 +0530
+
+    feat(appointments): add APIs for fetching available slots, cancelling appointments and rescheduling bookings
+
+[33mcommit d1d24e4635c85dba299690f1df469b61cc139381[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Fri Apr 3 11:54:33 2026 +0530
+
+    feat(provider): add appointment api to book appointment and get appointments accroding to roles
+
+[33mcommit 51b19c517ed1debcf7530b6e748ffa20e2601cd6[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Thu Apr 2 23:34:17 2026 +0530
+
+    feat(provider): add provider API to create slots with slot validation
+
+[33mcommit bb4e5fd29abea94df0bbf1334e5c6e52d567a579[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Thu Apr 2 19:40:53 2026 +0530
+
+    feat(provider): add admin API to create provider and update user role
+
+[33mcommit c1a5db99878f54c9b2eee1748ae21567766d3393[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Thu Apr 2 12:31:55 2026 +0530
+
+    Complete authentication system with JWT, Prisma and DTO layer
+
+[33mcommit 14b174d14cc38ccaff3b957a4c40896c94ddfe3a[m
+Author: Aditya <adityarajsinh2003@gmail.com>
+Date:   Wed Apr 1 23:02:13 2026 +0530
+
+    initial commit - Database connection

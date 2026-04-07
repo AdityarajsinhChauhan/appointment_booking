@@ -1,9 +1,12 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { useNavigate } from 'react-router'
 import { CircleCheck } from 'lucide-react';
 
 const Landing = () => {
     const navigate = useNavigate();
+    useEffect(() => {
+        localStorage.removeItem("appointmentId");
+      }, []);
   return (
     <div className='w-full'>
         <header className='flex justify-between py-5 px-10 w-full bg-gray-100 border-b border-gray-300'>

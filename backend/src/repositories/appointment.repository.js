@@ -25,6 +25,7 @@ class AppointmentRepository {
 
   async getUserAppointments(userId) {
     return await prisma.appointments.findMany({
+      where:{ user_id: userId},
       include: { slot: true, providers: true, users: true },
     });
   }

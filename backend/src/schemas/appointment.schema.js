@@ -13,6 +13,8 @@ const rescheduleAppointmentSchema = z.object({
   newSlotId: z.string().uuid("Invalid new slot ID"),
 });
 
+
+
 module.exports = {
   createAppointmentSchema,
   cancelAppointmentSchema,

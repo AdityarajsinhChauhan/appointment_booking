@@ -194,6 +194,7 @@ const formatDate = (date) => date.toISOString().split("T")[0];
       {/* Buttons */}
       <div className="flex gap-4">
         <div onClick={handleSubmit} className="flex-1">
+            <BlackButton title="Create Slot"/>
         </div>
         <div onClick={handleReset} className="flex-1">
           <WhiteButton title="Reset Form" textColor="black" />

@@ -9,8 +9,9 @@ const Appointment = () => {
   const { appointments = [], fetchAppointments, loading } = useAppointments();
 
 useEffect(() => {
-  fetchAppointments();
-}, []);
+    localStorage.removeItem("appointmentId");
+    fetchAppointments();
+  }, []);
 
 const cardInfo = React.useMemo(() => {
   const now = new Date();

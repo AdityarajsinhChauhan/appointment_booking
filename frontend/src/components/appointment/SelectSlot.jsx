@@ -8,6 +8,9 @@ const SelectSlot = ({ providerId , setStep , setSlot }) => {
   const [selectedDate, setSelectedDate] = useState(null); // store string YYYY-MM-DD
   const [selectedSlot, setSelectedSlot] = useState(null);
 
+  
+
+
   // generate next 30 days
   useEffect(() => {
     const temp = [];

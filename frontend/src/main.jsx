@@ -6,10 +6,12 @@ import { BrowserRouter } from "react-router";
 import { AppointmentProvider } from "./context/AppointmentContext.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { LoadingProvider } from "./context/LoadingContext.jsx";
+import ErrorBoundary from "./components/common/ErrorBoundary.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
       <LoadingProvider>
         <AuthProvider>
           <AppointmentProvider>
@@ -18,5 +20,7 @@ createRoot(document.getElementById("root")).render(
         </AuthProvider>
       </LoadingProvider>
     </BrowserRouter>
+    </ErrorBoundary>
+    
   </StrictMode>,
 );

@@ -40,7 +40,7 @@ class AuthService {
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
 
-    await UserRepo.updateRefreshToken(user.id, refreshToken);
+     await UserRepo.updateRefreshToken(user.id, refreshToken);
 
     return { user, accessToken, refreshToken };
   }

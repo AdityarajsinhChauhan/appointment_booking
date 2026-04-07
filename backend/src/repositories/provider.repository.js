@@ -33,6 +33,10 @@ class ProviderRepository {
   async getProviders() {
     return await prisma.providers.findMany({ include: { users: true } });
   }
+
+  async getSlotsByProviderId(providerId){
+    return await prisma.availability_slots.findMany({where: {provider_id:providerId}})
+  }
 }
 
 module.exports = new ProviderRepository();

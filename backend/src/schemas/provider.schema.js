@@ -10,6 +10,11 @@ const createProviderSchema = z.object({
     .min(0, "Experience cannot be negative"),
 });
 
+const getSlotsBNyProviderSchema = z.object({
+  userId: z.string().uuid("Invalid user id"),
+});
+
 module.exports = {
   createProviderSchema,
+  getSlotsBNyProviderSchema,
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { User } from "lucide-react";
 import { getProviders } from "../../services/appointment.service";
+import { useAppointments } from "../../context/AppointmentContext";
 
 const SelectProvider = ({ setProvider, setStep }) => {
   const [providers, setProviders] = useState([]);

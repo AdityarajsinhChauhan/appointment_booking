@@ -30,3 +30,14 @@ export const getSlotsByDate = async(providerId, date) => {
   }
 
 }
+
+export const getSlotsByProvider = async(userId) => {
+  try {
+    const res = await api.get(`/provider/getslots` );
+    return res.data
+    
+  } catch (err) {
+    console.log(err);
+    
+  }
+}

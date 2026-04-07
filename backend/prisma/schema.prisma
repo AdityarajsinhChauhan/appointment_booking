@@ -18,7 +18,7 @@ model appointments {
   users       users              @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   slot        availability_slots @relation(fields: [slot_id], references: [id])
 
-  @@unique([slot_id])
+  @@unique([slot_id, status])
 }
 
 model availability_slots {

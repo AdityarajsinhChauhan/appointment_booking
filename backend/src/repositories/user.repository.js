@@ -1,4 +1,5 @@
 const { prisma } = require("../config/db.config");
+const { refreshToken } = require("../services/auth.service");
 
 class UserRepository {
   async createUser(data) {
@@ -18,6 +19,8 @@ class UserRepository {
   }
 
   async updateRefreshToken(user_id, token) {
+
+    console.log(user_id,token)
     return prisma.users.update({
       where: { id: user_id },
       data: { refresh_token: token },
@@ -29,6 +32,8 @@ class UserRepository {
       where: { refresh_token: token },
     });
   }
+
+ 
 
   async getAllUsers() {
     return prisma.users.findMany({

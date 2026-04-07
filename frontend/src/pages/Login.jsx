@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { useNavigate } from "react-router";
 import { loginUser } from "../services/auth.service";
 import useAuth from "../hooks/useAuth";
@@ -9,6 +9,10 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+      localStorage.removeItem("appointmentId");
+    }, []);
 
   const { loading , setLoading } = useLoading();
 

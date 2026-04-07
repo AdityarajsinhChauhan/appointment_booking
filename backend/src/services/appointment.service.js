@@ -62,6 +62,8 @@ class AppointmentService {
   async rescheduleAppointment(user, dto) {
     const { appointmentId, newSlotId } = dto;
 
+    console.log(dto);
+
     return await prisma.$transaction(async (tx) => {
       const appointment = await appointmentRepo.findAppointmentById(
         appointmentId,

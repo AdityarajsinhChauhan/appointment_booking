@@ -14,6 +14,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    localStorage.removeItem("appointmentId");
     fetchAppointments();
   }, []);
 

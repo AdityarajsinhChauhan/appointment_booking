@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { loginUser } from "../services/auth.service";
 import useAuth from "../hooks/useAuth";
 import { useLoading } from "../context/LoadingContext";
+import { showError, showSuccess } from "../utils/toast";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -27,20 +28,33 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
 
-    try {
-      const data = await loginUser(formData);
+  if (!formData.email || !formData.password) {
+    showError("Please fill all fields");
+    return;
+  }
 
-      login(data);
-      navigate("/dashboard");
-    } catch (err) {
-      console.error(err);
-      alert("Login Failed");
-    }
-    setLoading(false)
-  };
+  setLoading(true);
+
+  try {
+    const data = await loginUser(formData);
+
+    login(data);
+    showSuccess("Logged In successfully");
+    navigate("/dashboard");
+  } catch (err) {
+    console.error(err);
+
+    showError(
+      err.response?.data?.message ||
+      err.message ||
+      "Something went wrong"
+    );
+  }
+
+  setLoading(false);
+};
   return (
     <div className="w-screnn h-screen flex flex-col items-center bg-gray-100">
       <h1 className="text-3xl font-bold my-5">Book Appointment</h1>

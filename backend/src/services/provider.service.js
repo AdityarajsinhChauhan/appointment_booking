@@ -4,14 +4,12 @@ const { convertToIST } = require('../utils/time.js');
 
 class ProviderService {
   async createProvider(dto) {
-    console.log(dto);
     const user = await providerRepo.findUserByEmail(dto.email);
 
     if(!user){
       throw new AppError("Invalid email",400);
     }
 
-    console.log(user);
 
     const existing = await providerRepo.findProviderByUserId(user.id);
 

@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { getAppointments } from "../services/appointment.service";
 import { cancelAppointment } from "../services/appointment.service";
+import { showSuccess } from "../utils/toast";
 
 const AppointmentContext = createContext();
 
@@ -47,11 +48,15 @@ export const AppointmentProvider = ({ children }) => {
           : appt
       )
     );
+    showSuccess("Slot Cancelled");
 
     return updated;
   } catch (err) {
-    console.log("Cancel failed:", err);
-    throw err;
+    showError(
+          err.response?.data?.message ||
+          err.message ||
+          "Something went wrong"
+        );
   }
 };
 

@@ -117,12 +117,12 @@ const SelectSlot = ({ providerId, setStep, setSlot }) => {
                   key={slot.id}
                   disabled={slot.is_booked}
                   onClick={() => handleSlotClick(slot)}
-                  className={`border rounded-lg hover:border-black w-fit py-3 px-5 cursor-pointer text-lg transition ${
+                  className={`border ${slot.is_booked ? "bg-gray-200 border-gray-200 cursor-no-drop" : "hover:border-black border-gray-300 cursor-pointer"}  rounded-lg  w-fit py-3 px-5  text-lg transition ${
                     selectedSlot?.id === slot.id && !slot.is_booked
                       ? "bg-black text-white border-black"
-                      : "bg-white border-gray-300"
+                      : ""
                   }
-                  ${slot.is_booked ? "bg-gray-300 border-gray-300" : ""}`}
+                  `}
                 >
                   {formatTimeRange(slot.start_time, slot.end_time)}
                 </button>

@@ -1,4 +1,5 @@
 const express = require("express");
+const { route } = require("./auth.routes");
 const router = express.Router();
 
 router.use("/auth", require("./auth.routes"));

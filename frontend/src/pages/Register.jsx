@@ -2,6 +2,7 @@ import { useState , useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/auth.service";
 import { useLoading } from "../context/LoadingContext";
+import { showError, showSuccess } from "../utils/toast";
 
 import React from "react";
 
@@ -29,26 +30,39 @@ const { loading , setLoading } = useLoading();
   };
 
   const handleSubmit = async (e) => {
-    setLoading(true);
+    
   e.preventDefault();
 
   if (formData.password !== formData.repassword) {
-    alert("Passwords do not match");
+    showError("Passwords do not match");
     return;
   }
 
+  if (!formData.name || !formData.password || !formData.email || !formData.repassword ) {
+      showError("Please fill all fields");
+      return;
+    }
+
   try {
+    setLoading(true);
     const { repassword, ...dataToSend } = formData;
 
     await registerUser(dataToSend);
 
-    alert("Registered successfully");
+    showSuccess("Registered successfully");
     navigate("/login");
   } catch (err) {
     console.error(err);
-    alert("Register failed");
+    
+        showError(
+          err.response?.data?.message ||
+          err.message ||
+          "Something went wrong"
+        );
   }
-  setLoading(false)
+  finally{
+    setLoading(false);
+  }
 };
 
   return (

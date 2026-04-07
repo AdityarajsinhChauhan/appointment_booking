@@ -1,6 +1,7 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { refreshTokenApi } from "./auth.service";
+import { showError } from "../utils/toast";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -47,9 +48,16 @@ api.interceptors.response.use(
 
     // If not 401 → normal error
     if (status !== 401 || originalRequest._retry) {
-      toast.error(message);
+      showError(message)
       return Promise.reject(error);
     }
+
+    if (originalRequest.url.includes("/login") ||
+          originalRequest.url.includes("/register")) {
+        
+        showError(message || "Error");
+        return Promise.reject(message);
+      }
 
     originalRequest._retry = true;
 

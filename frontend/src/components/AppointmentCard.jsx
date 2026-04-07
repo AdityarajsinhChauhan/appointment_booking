@@ -4,8 +4,10 @@ import { formatDate ,formatTimeRange } from '../utils/formatDate';
 import { useAppointments } from '../context/AppointmentContext';
 import { useNavigate } from 'react-router';
 import useAuth from '../hooks/useAuth';
+import { useLoading } from '../context/LoadingContext';
 
 const AppointmentCard = ({ appointment }) => {
+
 
   const { handleCancelAppointment  } = useAppointments();
 

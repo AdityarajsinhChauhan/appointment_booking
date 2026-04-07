@@ -12,7 +12,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ManageSlots from "./pages/ManageSlots";
 import Landing from "./pages/Landing";
-
+import { Toaster } from "react-hot-toast";
 import Layout from "./components/Layout";
 
 function App() {
@@ -20,33 +20,41 @@ function App() {
 
   return (
     <>
-          <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/" element={<Landing />}></Route>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: "#000",
+            color: "#fff",
+            borderRadius: "8px",
+            padding: "10px 14px",
+          },
+        }}
+      />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Landing />}></Route>
 
-          <Route element={<PrivateRoute />}>
-            
-              <Route element={<Layout />}>
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/booking" element={<Booking />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/appointment" element={<Appointment />} />
+        <Route element={<PrivateRoute />}>
+          <Route element={<Layout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/appointment" element={<Appointment />} />
 
-                <Route element={<PrivateRoute allowedRoles={"ADMIN"} />}>
-                  <Route path="/adminDashboard" element={<AdminDashboard />} />
-                  <Route
-                    path="/manageProviders"
-                    element={<ManageProviders />}
-                  />
-                </Route>
+            <Route element={<PrivateRoute allowedRoles={"ADMIN"} />}>
+              <Route path="/adminDashboard" element={<AdminDashboard />} />
+              <Route path="/manageProviders" element={<ManageProviders />} />
+            </Route>
 
-                <Route element={<PrivateRoute allowedRoles={"PROVIDER"} />}>
-                  <Route path="/manageSlots" element={<ManageSlots />} />
-                </Route>
-              </Route>
+            <Route element={<PrivateRoute allowedRoles={"PROVIDER"} />}>
+              <Route path="/manageSlots" element={<ManageSlots />} />
+            </Route>
           </Route>
-        </Routes>
+        </Route>
+      </Routes>
     </>
   );
 }

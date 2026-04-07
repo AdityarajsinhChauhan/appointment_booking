@@ -11,7 +11,6 @@ class AppointmentService {
 
     return await prisma.$transaction(async (tx) => {
       const slot = await slotRepo.findByIdForUpdate(slotId, tx);
-      console.log(slot);
 
       if (!slot) {
         throw new AppError("Slot not found", 404);
@@ -61,8 +60,6 @@ class AppointmentService {
 
   async rescheduleAppointment(user, dto) {
     const { appointmentId, newSlotId } = dto;
-
-    console.log(dto);
 
     return await prisma.$transaction(async (tx) => {
       const appointment = await appointmentRepo.findAppointmentById(

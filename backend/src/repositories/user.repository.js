@@ -19,7 +19,6 @@ class UserRepository {
 
   async updateRefreshToken(user_id, token) {
 
-    console.log(user_id,token)
     return prisma.users.update({
       where: { id: user_id },
       data: { refresh_token: token },

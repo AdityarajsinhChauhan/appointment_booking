@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await logoutUser();
     } catch (err) {
-      console.error("Logout API failed");
+      console.error(err);
     }
 
     localStorage.removeItem("access_token");

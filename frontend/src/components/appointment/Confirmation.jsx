@@ -3,9 +3,9 @@ import { formatTimeRange, formatDate } from "../../utils/formatDate";
 import { createAppointment } from "../../services/appointment.service";
 import { reScheduleAppointment } from "../../services/appointment.service";
 import { useLoading } from "../../context/LoadingContext";
+import { showError, showSuccess } from "../../utils/toast";
 
 const Confirmation = ({ slot, provider, setStep }) => {
-
   const { loading, setLoading } = useLoading();
 
   const appointmentId = localStorage.getItem("appointmentId");
@@ -14,20 +14,25 @@ const Confirmation = ({ slot, provider, setStep }) => {
       setLoading(true);
       let res = {};
       if (appointmentId) {
-        console.log(appointmentId)
-        res = await reScheduleAppointment(appointmentId,slot.id);
-        if(res){
-            localStorage.removeItem("appointmentId");
+        console.log(appointmentId);
+        res = await reScheduleAppointment(appointmentId, slot.id);
+        if (res) {
+          localStorage.removeItem("appointmentId");
         }
+        showSuccess("Slot Booked")
       } else {
         res = await createAppointment(slot.id);
+        showSuccess("Slot Booked")
       }
       console.log(res);
     } catch (err) {
-      console.log(err);
-    }finally{
-      setLoading(false)
-
+      showError(
+            err.response?.data?.message ||
+            err.message ||
+            "Something went wrong"
+          );
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -54,22 +59,25 @@ const Confirmation = ({ slot, provider, setStep }) => {
       <div className="flex gap-5 mt-5  p-2 ">
         <button
           onClick={() => setStep(2)}
-          className="w-44 bg-black text-white py-1 px-5 font-bold rounded-lg"
+          className="w-44 bg-black text-white cursor-pointer py-1 px-5 font-bold rounded-lg"
         >
           Back
         </button>
-        {loading? <button
-          
-          disabled
-          className="w-44 border border-green-600 cursor-no-drop text-green-600  font-bold py-1 px-5 rounded-lg"
-        >
-          Saving...
-        </button> : <button
-          className="w-44 border border-gray-200  font-bold py-1 px-5 rounded-lg"
-          onClick={() => handleClick()}
-        >
-          Book slot
-        </button>}
+        {loading ? (
+          <button
+            disabled
+            className="w-44 border border-green-600 cursor-no-drop text-green-600  font-bold py-1 px-5 rounded-lg"
+          >
+            Saving...
+          </button>
+        ) : (
+          <button
+            className="w-44 border border-gray-300  font-bold py-1 px-5 rounded-lg cursor-pointer"
+            onClick={() => handleClick()}
+          >
+            Book slot
+          </button>
+        )}
       </div>
     </div>
   );

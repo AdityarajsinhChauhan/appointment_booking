@@ -13,7 +13,6 @@ const SelectProvider = ({ setProvider, setStep }) => {
     const fetchProviders = async () => {
       try {
         setLoading(true)
-        set
         const res = await getProviders();
         console.log(res);
         setProviders(res);

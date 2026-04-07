@@ -62,12 +62,12 @@ const Confirmation = ({ slot, provider, setStep }) => {
           onClick={() => handleClick()}
           className="w-44 border border-green-600 text-green-600  font-bold py-1 px-5 rounded-lg"
         >
-          Book Slot
+          Saving...
         </button> : <button
           disabled
           className="w-44 border border-gray-200 cursor-no-drop font-bold py-1 px-5 rounded-lg"
         >
-          Saving...
+          Book slot
         </button>}
       </div>
     </div>

@@ -3,32 +3,42 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { useAppointments } from "../context/AppointmentContext";
 import Card from "../components/common/Card";
+import { useLoading } from "../context/LoadingContext";
+import Spinner from "../components/common/Spinner";
 
 const Appointment = () => {
+  const { loading, setLoading } = useLoading();
   const { user } = useAuth();
-  const { appointments = [], fetchAppointments, loading } = useAppointments();
+  const { appointments = [], fetchAppointments } = useAppointments();
 
-useEffect(() => {
+  useEffect(() => {
     localStorage.removeItem("appointmentId");
-    fetchAppointments();
+    try {
+      setLoading(true);
+      fetchAppointments();
+    } catch (error) {
+      alert("error");
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-const cardInfo = React.useMemo(() => {
-  const now = new Date();
+  const cardInfo = React.useMemo(() => {
+    const now = new Date();
 
-  const upcoming =
-    appointments.filter(
-      (a) => new Date(a.date) >= now && a.status !== "COMPLETED"
-    ).length || 0;
+    const upcoming =
+      appointments.filter(
+        (a) => new Date(a.date) >= now && a.status !== "COMPLETED",
+      ).length || 0;
 
-  const completed =
-    appointments.filter((a) => a.status === "COMPLETED").length || 0;
+    const completed =
+      appointments.filter((a) => a.status === "COMPLETED").length || 0;
 
-  return [
-    { title: "Upcoming", number: upcoming },
-    { title: "Completed", number: completed },
-  ];
-}, [appointments]);
+    return [
+      { title: "Upcoming", number: upcoming },
+      { title: "Completed", number: completed },
+    ];
+  }, [appointments]);
 
   return (
     <div>
@@ -49,14 +59,18 @@ const cardInfo = React.useMemo(() => {
 
       <div className="flex justify-between mx-5 mt-10">
         <h2 className="text-2xl">Upcoming Appointments</h2>
-        { user.role== "USER" && <button className="bg-black text-white px-2 py-1 rounded-lg">
-          Book New
-        </button>}
+        {user.role == "USER" && (
+          <button className="bg-black text-white px-2 py-1 rounded-lg">
+            Book New
+          </button>
+        )}
       </div>
 
-      {appointments.map((appointment) => (
+      {loading? <Spinner/> : <div>
+        {appointments.map((appointment) => (
         <AppointmentCard key={appointment.id} appointment={appointment} />
       ))}
+      </div>}
     </div>
   );
 };

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { createProvider } from "../../services/admin.service";
+import { useLoading } from "../../context/LoadingContext";
+import Spinner from "../common/Spinner";
+
 
 const AddProviderModal = ({ isOpen, onClose }) => {
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useLoading();
 const [error, setError] = useState("");
 const [success, setSuccess] = useState("");
   const [formData, setFormData] = useState({
@@ -107,13 +110,16 @@ const [success, setSuccess] = useState("");
             Cancel
           </button>
 
-          <button
+          {loading ? <button
             onClick={handleSubmit}
-            disabled={loading}
+            disabled
+            className="bg-gray-700 text-white px-3 py-1 rounded-lg"
+          >Saving...
+          </button> : <button
+            onClick={handleSubmit}
             className="bg-black text-white px-3 py-1 rounded-lg"
-          >
-           {loading ? "Saving..." : "Save"}
-          </button>
+          >Save
+          </button>}
         </div>
       </div>
     </div>

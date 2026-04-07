@@ -7,17 +7,30 @@ import { getSlotsByProvider } from "../services/slot.service";
 import useAuth from "../hooks/useAuth";
 import SlotCard from "../components/SlotCard";
 import { formatDate, formatTimeRange } from "../utils/formatDate";
+import { useLoading } from "../context/LoadingContext";
+import Spinner from "../components/common/Spinner";
 
 const ManageSlots = () => {
+  const { loading, setLoading } = useLoading();
   const [slots, setSlots] = useState([]);
 
   const { user } = useAuth();
 
   useEffect(() => {
     const fetchSlots = async () => {
-      const res = await getSlotsByProvider();
+      try {
+        setLoading(true);
+        const res = await getSlotsByProvider();
       if (res) {
         setSlots(res.data);
+      }
+        
+      } catch (error) {
+
+        alert(error);
+      }
+      finally{
+        setLoading(false)
       }
     };
     fetchSlots();
@@ -64,7 +77,7 @@ const ManageSlots = () => {
         </div>
       </header>
 
-      <div className="flex w-full gap-5 px-5 mt-10">
+      {loading ? <Spinner/> : <div className="flex w-full gap-5 px-5 mt-10">
         {cardInfo.map((item) => (
           <CardWithIcon
             title={item.title}
@@ -72,15 +85,17 @@ const ManageSlots = () => {
             Icon={item.Icon}
           />
         ))}
-      </div>
+      </div>}
 
       <SlotForm />
 
       <h2 className="m-5 font-bold text-xl">Your Availability Slots</h2>
 
-      {Object.entries(groupedSlots).map(([date, slots]) => (
+      {loading ? <Spinner/> : <div>
+        {Object.entries(groupedSlots).map(([date, slots]) => (
         <SlotCard key={date} date={date} slots={slots} />
       ))}
+      </div>}
     </div>
   );
 };

@@ -67,12 +67,17 @@ const Login = () => {
           placeholder="**********"
           className="border border-gray-300 rounded-lg py-1 px-3 mb-5"
         />
-        <button
+        {loading ? <button
+        disabled
+          className="bg-black text-white py-1 rounded-lg my-5"
+        >
+          Loading...
+        </button> : <button
           type="submit"
           className="bg-black text-white py-1 rounded-lg my-5"
         >
-          {loading ? "loading..." : "Sign In"}
-        </button>
+          SignIn
+        </button>}
         <div className="text-gray-600 flex justify-center">
           Don't have an account?{" "}
           <span

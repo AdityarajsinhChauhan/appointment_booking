@@ -15,7 +15,6 @@ const Register = () => {
 
 useEffect(() => {
     localStorage.removeItem("appointmentId");
-    fetchAppointments();
   }, []);
 
 const { loading , setLoading } = useLoading();
@@ -88,10 +87,12 @@ const { loading , setLoading } = useLoading();
           placeholder="**********"
           className='border border-gray-300 rounded-lg py-1 px-3 mb-5'
         />
-        <button type="submit" className='bg-black text-white py-1 rounded-lg my-5'>
-          { loading ? "saving..." : "Register"}
-        </button>
-        <div className='text-gray-600 flex justify-center'>Already have an account? <span onClick={()=>{navigate('/register')}} className='text-black hover:underline cursor-pointer'> Sign In</span></div>
+        {loading ? <button disabled className='bg-black text-white py-1 rounded-lg my-5'>
+          Saving...
+        </button> : <button type="submit" className='bg-black text-white py-1 rounded-lg my-5'>
+          Register
+        </button>}
+        <div className='text-gray-600 flex justify-center'>Already have an account? <span onClick={()=>{navigate('/login')}} className='text-black hover:underline cursor-pointer'> Sign In</span></div>
       </form>
     </div>
   );

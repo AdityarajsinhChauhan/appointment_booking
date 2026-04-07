@@ -2,18 +2,26 @@ import React, { useEffect, useState } from "react";
 import { User } from "lucide-react";
 import { getProviders } from "../../services/appointment.service";
 import { useAppointments } from "../../context/AppointmentContext";
+import { useLoading } from "../../context/LoadingContext";
+import Spinner from "../common/Spinner";
 
 const SelectProvider = ({ setProvider, setStep }) => {
   const [providers, setProviders] = useState([]);
   const [selectedProvider, setSelectedProvider] = useState();
+  const { loading, setLoading } = useLoading();
   useEffect(() => {
     const fetchProviders = async () => {
       try {
+        setLoading(true)
+        set
         const res = await getProviders();
         console.log(res);
         setProviders(res);
       } catch (err) {
         console.error("Error fetching providers:", err);
+      }finally{
+        setLoading(false);
+
       }
     };
 
@@ -28,7 +36,7 @@ const SelectProvider = ({ setProvider, setStep }) => {
     <div className="p-5 relative">
       <h2 className="font-bold text-xl">Select Provider</h2>
 
-      <div className="flex flex-wrap">
+      {loading ? <Spinner/> : <div className="flex flex-wrap">
         {providers.map((provider) => (
           <div key={provider.id} onClick={()=>setSelectedProvider(provider)}  className={`border  rounded-xl p-5 flex flex-col min-w-48 gap-3 mt-5 mr-5 ${selectedProvider?.id == provider.id ? "border-black" : "border-gray-300"}`}>
           <div className="flex items-center gap-3">
@@ -43,7 +51,7 @@ const SelectProvider = ({ setProvider, setStep }) => {
           <div className="text-lg text-gray-500">{provider.specialization}</div>
         </div>
         ))}
-      </div>
+      </div>}
       <button onClick={()=>handleClick()} disabled={!selectedProvider} className={`py-1 px-3 border border-gray-300 rounded-lg mt-5 ${ selectedProvider ? "bg-white cursor-pointer" : "bg-gray-300 cursor-no-drop"}`} >Continue to Select Slot</button>
       
     </div>

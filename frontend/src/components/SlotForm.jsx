@@ -31,7 +31,7 @@ const formatDate = (date) => date.toISOString().split("T")[0];
     }));
   };
 
-  // 🔥 Combine date + time → ISO
+  //Combine date + time → ISO
   const buildISO = (date, time) => {
     if (!date || !time) return null;
     return `${date}T${time}:00+05:30`;
@@ -46,6 +46,7 @@ maxDate.setDate(today.getDate() + 30);
 
 const formatDate = (date) => date.toISOString().split("T")[0];
     try {
+      setLoading(true)
       const startISO = buildISO(formData.date, formData.start_time);
       const endISO = buildISO(formData.date, formData.end_time);
 
@@ -80,6 +81,8 @@ const formatDate = (date) => date.toISOString().split("T")[0];
     } catch (err) {
       console.error(err);
       alert(err.message || "Error creating slot");
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -193,9 +196,11 @@ const formatDate = (date) => date.toISOString().split("T")[0];
 
       {/* Buttons */}
       <div className="flex gap-4">
-        <div onClick={handleSubmit} className="flex-1">
+        {loading ? <div className="flex-1">
+            <BlackButton title=".Saving..."/>
+        </div> : <div onClick={handleSubmit} className="flex-1">
             <BlackButton title="Create Slot"/>
-        </div>
+        </div>}
         <div onClick={handleReset} className="flex-1">
           <WhiteButton title="Reset Form" textColor="black" />
         </div>

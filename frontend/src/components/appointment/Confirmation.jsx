@@ -2,12 +2,16 @@ import React from "react";
 import { formatTimeRange, formatDate } from "../../utils/formatDate";
 import { createAppointment } from "../../services/appointment.service";
 import { reScheduleAppointment } from "../../services/appointment.service";
+import { useLoading } from "../../context/LoadingContext";
 
 const Confirmation = ({ slot, provider, setStep }) => {
+
+  const { loading, setLoading } = useLoading();
 
   const appointmentId = localStorage.getItem("appointmentId");
   const handleClick = async () => {
     try {
+      setLoading(true);
       let res = {};
       if (appointmentId) {
         console.log(appointmentId)
@@ -21,6 +25,9 @@ const Confirmation = ({ slot, provider, setStep }) => {
       console.log(res);
     } catch (err) {
       console.log(err);
+    }finally{
+      setLoading(false)
+
     }
   };
   return (
@@ -51,12 +58,17 @@ const Confirmation = ({ slot, provider, setStep }) => {
         >
           Back
         </button>
-        <button
+        {loading? <button
           onClick={() => handleClick()}
           className="w-44 border border-green-600 text-green-600  font-bold py-1 px-5 rounded-lg"
         >
           Book Slot
-        </button>
+        </button> : <button
+          disabled
+          className="w-44 border border-gray-200 cursor-no-drop font-bold py-1 px-5 rounded-lg"
+        >
+          Saving...
+        </button>}
       </div>
     </div>
   );

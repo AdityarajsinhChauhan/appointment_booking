@@ -1,5 +1,4 @@
 const { prisma } = require("../config/db.config");
-const { refreshToken } = require("../services/auth.service");
 
 class UserRepository {
   async createUser(data) {

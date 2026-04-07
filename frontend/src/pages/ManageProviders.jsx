@@ -3,8 +3,11 @@ import React, { useState , useEffect } from 'react'
 import Table from '../components/Table'
 import AddProviderModal from '../components/common/AddProviderModal'
 import { getUsers } from '../services/user.service'
+import { useLoading } from "../context/LoadingContext";
+import Spinner from "../components/common/Spinner";
 
 const ManageProviders = () => {
+  const { loading, setLoading } = useLoading();
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState([]);
   const [activeTab, setActiveTab] = useState("ALL");
@@ -12,10 +15,14 @@ const ManageProviders = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        setLoading(true)
         const data = await getUsers();
         setUsers(data);
       } catch (err) {
         console.log("Error fetching users:", err);
+      }
+      finally{
+        setLoading(false);
       }
     };
 
@@ -62,7 +69,7 @@ const ManageProviders = () => {
         ))}
       </div>
 
-      <Table data={filteredUsers} />
+      {loading ? <Spinner/> : <Table data={filteredUsers} />}
 
     </div>
   )

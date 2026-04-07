@@ -3,14 +3,16 @@ import useAuth from "../hooks/useAuth";
 import { getAppointments } from "../services/appointment.service";
 import { cancelAppointment } from "../services/appointment.service";
 import { showSuccess } from "../utils/toast";
+import { useLoading } from "./LoadingContext";
 
 const AppointmentContext = createContext();
 
 export const AppointmentProvider = ({ children }) => {
 
+  const { setLoading } = useLoading();
+
     const { user } = useAuth();
   const [appointments, setAppointments] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const cached = localStorage.getItem("appointments");
@@ -30,7 +32,13 @@ export const AppointmentProvider = ({ children }) => {
 
       localStorage.setItem("appointments", JSON.stringify(data));
     } catch (err) {
-      console.log("Failed to fetch appointments", err);
+      console.error(err);
+
+    showError(
+      err.response?.data?.message ||
+      err.message ||
+      "Something went wrong"
+    );
     } finally {
       setLoading(false);
     }
@@ -38,6 +46,7 @@ export const AppointmentProvider = ({ children }) => {
 
   const handleCancelAppointment = async (appointmentId) => {
   try {
+    setLoading(true)
     const updated = await cancelAppointment(appointmentId);
 
 
@@ -57,6 +66,8 @@ export const AppointmentProvider = ({ children }) => {
           err.message ||
           "Something went wrong"
         );
+  }finally{
+    setLoading(false);
   }
 };
 
@@ -67,7 +78,6 @@ export const AppointmentProvider = ({ children }) => {
         setAppointments,
         fetchAppointments,
         handleCancelAppointment,
-        loading,
       }}
     >
       {children}

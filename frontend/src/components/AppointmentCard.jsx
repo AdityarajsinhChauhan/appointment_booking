@@ -11,6 +11,8 @@ const AppointmentCard = ({ appointment }) => {
 
   const { handleCancelAppointment  } = useAppointments();
 
+  const { loading } = useLoading();
+
   const { user } = useAuth();
 
   console.log(appointment);
@@ -65,12 +67,14 @@ const handleReschedule = (id) => {
     appointment.slot.end_time)}
         </span>
         { appointment.status !== "CANCELLED" && user.role == "USER" && <div className="w=96% pt-5 border-t mt-5 border-gray-300">
-          <button onClick={()=>handleReschedule(appointment.id)} className="w-1/2 border border-gray-300 rounded-l-lg py-1">
+          <button onClick={()=>handleReschedule(appointment.id)} className="w-1/2 border cursor-pointer border-gray-300 rounded-l-lg py-1">
             Reschedule
           </button>
-          <button onClick={() => handleCancelAppointment(appointment.id)} className="w-1/2 border border-gray-300 rounded-r-lg py-1 text-red-600">
+          {loading ? <button disabled className=" cursor-no-drop w-1/2 border border-gray-300 rounded-r-lg py-1 text-red-600">
+            sending...
+          </button>: <button onClick={() => handleCancelAppointment(appointment.id)} className="w-1/2 border border-gray-300 cursor-pointer rounded-r-lg py-1 text-red-600">
             Cancel
-          </button>
+          </button>}
         </div>}
       </div>
   )

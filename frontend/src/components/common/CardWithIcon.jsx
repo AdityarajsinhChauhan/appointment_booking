@@ -1,15 +1,14 @@
 import React from "react";
 
-const CardWithIcon = ({ title, number, Icon }) => {
+const CardWithIcon = ({ title, text , Icon , darkColor, lightColor }) => {
   return (
-    <div className="flex justify-between w-[32%] border border-gray-300 rounded-xl py-14 px-5">
+    <div className={`${lightColor} transtition-all duration-150 rounded-xl w-64 shadow flex gap-3 px-5 py-10 border border-transparent hover:border-teal-600`}>
+      <div className={`${darkColor} p-3 rounded-full w-fit h-fit`}><Icon className="stroke-white h-6 w-6"/></div>
       <div className="flex flex-col">
-        <span>{title}</span>
-        <span className="text-3xl font-bold">{number}</span>
+        <span className="text-3xl font-bold">{title}</span>
+      <span>{text}</span>
       </div>
-      <div className="bg-gray-200 w-fit h-fit p-3 rounded-xl">
-        <Icon />
-      </div>
+
     </div>
   );
 };

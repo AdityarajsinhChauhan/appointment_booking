@@ -58,13 +58,15 @@ const Appointment = () => {
       {/* Appointments */}
 
       <div className="flex justify-between mx-5 mt-10">
-        <h2 className="text-2xl">Upcoming Appointments</h2>
+        <h2 className="text-x font-bold text-teal-700">Upcoming Appointments</h2>
         {user.role == "USER" && (
           <button className="bg-black text-white px-2 py-1 rounded-lg">
             Book New
           </button>
         )}
       </div>
+
+      {appointments && <div className="border font-bold hover:text-sky-700 cursor-pointer border-gray-300 hover:border-sky-600 m-5 rounded-lg p-5 hover:bg-linear-to-br from-sky-50 via-white to-white shadow hover:shadow-sky-100">No appointments</div>}
 
       {loading? <Spinner/> : <div>
         {appointments.map((appointment) => (

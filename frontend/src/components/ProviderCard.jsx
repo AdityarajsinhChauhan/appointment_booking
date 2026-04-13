@@ -2,6 +2,7 @@ import React from 'react'
 import { User, MapPin } from 'lucide-react';
 
 
+
 const ProviderCard = () => {
   return (
     <div className='border border-gray-300 hover:border-black transition-all duration-150 w-fit px-5 py-10 rounded-xl'>

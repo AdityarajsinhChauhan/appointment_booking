@@ -21,13 +21,17 @@ router.post("/refresh", async (req, res, next) => {
   await authController.refresh(req, res, next);
 });
 
-router.get("/me", authMiddleware, (req, res) => {
-  res.json({
-    message: "protected route success",
-    user: req.user,
-  });
-});
 
 router.get("/", authMiddleware, authController.getAllUsers);
+
+router.get("/health",authMiddleware,authorizeRoles('ADMIN'),authController.getHealth);
+
+router.patch('/update',authMiddleware, async(req,res,next)=>{
+  await authController.updateUser(req, res, next)
+})
+
+router.put('/password',authMiddleware,async(req, res, next)=>{
+  await authController.updatePassword(req, res, next);
+})
 
 module.exports = router;

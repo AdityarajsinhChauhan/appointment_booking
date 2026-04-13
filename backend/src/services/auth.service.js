@@ -2,6 +2,9 @@ const { hashPassword, comparePassword } = require("../utils/bcrypt");
 const { generateAccessToken, generateRefreshToken } = require("../utils/jwt");
 const UserRepo = require("../repositories/user.repository");
 const AppError = require("../utils/appError");
+const userRepository = require("../repositories/user.repository");
+const bcrypt = require('bcrypt');
+const dotenv = require('dotenv');
 
 class AuthService {
   async register(dto) {
@@ -15,7 +18,10 @@ class AuthService {
     const user = await UserRepo.createUser({
       name: dto.name,
       email: dto.email,
+      contact: dto.contact,
+      img_url: dto.img_url,
       password: hashedPassword,
+
     });
 
     const accessToken = generateAccessToken(user);
@@ -64,6 +70,42 @@ class AuthService {
 
   async getAllUsers() {
     return UserRepo.getAllUsers();
+  }
+
+  async getHealthStatus(){
+    const dbStatus = await UserRepo.checkDatabase();
+
+    return{
+      api: "online",
+      database: dbStatus ? "connected" : "disconnected",
+      timestamp: new Date(),
+    }
+  }
+
+  async updateProfile(userId,data){
+    return await UserRepo.updateProfile(userId,data);
+  }
+
+  async updatePassword(userId,data){
+    const user = await UserRepo.findById(userId);
+
+    if(!user){
+      throw new AppError("user not  found",404);
+    }
+
+    const isMatch = await bcrypt.compare(
+      data.currentPassword,
+      user.password
+    );
+
+    if(!isMatch){
+      throw new AppError("Current Password is incorrect!",401)
+    }
+
+
+    const hashedPassword = await bcrypt.hash(data.newPassword,10);
+    return await UserRepo.updatePassword(userId,hashedPassword);
+    
   }
 }
 

@@ -2,6 +2,9 @@ const RegisterDTO = require("../dto/request/register.dto");
 const LoginDTO = require("../dto/request/login.dto");
 const AuthResponseDTO = require("../dto/response/auth.response.dto");
 const authService = require("../services/auth.service");
+const UpdateUserDTO = require("../dto/request/updateUser.dto");
+const UpdatePasswordDTO = require("../dto/request/updatePassword.dto");
+const { success } = require("zod");
 
 class AuthController {
   async register(req, res, next) {
@@ -88,6 +91,55 @@ class AuthController {
       });
     } catch (err) {
       next(err);
+    }
+  }
+
+  async getHealth(req, res, next){
+    try {
+      const status = await authService.getHealthStatus();
+      res.json(status);
+      
+    } catch (err) {
+      res.status(500).json({
+        api: "offline",
+        database: "unknown" 
+      })
+      
+    }
+  }
+
+  async updateUser(req, res, next){
+    try {
+      const dto = new UpdateUserDTO(req.body);
+
+      console.log(dto);
+
+      const result = await authService.updateProfile(req.user.id,dto);
+       res.status(200).json({
+        success:true,
+        message: "user details updated"
+       })
+
+      
+    } catch (err) {
+      next(err);
+      
+    }
+  }
+
+  async updatePassword(req, res, next){
+    try {
+      const dto = new UpdatePasswordDTO(req.body);
+      const result = await authService.updatePassword(req.user.id,dto) ;
+      return res.status(200).json({
+        success:true,
+        message: "Password updated successfully",
+        data:result
+      })
+      
+    } catch (err) {
+      next(err);
+      
     }
   }
 }

@@ -1,74 +1,98 @@
 import React from "react";
-import { Calendar, User , Clock, MapPin } from "lucide-react";
+import { Calendar,CalendarCheck, CalendarDays,Users, Clock, MapPin } from "lucide-react";
 import { useNavigate } from "react-router";
+import formatted from "../utils/today";
+import CardWithIcon from "../components/common/CardWithIcon";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
+  const cardInfo = [
+    {
+    title: "8",
+    text: "Total Appointments",
+    Icon: CalendarDays,
+    darkColor: "bg-teal-700", 
+    lightColor: "bg-teal-50"
+  },
+  {
+    title: "5",
+    text: "Today's Appointments",
+    Icon: CalendarCheck,
+    darkColor: "bg-sky-700", 
+    lightColor: "bg-sky-50"
+  },
+  {
+    title: "10",
+    text: "Upcoming Appointments",
+    Icon: Clock,
+    darkColor: "bg-indigo-700", 
+    lightColor: "bg-indigo-50"
+  },
+  {
+    title: "3",
+    text: "Total Users",
+    Icon: Users,
+    darkColor: "bg-cyan-700", 
+    lightColor: "bg-cyan-50"
+  },
+  ];
   return (
     <div>
-      <header className="p-5">
-        <h1 className="font-bold text-3xl">Administration Dashboard</h1>
-        <span>Manage providers, appointments, and system settings</span>
+      <header className="flex items-center justify-between p-5 ">
+        <div>
+          <h1 className="font-bold text-3xl text-teal-700">
+            Administration Dashboard
+          </h1>
+          <span className="text-gray-500">
+            Manage providers, appointments, and system settings
+          </span>
+        </div>
+        <div className="flex gap-3 items-center border border-gray-300 rounded-lg p-2 text-sky-700 font-bold cursor-default hover:border-teal-700 hover:bg-linear-to-br from-teal-50 via-white to-white hover:shadow">
+          <Calendar className="w-5 h-5" />
+          <span>{formatted}</span>
+        </div>
       </header>
 
       {/* Main cards */}
 
-      <div className="flex gap-3 mx-5">
-        <div className="flex px-5 py-7 border border-gray-300 rounded-lg w-[28%] justify-between">
-          <div className="flex flex-col">
-            <span>Total Providers</span>
-            <span className="text-4xl font-bold">12</span>
-          </div>
-
-          <div className="bg-gray-200 rounded-lg p-3 h-fit">
-            <User />
-          </div>
-        </div>
-
-        <div className="flex px-5 py-7 border border-gray-300 rounded-lg w-[28%] justify-between">
-          <div className="flex flex-col">
-            <span>Total Providers</span>
-            <span className="text-4xl font-bold">12</span>
-          </div>
-
-          <div className="bg-gray-200 rounded-lg p-3 h-fit">
-            <User />
-          </div>
-        </div>
-
-        <div className="flex px-5 py-7 border border-gray-300 rounded-lg w-[28%] justify-between">
-          <div className="flex flex-col">
-            <span>Total Providers</span>
-            <span className="text-4xl font-bold">12</span>
-          </div>
-
-          <div className="bg-gray-200 rounded-lg p-3 h-fit">
-            <User />
-          </div>
-        </div>
+      <div className="flex gap-5 flex-wrap mx-5">
+        {cardInfo.map((item)=>(<CardWithIcon  title={item.title} text={item.text}  Icon={item.Icon}  darkColor={item.darkColor} lightColor={item.lightColor} />))}
       </div>
 
       {/* Admin cards */}
 
       <div className="flex my-5 mx-5 gap-5">
-        <div className="flex gap-3 flex-col items-start w-[45%] border border-gray-300 rounded-lg p-5">
-            <h2 className="text-lg font-bold">Admin Actions</h2>
-            <button onClick={()=>navigate('/manageProviders')} className="border border-gray-300 rounded-lg w-full py-1 px-2">Manage Providers</button>
-            <button onClick={()=>navigate('/appointment')} className="border border-gray-300 rounded-lg w-full py-1 px-2">View All Appointments</button>
+        <div className="flex gap-3 flex-col items-start w-[45%] border transition-all duration-150 border-gray-300 rounded-lg p-5 group hover:border-teal-600">
+          <h2 className="text-lg font-bold text-sky-700">Quick Actions</h2>
+          <button
+            onClick={() => navigate("/manageProviders")}
+            className="border border-gray-300 rounded-lg w-full py-1 px-2 transition-all duration-150 group-hover:border-sky-600 hover:bg-sky-700 hover:text-white cursor-pointer"
+          >
+            Manage Providers
+          </button>
+          <button
+            onClick={() => navigate("/appointment")}
+            className="border border-gray-300 rounded-lg w-full py-1 px-2 transition-all duration-150 group-hover:border-sky-600 hover:bg-sky-700 hover:text-white cursor-pointer"
+          >
+            View All Appointments
+          </button>
         </div>
         <div className="w-[45%] border border-gray-300 rounded-lg p-5">
-            <h2 className="text-lg font-bold mb-5">System Status</h2>
-            <div className="flex justify-between my-2">
-                <span>API Status</span>
-                <span className="bg-green-100 text-green-700 px-1 rounded-lg">Online</span>
-            </div>
-            <div className="flex justify-between">
-                <span>Database</span>
-                <span className="bg-green-100 text-green-700 px-1 rounded-lg">Connected</span>
-            </div>
+          <h2 className="text-lg font-bold mb-5 text-sky-700">System Status</h2>
+          <div className="flex justify-between my-2">
+            <span>API Status</span>
+            <span className="bg-green-100 text-green-700 px-1 rounded-lg">
+              Online
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span>Database</span>
+            <span className="bg-green-100 text-green-700 px-1 rounded-lg">
+              Connected
+            </span>
+          </div>
         </div>
       </div>
-
 
       {/* Recent Appointments */}
 
@@ -82,7 +106,9 @@ const AdminDashboard = () => {
               Dr. Sarah Joshi
             </span>
           </div>
-          <span className="bg-blue-100 text-blue-800 rounded-full px-2 h-fit">Scheduled</span>
+          <span className="bg-blue-100 text-blue-800 rounded-full px-2 h-fit">
+            Scheduled
+          </span>
         </div>
         <span className="mt-4 flex gap-2">
           <Calendar />
@@ -104,9 +130,7 @@ const AdminDashboard = () => {
             Cancel
           </button>
         </div>
-        </div>
-
-        
+      </div>
     </div>
   );
 };

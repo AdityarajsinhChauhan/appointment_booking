@@ -8,6 +8,15 @@ const createProviderSchema = z.object({
   experience_years: z
     .number({ invalid_type_error: "Experience must be a number" })
     .min(0, "Experience cannot be negative"),
+  address: z.string().min(2, "Area is too short").optional().or(z.literal("")),
+  area: z.string().min(2, "Area is too short").optional().or(z.literal("")),
+  city: z.string().min(2, "City is too short").optional().or(z.literal("")),
+  state: z.string().min(2, "State is too short").optional().or(z.literal("")),
+  pincode: z
+    .string()
+    .regex(/^\d{6}$/, "Invalid pincode")
+    .optional()
+    .or(z.literal("")),
 });
 
 const getSlotsBNyProviderSchema = z.object({

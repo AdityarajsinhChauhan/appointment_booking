@@ -2,6 +2,7 @@ const providerService = require("../services/provider.service");
 const CreateProviderDTO = require("../dto/request/createProvider.dto");
 const ProviderResponseDTO = require("../dto/response/provider.response.dto");
 const GetSlotsBYProviderDTO = require('../dto/request/getSlotsByProvider.dto.');
+const { success } = require("zod");
 
 class ProviderController {
   async createProvider(req, res, next) {
@@ -48,6 +49,25 @@ class ProviderController {
 
   } catch (err) {
     next(err);
+  }
+}
+
+async getProviderById(req, res, next){
+  try {
+    console.log(req.query)
+    const { provider_id } = req.query;
+
+    const result = await providerService.getProviderById(provider_id);
+
+    res.status(200).json({
+      success: true,
+      message: "Provider details fetched successfully",
+      data:result
+    })
+    
+  } catch (err) {
+    next(err);
+    
   }
 }
 }

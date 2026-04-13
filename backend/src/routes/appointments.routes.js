@@ -9,7 +9,7 @@ router.post("/", authMiddleware, (req, res, next) =>
   appointmentController.createAppointment(req, res, next),
 );
 
-router.post("/reschedule", authMiddleware, (req, res, next) =>
+router.patch("/reschedule", authMiddleware, (req, res, next) =>
   appointmentController.rescheduleAppointment(req, res, next),
 );
 

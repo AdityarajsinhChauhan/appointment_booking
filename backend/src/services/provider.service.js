@@ -1,15 +1,14 @@
 const providerRepo = require("../repositories/provider.repository.js");
 const AppError = require("../utils/appError.js");
-const { convertToIST } = require('../utils/time.js');
+const { convertToIST } = require("../utils/time.js");
 
 class ProviderService {
   async createProvider(dto) {
     const user = await providerRepo.findUserByEmail(dto.email);
 
-    if(!user){
-      throw new AppError("Invalid email",400);
+    if (!user) {
+      throw new AppError("Invalid email", 400);
     }
-
 
     const existing = await providerRepo.findProviderByUserId(user.id);
 
@@ -21,6 +20,11 @@ class ProviderService {
       user_id: user.id,
       specialization: dto.specialization,
       experience_years: dto.experience_years,
+      address: dto.address,
+      area: dto.area,
+      city: dto.city,
+      state: dto.state,
+      pincode: dto.pincode,
     });
 
     await providerRepo.updateUserRoleToProvider(user.id);
@@ -31,23 +35,31 @@ class ProviderService {
   async getProviders() {
     return await providerRepo.getProviders();
   }
-  
-  async getSlotsByProvider(userId) {
-  const provider = await providerRepo.findProviderByUserId(userId);
 
-  if (!provider) {
-    throw new AppError("Provider not found", 404);
+  async getSlotsByProvider(userId) {
+    const provider = await providerRepo.findProviderByUserId(userId);
+
+    if (!provider) {
+      throw new AppError("Provider not found", 404);
+    }
+
+    const slots = await providerRepo.getSlotsByProviderId(provider.id);
+    const updatedSlots = slots.map((slot) => ({
+      ...slot,
+      start_time: convertToIST(slot.start_time),
+      end_time: convertToIST(slot.end_time),
+    }));
+
+    return updatedSlots;
   }
 
-  const slots = await providerRepo.getSlotsByProviderId(provider.id);
-  const updatedSlots = slots.map((slot) => ({
-    ...slot,
-    start_time: convertToIST(slot.start_time),
-    end_time: convertToIST(slot.end_time),
-  }));
-
-  return updatedSlots;
-}
+  async getProviderById(providerId){
+    const result = await providerRepo.getProviderById(providerId);
+    if(!result){
+      throw new AppError("Provider details not found",404);
+    }
+    return result;
+  }
 }
 
 module.exports = new ProviderService();

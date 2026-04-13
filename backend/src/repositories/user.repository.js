@@ -38,6 +38,31 @@ class UserRepository {
       include: { providers: true },
     });
   }
+
+  async checkDatabase() {
+    try {
+      await prisma.$queryRaw`SELECT 1`;
+      return true;
+      
+    } catch (error) {
+      return false;
+      
+    }
+  }
+
+  async updateProfile(userId,data){
+    return await prisma.users.update({
+      where: { id: userId },
+      data: data
+    })
+  }
+
+  async updatePassword(userId,newPassword){
+    return await prisma.users.update({
+      where: { id: userId},
+      data: {password: newPassword}
+    })
+  }
 }
 
 module.exports = new UserRepository();

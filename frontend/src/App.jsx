@@ -14,9 +14,14 @@ import ManageSlots from "./pages/ManageSlots";
 import Landing from "./pages/Landing";
 import { Toaster } from "react-hot-toast";
 import Layout from "./components/Layout";
+import useAuth from "./hooks/useAuth";
+import ProviderDashboard from "./pages/ProviderDashboard";
+import ProviderInfo from "./pages/ProviderInfo";
 
 function App() {
   const [count, setCount] = useState(0);
+
+  const { user } = useAuth();
 
   return (
     <>
@@ -43,6 +48,7 @@ function App() {
             <Route path="/booking" element={<Booking />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/appointment" element={<Appointment />} />
+            <Route path="/provider/:id" element={<ProviderInfo />} />
 
             <Route element={<PrivateRoute allowedRoles={"ADMIN"} />}>
               <Route path="/adminDashboard" element={<AdminDashboard />} />
@@ -51,6 +57,8 @@ function App() {
 
             <Route element={<PrivateRoute allowedRoles={"PROVIDER"} />}>
               <Route path="/manageSlots" element={<ManageSlots />} />
+              <Route path="/providerDashboard" element={<ProviderDashboard />} />
+
             </Route>
           </Route>
         </Route>

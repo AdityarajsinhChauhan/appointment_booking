@@ -18,5 +18,7 @@ router.get("/", authMiddleware, (req, res, next) =>
 
 router.get("/getslots",authMiddleware,(req,res,next)=>providerController.getSlotsByProvider(req,res,next));
 
+router.get("/getProviderById",authMiddleware,(req, res, next)=>providerController.getProviderById(req, res, next));
+
 
 module.exports = router;

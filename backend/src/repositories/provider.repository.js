@@ -37,6 +37,13 @@ class ProviderRepository {
   async getSlotsByProviderId(providerId){
     return await prisma.availability_slots.findMany({where: {provider_id:providerId}})
   }
+
+  async getProviderById(providerId){
+    return await prisma.providers.findUnique({
+      where: {id: providerId},
+      include: { users: true }
+    });
+  }
 }
 
 module.exports = new ProviderRepository();

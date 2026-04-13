@@ -6,6 +6,8 @@ class RegisterDTO {
     this.name = data.name;
     this.email = data.email;
     this.password = data.password;
+    this.contact = data.contact;
+    this.img_url = data.img_url
   }
 
   static validate(data) {

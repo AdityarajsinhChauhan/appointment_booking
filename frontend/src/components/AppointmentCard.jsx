@@ -43,10 +43,10 @@ const handleReschedule = (id) => {
 }
 
   return (
-    <div className="w-[96%] mx-5 border border-gray-300 rounded-xl flex flex-col p-5 mt-5">
+    <div className="w-[96%] group mx-5 border border-gray-300 rounded-xl flex flex-col p-5 mt-5 hover:bg-linear-to-br hover:border-sky-700 transition-all duration-150 from-sky-50 via-white to-white shadow hover:shadow-sky-200">
         <div className="flex justify-between">
           <div className="flex flex-col">
-            <h3 className="text-lg font-bold">{appointment.users.name}</h3>
+            <h3 className="text-lg font-bold group-hover:text-sky-700">{appointment.users.name}</h3>
           </div>
           <span
   className={`rounded-full px-2 h-fit text-sm font-medium ${getStatusStyles(
@@ -67,12 +67,12 @@ const handleReschedule = (id) => {
     appointment.slot.end_time)}
         </span>
         { appointment.status !== "CANCELLED" && user.role == "USER" && <div className="w=96% pt-5 border-t mt-5 border-gray-300">
-          <button onClick={()=>handleReschedule(appointment.id)} className="w-1/2 border cursor-pointer border-gray-300 rounded-l-lg py-1">
+          <button onClick={()=>handleReschedule(appointment.id)} className="w-1/2 border cursor-pointer border-sky-700 bg-sky-700 text-white rounded-l-lg py-1 hover:bg-white hover:text-sky-700 transition-all duration-150">
             Reschedule
           </button>
-          {loading ? <button disabled className=" cursor-no-drop w-1/2 border border-gray-300 rounded-r-lg py-1 text-red-600">
+          {loading ? <button disabled className=" cursor-no-drop w-1/2 border border-red-600 rounded-r-lg py-1 text-red-600">
             sending...
-          </button>: <button onClick={() => handleCancelAppointment(appointment.id)} className="w-1/2 border border-gray-300 cursor-pointer rounded-r-lg py-1 text-red-600">
+          </button>: <button onClick={() => handleCancelAppointment(appointment.id)} className="w-1/2 border border-red-600 hover:bg-red-50  cursor-pointer rounded-r-lg py-1 text-red-600">
             Cancel
           </button>}
         </div>}

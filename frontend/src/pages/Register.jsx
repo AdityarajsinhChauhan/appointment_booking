@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/auth.service";
 import { useLoading } from "../context/LoadingContext";
 import { showError, showSuccess } from "../utils/toast";
+import BookEaseIcon from "../components/common/BookEaseIcon";
 
 import React from "react";
 
@@ -10,8 +11,10 @@ const Register = () => {
   const [formData, setFormData] = useState({
   name: "",
   email: "",
+  contact: "",
   password: "",
-  repassword: "", // ✅ add this
+  repassword: "", 
+  img_url: "/profile/default.png"
 });
 
 useEffect(() => {
@@ -66,32 +69,30 @@ const { loading , setLoading } = useLoading();
 };
 
   return (
-    <div className="w-screnn h-screen flex flex-col items-center bg-gray-100">
-      <h1 className="text-3xl font-bold mt-5">Book Appointment</h1>
-      <div>Create your account</div>
+    <div className="w-screnn h-screen flex pt-10 flex-col items-center bg-gray-100">
+      <BookEaseIcon size={10}/>
+      <h1 className="text-3xl font-bold mt-2"><span className="text-sky-700">Book</span> <span className="text-teal-700">Ease</span></h1>
+      <div className="text-gray-600">Create your account</div>
       <form
         onSubmit={handleSubmit}
-        className="border border-gray-300 rounded-xl flex flex-col p-10 bg-white w-[30%] my-5"
+        className="border border-gray-300 rounded-xl flex flex-col p-10 bg-white w-[30%] my-5 shadow-lg shadow-sky-100"
       >
-        <h2 className='text-lg font-bold'>Get Started</h2>
+        <h2 className='text-lg font-bold text-teal-700'>Get Started</h2>
         <div className='text-gray-500 mb-7 text-sm'>Join our appointment booking platform</div>
 
         <label htmlFor="name">Full Name</label>
-        <input name="name" onChange={handleChange} placeholder="name" className='border border-gray-300 rounded-lg py-1 px-3 mb-5'/>
+        <input name="name" onChange={handleChange} placeholder="name" className='border border-gray-300 hover:border-teal-500  rounded-lg py-1 px-3 mb-5'/>
         <label htmlFor="email">Email Address</label>
-        <input name="email" onChange={handleChange} placeholder="you@example.com" className='border border-gray-300 rounded-lg py-1 px-3 mb-5' />
-        <div>Account Type</div>
-        <div className="flex gap-1 mb-5">
-          <button type="button" className="text-white bg-black py-1 px-3 rounded-lg w-1/2">User</button>
-          <button type="button" className="border border-gray-300 rounded-lg px-3 py-1 w-1/2">Provider</button>
-        </div>
+        <input name="email" onChange={handleChange} placeholder="you@example.com" className='border border-gray-300 rounded-lg py-1 px-3 mb-5 hover:border-teal-500' />
+        <label htmlFor="contact">Contact Number</label>
+        <input type="tel" name="contact" onChange={handleChange} placeholder="9876543210" className='border border-gray-300 rounded-lg py-1 px-3 mb-5 hover:border-teal-500' />
         <label htmlFor="password">Password</label>
         <input
           name="password"
           type="password"
           onChange={handleChange}
           placeholder="**********"
-          className='border border-gray-300 rounded-lg py-1 px-3 mb-5'
+          className='border border-gray-300 rounded-lg py-1 px-3 mb-5 hover:border-teal-500'
         />
         <label htmlFor="repassword">Confirm Password</label>
         <input
@@ -99,14 +100,14 @@ const { loading , setLoading } = useLoading();
           type="password"
           onChange={handleChange}
           placeholder="**********"
-          className='border border-gray-300 rounded-lg py-1 px-3 mb-5'
+          className='border border-gray-300 rounded-lg py-1 px-3 mb-5 hover:border-teal-500'
         />
-        {loading ? <button disabled className='bg-black text-white py-1 rounded-lg my-5'>
+        {loading ? <button disabled className='bg-white text-sky-700 border border-sky-700 py-1 rounded-lg my-5'>
           Saving...
-        </button> : <button type="submit" className='bg-black text-white py-1 rounded-lg my-5'>
+        </button> : <button type="submit" className='bg-teal-700 border border-teal-700 hover:bg-white hover:text-teal-700 transition-all duration-150 cursor-pointer text-white py-1 rounded-lg my-5 font-bold '>
           Register
         </button>}
-        <div className='text-gray-600 flex justify-center'>Already have an account? <span onClick={()=>{navigate('/login')}} className='text-black hover:underline cursor-pointer'> Sign In</span></div>
+        <div className='text-gray-600 flex justify-center font-bold'>Already have an account? <span onClick={()=>{navigate('/login')}} className='text-sky-700 hover:underline cursor-pointer'> Sign In</span></div>
       </form>
     </div>
   );

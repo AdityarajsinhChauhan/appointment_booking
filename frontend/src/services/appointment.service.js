@@ -39,6 +39,11 @@ export const cancelAppointment = async (appointmentId) => {
 };
 
 export const reScheduleAppointment = async(appointmentId,newSlotId) => {
-  const res = await api.post('appointment/reschedule',{ appointmentId :appointmentId, newSlotId:newSlotId});
+  const res = await api.patch('appointment/reschedule',{ appointmentId :appointmentId, newSlotId:newSlotId});
   return res.data
+}
+
+export const getProviderById = async(providerId) => {
+  const res = await api.get(`provider/getProviderById?provider_id=${providerId}`);
+  return res.data;
 }

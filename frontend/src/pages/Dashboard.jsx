@@ -56,7 +56,7 @@ const Dashboard = () => {
     <div>
       {/* Main Heading */}
 
-      <h1 className="text-3xl mx-5 mt-5 font-bold">My Appointments</h1>
+      <h1 className="text-3xl mx-5 mt-5 font-bold text-teal-700">My Appointments</h1>
       <span className="pl-5 text-gray-500">manage and track your bookings</span>
 
       {/* Cards */}
@@ -74,7 +74,7 @@ const Dashboard = () => {
       {/* Upcoming Appointments */}
 
       <div className="flex justify-between mx-5 mt-10">
-        <h2 className="text-2xl">Upcoming Appointments</h2>
+        <h2 className="text-xl font-bold text-sky-700">Upcoming Appointments</h2>
         <button
           onClick={() => navigate("/booking")}
           className="bg-black text-white rounded-lg py-1 px-3 hover:bg-gray-700 cursor-pointer"
@@ -83,31 +83,15 @@ const Dashboard = () => {
         </button>
       </div>
 
+      {appointments && <div className="border font-bold hover:text-sky-700 cursor-pointer border-gray-300 hover:border-sky-600 m-5 rounded-lg p-5 hover:bg-linear-to-br from-sky-50 via-white to-white shadow hover:shadow-sky-100">No appointments</div>}
+
       {loading ? <Spinner/> : <div>
         {appointments.map((appointment) => (
         <AppointmentCard key={appointment.id} appointment={appointment} />
       ))}
       </div>}
 
-      {/* Recent Appointments */}
-
-      <h2 className="text-2xl m-5">Recent Appointments</h2>
-
-      <div className="w-[96%] mx-5 border border-gray-300 rounded-xl flex flex-col p-5 mt-5">
-        <h3 className="text-lg font-bold">Follow-Up</h3>
-        <span className="text-gray-500 border-b border-gray-300 pb-5">
-          Dr. Sarah Joshi
-        </span>
-        <div className=""></div>
-        <span className="mt-4 flex gap-2">
-          <Calendar />
-          Nov 15, 2014
-        </span>
-        <span className="mt-4 flex gap-2">
-          <Clock />
-          10:00 to 10:30
-        </span>
-      </div>
+      
     </div>
   );
 };

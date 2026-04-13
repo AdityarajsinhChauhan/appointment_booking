@@ -4,7 +4,7 @@ import {
   ChartColumnIncreasing,
   Calendar,
   Settings,
-  User,
+  Users,
   Clock
 } from "lucide-react";
 
@@ -22,22 +22,16 @@ export const sidebarMenu = [
     icon: ChartColumnIncreasing,
   },
   {
-    label: "Profile",
-    path: "/profile",
-    roles: ["USER", "PROVIDER", "ADMIN"],
-    icon: Settings,
-  },
-  {
     label: "Book Appointments",
     path: "/booking",
     roles: ["USER"],
     icon: Calendar,
   },
   {
-    label: "Manage Providers",
+    label: "Manage Users",
     path: "/manageProviders",
     roles: ["ADMIN"],
-    icon: User,
+    icon: Users,
   },
   {
     label: "Manage Slots",
@@ -50,5 +44,11 @@ export const sidebarMenu = [
     path: "/appointment",
     roles: ["USER", "PROVIDER", "ADMIN"],
     icon: Clock,
+  },
+  {
+    label: "Profile",
+    path: "/profile",
+    roles: ["USER", "PROVIDER", "ADMIN"],
+    icon: Settings,
   },
 ];

@@ -2,8 +2,6 @@ import { Trash2 } from "lucide-react";
 
 const Table = ({ data }) => {
 
-  console.log(data)
-
   return (
     <div className="p-5">
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
@@ -13,7 +11,9 @@ const Table = ({ data }) => {
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
               <th className="px-6 py-3 font-medium text-gray-600">Name</th>
-              <th className="px-6 py-3 font-medium text-gray-600">Email</th> 
+              <th className="px-6 py-3 font-medium text-gray-600">Email</th>
+              <th className="px-6 py-3 font-medium text-gray-600">Specialization</th> 
+              <th className="px-6 py-3 font-medium text-gray-600">Experience</th>  
               <th className="px-6 py-3 font-medium text-gray-600">Role</th>
               <th className="px-6 py-3 font-medium text-gray-600 text-center">Action</th>
             </tr>
@@ -32,6 +32,12 @@ const Table = ({ data }) => {
                 </td>
                 <td className="px-6 py-4 text-gray-600">
                   {item.email}
+                </td>
+                <td className="px-6 py-4 text-gray-600">
+                  {/* {item.providers.specialization} */}
+                </td>
+                <td className="px-6 py-4 text-gray-600">
+                  {/* {item.providers.experience_years} */}
                 </td>
                 <td className="px-6 py-4 text-gray-600">
                   {item.role}

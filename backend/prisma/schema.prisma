@@ -37,6 +37,13 @@ model providers {
   user_id            String               @unique @db.Uuid
   specialization     String               @db.VarChar(100)
   experience_years   Int
+  rating             Float?               @default(0)
+  total_reviews      Int?                 @default(0)
+  address            String?              @db.VarChar(150)
+  area               String?              @db.VarChar(150)
+  city               String?              @db.VarChar(100)
+  state              String?              @db.VarChar(100)
+  pincode            String?              @db.VarChar(10)
   created_at         DateTime             @default(now()) @db.Timestamp(6)
   updated_at         DateTime             @default(now()) @db.Timestamp(6)
   appointments       appointments[]
@@ -51,12 +58,13 @@ enum Role {
 }
 
 model users {
-  id             String  @id @default(uuid()) @db.Uuid
-  name           String  @db.VarChar(100)
-  email          String  @unique @db.VarChar(150)
-  password       String
-  role           Role    @default(USER)
-  contact_number String? @db.VarChar(15)
+  id       String  @id @default(uuid()) @db.Uuid
+  name     String  @db.VarChar(100)
+  email    String  @unique @db.VarChar(150)
+  password String
+  contact  String? @db.VarChar(15)
+  role     Role    @default(USER)
+  img_url  String? @db.VarChar(100)
 
   refresh_token String? @unique
 

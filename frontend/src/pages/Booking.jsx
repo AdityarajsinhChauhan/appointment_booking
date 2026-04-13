@@ -22,7 +22,7 @@ const Booking = () => {
   return (
     <>
     <header className="p-5">
-      <h1 className="text-3xl font-bold">Book an Appointment</h1>
+      <h1 className="text-3xl font-bold text-teal-700">Book an Appointment</h1>
       <span className="text-gray-600">Select a provider and available time slot</span>
     </header>
 

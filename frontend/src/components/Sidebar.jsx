@@ -9,6 +9,9 @@ import {
 } from "lucide-react";
 import useAuth from "../hooks/useAuth";
 import { sidebarMenu } from "../utils/sidebarConfig";
+import BookEaseIcon from "./common/BookEaseIcon";
+import ImageWithLoader from "./common/ImageWithLoader";
+import { LogOut } from "lucide-react";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -19,7 +22,7 @@ const Sidebar = () => {
   if (!user) return null;
 
   const filteredMenu = sidebarMenu.filter((item) =>
-    item.roles.includes(user.role)
+    item.roles.includes(user.role),
   );
 
   const handleClick = (path) => {
@@ -33,15 +36,24 @@ const Sidebar = () => {
 
   return (
     <div className="p-5">
-      <h2 className="px-3 text-2xl font-bold">Book Appointments</h2>
-      <span className="text-gray-500 px-3">User Portal</span>
+      <h2 className="px-3 text-2xl font-bold flex items-center">
+        <BookEaseIcon size={10} />
+        <span className="text-sky-700 ml-3">Book</span>{" "}
+        <span className="text-teal-700">Ease</span>
+      </h2>
 
-      <div className="flex flex-col text-sm border border-gray-300 rounded-xl p-5 mb-5">
-        <span className="font-bold">{user.name}</span>
-        <span className="text-gray-500">{user.email}</span>
-        <span className="bg-black text-white w-fit px-2 py-1 mt-3 rounded-lg">
-          {user.role}
-        </span>
+      <div className="flex gap-3 my-7">
+        <ImageWithLoader
+          src={user.img_url}
+          alt="user image"
+          className="rounded-full overflow-hidden w-14 h-14 border border-black"
+        />
+        <div className="flex flex-col gap-1">
+          <span className="font-bold">{user.name}</span>
+          <span className="text-xs bg-sky-700 text-white rounded-full px-3 py-1 w-fit">
+            {user.role}
+          </span>
+        </div>
       </div>
 
       <div>
@@ -53,8 +65,8 @@ const Sidebar = () => {
               key={item.path}
               className={` w-full cursor-pointer  flex p-3 rounded-xl gap-3 ${
                 location.pathname === item.path
-                  ? "bg-black text-white"
-                  : "hover:bg-gray-200"
+                  ? "bg-teal-700 text-white"
+                  : "hover:bg-sky-100"
               }`}
               onClick={() => handleClick(item.path)}
             >
@@ -63,19 +75,14 @@ const Sidebar = () => {
             </button>
           );
         })}
-
-        
-
-        
-
-        
       </div>
 
       <button
         onClick={handleLogout}
-        className="fixed bottom-5 left-5 border border-gray-300 rounded-lg w-[17%] px-3 py-1"
+        className="fixed flex justify-center items-center gap-3 transtiion-all duration-150 bottom-5 left-5 border bg-white font-bold text-red-700 cursor-pointer hover:bg-red-100 border-gray-300 hover:border-red-700 rounded-lg w-[17%] px-3 py-1"
       >
-        Logout
+        <LogOut className="w-4 h-4"/>
+        <span>Logout</span>
       </button>
     </div>
   );

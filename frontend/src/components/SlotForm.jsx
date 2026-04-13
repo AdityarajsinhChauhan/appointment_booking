@@ -3,6 +3,7 @@ import BlackButton from "./common/BlackButton";
 import WhiteButton from "./common/WhiteButton";
 import { createSlot } from "../services/slot.service";
 import { useLoading } from "../context/LoadingContext";
+import { showSuccess, showError } from "../utils/toast";
 
 const SlotForm = () => {
   const { loading , setLoading } = useLoading();
@@ -68,7 +69,7 @@ const formatDate = (date) => date.toISOString().split("T")[0];
       const res = await createSlot(payload);
 
       console.log("Success:", res);
-      alert("Slot created successfully");
+      showSuccess("Slot Created Successfully");
 
       // reset form
       setFormData({

@@ -4,6 +4,8 @@ import { createAppointment } from "../../services/appointment.service";
 import { reScheduleAppointment } from "../../services/appointment.service";
 import { useLoading } from "../../context/LoadingContext";
 import { showError, showSuccess } from "../../utils/toast";
+import ImageWithLoader from "../common/ImageWithLoader";
+import { Phone, Mail } from "lucide-react";
 
 const Confirmation = ({ slot, provider, setStep }) => {
   const { loading, setLoading } = useLoading();
@@ -36,16 +38,31 @@ const Confirmation = ({ slot, provider, setStep }) => {
     }
   };
   return (
-    <div className="bg-gray-100 border border-gray-300 rounded-lg mx-5 my-10 p-5 flex flex-col">
-      <h2 className="text-green-700 text-lg font-bold">Review Your Booking</h2>
-      <div className="flex justify-between px-2 py-3 border-b border-gray-200">
-        <span className="text-gray-700">Provider</span>
-        <span className="font-bold">{provider.users.name}</span>
+    <div className=" rounded-lg mx-5 flex flex-col">
+      <h2 className="text-teal-700 text-lg font-bold mb-5">Review Your Booking</h2>
+      <div className="flex justify-between border border-sky-600 rounded-lg bg-sky-50 p-5 ">
+        
+        <div className="flex">
+          <ImageWithLoader src={provider?.users?.img_url} alt="profile image" className="w-14 h-14 rounded-full overflow-hidden border border-sky-700"/>
+          <div className="flex flex-col border-r border-sky-300 px-5">
+          <span className="font-bold">{provider?.users?.name}</span>
+          <span className="text-sm text-gray-500">{provider?.specialization}</span>
+        </div>
+
+        <div className="flex flex-col px-5">
+          <span className="flex gap-2 items-center"><Phone className="w-4 h-4"/>{provider?.users?.contact}</span>
+          <span className="flex gap-2 items-center"><Mail className="w-4 h-4"/>{provider?.users?.email}</span>
+        </div>
+        </div>
+
+        <div className="flex flex-col">
+          <span>{provider?.experience_years} yrs exp</span>
+          <span>{provider?.area}{", "} {provider?.city}</span>
+        </div>
+
+
       </div>
-      <div className="flex justify-between px-2 py-3 border-b border-gray-200">
-        <span className="text-gray-700">Specialization</span>
-        <span className="font-bold">{provider.specialization}</span>
-      </div>
+      
       <div className="flex justify-between px-2 py-3 border-b border-gray-200">
         <span className="text-gray-700">Date</span>
         <span className="font-bold">{formatDate(slot.start_time)}</span>

@@ -23,22 +23,7 @@ const Appointment = () => {
     }
   }, []);
 
-  const cardInfo = React.useMemo(() => {
-    const now = new Date();
-
-    const upcoming =
-      appointments.filter(
-        (a) => new Date(a.date) >= now && a.status !== "COMPLETED",
-      ).length || 0;
-
-    const completed =
-      appointments.filter((a) => a.status === "COMPLETED").length || 0;
-
-    return [
-      { title: "Upcoming", number: upcoming },
-      { title: "Completed", number: completed },
-    ];
-  }, [appointments]);
+  
 
   return (
     <div>
@@ -47,13 +32,6 @@ const Appointment = () => {
         <span>View your all appointments</span>
       </header>
 
-      {/* Main cards */}
-
-      <div className="flex w-full gap-5 px-5 mt-10">
-        {cardInfo.map((item) => (
-          <Card title={item.title} number={item.number} />
-        ))}
-      </div>
 
       {/* Appointments */}
 

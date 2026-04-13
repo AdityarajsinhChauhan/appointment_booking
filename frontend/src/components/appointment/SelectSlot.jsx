@@ -3,6 +3,7 @@ import { getSlotsByDate } from "../../services/slot.service";
 import { formatTimeRange } from "../../utils/formatDate";
 import { useLoading } from "../../context/LoadingContext";
 import Spinner from "../common/Spinner";
+import { Calendar, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 
 const SelectSlot = ({ providerId, setStep, setSlot }) => {
   const { loading, setLoading } = useLoading();
@@ -10,6 +11,21 @@ const SelectSlot = ({ providerId, setStep, setSlot }) => {
   const [slots, setSlots] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null); // store string YYYY-MM-DD
   const [selectedSlot, setSelectedSlot] = useState(null);
+  const [startIndex, setstartIndex] = useState(0);
+
+  const visibleDates = dates?.slice(startIndex, startIndex + 7);
+
+  const handleNext = () => {
+    if (startIndex + 7 < dates?.length) {
+      setstartIndex(startIndex + 7);
+    }
+  };
+
+  const handlePrev = () => {
+    if (startIndex - 7 >= 0) {
+      setstartIndex(startIndex - 7);
+    }
+  };
 
   // generate next 30 days
   useEffect(() => {
@@ -61,88 +77,117 @@ const SelectSlot = ({ providerId, setStep, setSlot }) => {
 
   return (
     <div className="p-5">
-      <h2 className="font-bold text-xl">Select Date & Time</h2>
-
       {/* DATE SECTION */}
-      <div className="border border-gray-300 rounded-xl mt-5 p-5">
-        <h3 className="font-bold text-gray-600 text-lg mb-3">Choose a Date</h3>
-          <div className="flex flex-wrap">
-            {dates.map((date, index) => {
-              const formattedDate =
-                date.getFullYear() +
-                "-" +
-                String(date.getMonth() + 1).padStart(2, "0") +
-                "-" +
-                String(date.getDate()).padStart(2, "0");
+      <div className="border-b border-gray-300 pb-10">
+        <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center gap-2 text-teal-700"><Calendar className="w-6 h-6" />
+          <h3 className="font-bold text-lg">Select Date</h3></div>
+          <div className="border border-sky-600 font-bold text-sky-700 rounded-lg py-2 px-5 bg-sky-100">{selectedDate ? selectedDate : "No date selected"}</div>
+        </div>
 
-              const month = date.toLocaleDateString("en-IN", {
-                month: "short",
-              });
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handlePrev}
+            disabled={startIndex === 0}
+            className="transition-all bg-white duration-150 text-sky-700 disabled:text-gray-500 rounded-md h-fit p-2 border border-gray-300 disabled:cursor-no-drop disabled:hover:bg-gray-100 disabled:hover:border-gray-300 cursor-pointer hover:border-sky-600 hover:bg-sky-100 disabled:bg-gray-100" 
+          >
+            <ChevronLeft className="w-5 h-5 " />
+          </button>
+          <div className="flex">
+            {visibleDates.map((date, index) => {
+            const formattedDate =
+              date.getFullYear() +
+              "-" +
+              String(date.getMonth() + 1).padStart(2, "0") +
+              "-" +
+              String(date.getDate()).padStart(2, "0");
 
-              const day = date.toLocaleDateString("en-IN", {
-                day: "2-digit",
-              });
+            const month = date.toLocaleDateString("en-IN", {
+              month: "short",
+            });
 
-              return (
-                <button
-                  key={index}
-                  onClick={() => handleDateClick(date)}
-                  className={`rounded-lg p-3 flex flex-col gap-1 w-20 font-bold justify-center items-center m-1 cursor-pointer transition ${
-                    selectedDate === formattedDate
-                      ? "bg-black text-white"
-                      : "bg-gray-200 hover:bg-gray-300"
-                  }`}
-                >
-                  <span>{month}</span>
-                  <span>{day}</span>
-                </button>
-              );
-            })}
+            const day = date.toLocaleDateString("en-IN", {
+              day: "2-digit",
+            });
+
+            return (
+              <button
+                key={index}
+                onClick={() => handleDateClick(date)}
+                className={`transition-all duration-150 rounded-lg border w-36 py-4 flex gap-1 font-bold justify-center items-center m-1 cursor-pointer  ${
+                  selectedDate === formattedDate
+                    ? "bg-sky-700 text-white"
+                    : "bg-white border-gray-300 hover:border-sky-600 hover:text-sky-700"
+                }`}
+              >
+                <span>{month}</span>
+                <span>{day}</span>
+              </button>
+            );
+          })}
           </div>
+
+          <button
+            onClick={handleNext}
+            disabled={startIndex + 7 >= dates.length}
+            className="transition-all bg-white duration-150 text-sky-700 disabled:text-gray-500 rounded-md h-fit p-2 border border-gray-300 disabled:cursor-no-drop disabled:hover:bg-gray-100 disabled:hover:border-gray-300 cursor-pointer hover:border-sky-600 hover:bg-sky-100 disabled:bg-gray-100"
+          >
+            <ChevronRight className="w-5 h-5"/>
+          </button>
+        </div>
       </div>
 
       {/* SLOT SECTION */}
-      <h3 className="font-bold text-gray-600 text-lg mx-5 mt-5 mb-3">
-        Available Slots
-      </h3>
+      <div className="flex gap-2 items-center my-6"><Clock className="w-6 h-6"/>
+      <h3 className="font-bold  text-lg">
+        Select Time Slot
+      </h3></div>
 
-      {loading ? <Spinner/> : <div className="flex flex-wrap px-5 gap-3">
-        {selectedDate && (
-          <>
-            {slots.length === 0 ? (
-              <p>No slots available</p>
-            ) : (
-              slots.map((slot) => (
-                <button
-                  key={slot.id}
-                  disabled={slot.is_booked}
-                  onClick={() => handleSlotClick(slot)}
-                  className={`border ${slot.is_booked ? "bg-gray-200 border-gray-200 cursor-no-drop" : "hover:border-black border-gray-300 cursor-pointer"}  rounded-lg  w-fit py-3 px-5  text-lg transition ${
-                    selectedSlot?.id === slot.id && !slot.is_booked
-                      ? "bg-black text-white border-black"
-                      : ""
-                  }
-                  `}
-                >
-                  {formatTimeRange(slot.start_time, slot.end_time)}
-                </button>
-              ))
-            )}
-          </>
-        )}
-      </div>}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="flex flex-wrap px-5 gap-3">
+          {selectedDate && (
+            <>
+              {slots.length === 0 ? (
+                <p>No slots available</p>
+              ) : (
+                slots.map((slot) => (
+                  <button
+  key={slot.id}
+  disabled={slot.is_booked}
+  onClick={() => handleSlotClick(slot)}
+  className={`border rounded-lg px-5 py-3 text-lg transition-all duration-150 w-fit
 
-      <div className="flex justify-between px-5 my-5">
+    ${
+      slot.is_booked
+        ? "bg-gray-200 border-gray-200 cursor-not-allowed"
+        : selectedSlot?.id === slot.id
+        ? "bg-sky-700 text-white border-sky-700"
+        : "bg-white border-gray-300 hover:border-sky-600 hover:text-sky-700 cursor-pointer"
+    }
+  `}
+>
+  {formatTimeRange(slot.start_time, slot.end_time)}
+</button>
+                ))
+              )}
+            </>
+          )}
+        </div>
+      )}
+
+      <div className="flex justify-between items-center px-5 my-10">
         <button
           onClick={() => setStep(1)}
-          className="bg-black text-white rounded-lg py-1 px-3 h-fit"
+          className="transtion-all cursor-pointer duration-150 bg-white text-teal-700 border border-teal-700 rounded-lg py-3 px-5 font-bold hover:bg-teal-700 hover:text-white h-fit"
         >
-          Back
+          Back to Provider Selection
         </button>
         <button
           onClick={() => handleClick()}
           disabled={!selectedSlot}
-          className={`py-1 px-3 border border-gray-300 rounded-lg mt-5 ${selectedSlot ? "bg-white cursor-pointer" : "bg-gray-300 cursor-no-drop"}`}
+          className={`py-3 px-5 border  rounded-lg font-bold ${selectedSlot ? "bg-sky-700 text-white cursor-pointer border-sky-700 hover:bg-white hover:text-sky-700" : "bg-gray-50 text-gray-500 border-gray-300 cursor-no-drop"}`}
         >
           Review Booking
         </button>

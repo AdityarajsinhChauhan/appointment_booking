@@ -23,6 +23,8 @@ function App() {
 
   const { user } = useAuth();
 
+  
+
   return (
     <>
       <Toaster

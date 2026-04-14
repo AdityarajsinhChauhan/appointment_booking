@@ -3,10 +3,13 @@ import { createProvider } from "../../services/admin.service";
 import { useLoading } from "../../context/LoadingContext";
 import Spinner from "../common/Spinner";
 
-const AddProviderModal = ({ isOpen, onClose }) => {
+const AddProviderModal = ({ isOpen, onClose, users }) => {
   const { loading, setLoading } = useLoading();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [query, setQuery] = useState("");
+  const [filtered, setFiltered] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     specialization: "",
@@ -56,6 +59,26 @@ const AddProviderModal = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+
+    const result = users.filter(
+      (u) =>
+        u.role === "USER" &&
+        u.email.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setFiltered(result);
+    setShowDropdown(true);
+  };
+
+  const handleSelect = (email) => {
+    setQuery(email);
+    setShowDropdown(false);
+  };
+
+
   return (
     <div
       className="fixed inset-0 bg-black/30 flex items-center justify-center z-50"
@@ -69,12 +92,31 @@ const AddProviderModal = ({ isOpen, onClose }) => {
         <h2 className="text-xl font-bold mb-4">Add Provider</h2>
 
         <div className="flex flex-col gap-3">
-          <input
-            name="email"
-            placeholder="Email"
-            onChange={handleChange}
-            className="border border-gray-300 rounded-lg px-3 py-2"
-          />
+          <div className="relative w-full max-w-md">
+      {/* Input */}
+      <input
+        type="text"
+        value={query}
+        onChange={handleEmailChange}
+        placeholder="Select user email..."
+        className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
+      />
+
+      {/* Dropdown */}
+      {showDropdown && filtered.length > 0 && (
+        <div className="absolute w-full bg-white border rounded-lg mt-1 shadow-lg z-10 max-h-40 overflow-y-auto">
+          {filtered.map((item, index) => (
+            <div
+              key={index}
+              onClick={() => handleSelect(item.email)}
+              className="px-4 py-2 hover:bg-sky-50 cursor-pointer text-sm"
+            >
+              {item.email}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
 
           <input
             name="specialization"

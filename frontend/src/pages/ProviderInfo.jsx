@@ -48,18 +48,18 @@ const ProviderInfo = () => {
     },
   ];
   return (
-    <div className="p-10 bg-gray-100 w-full h-screen">
+    <div className="p-10 bg-gray-100 w-full min-h-screen">
     {loading ? <Spinner/>: <div>
       <button className="text-sky-700 flex gap-2" onClick={() => navigate("/booking")}>
         <ArrowLeft />
         Providers
       </button>
       <h1 className="font-bold text-3xl my-5">Provider Information</h1>
-      <div className="flex bg-white shadow rounded-xl p-10 gap-10">
-        <div className=" w-1/4">
+      <div className="flex md:flex-row flex-col bg-white shadow rounded-xl p-10 gap-10">
+        <div className=" md:w-1/4">
           <ImageWithLoader src={provider?.users?.img_url} alt="Profile Image" className="w-56 h-56 rounded-full overflow-hidden border border-sky-600" />
         </div>
-        <div className="w-3/4">
+        <div className="md:w-3/4">
           <h2 className="font-bold text-2xl">{provider?.users?.name}</h2>
           <div className="text-gray-500 border-b border-gray-300 pb-5">{provider?.specialization}</div>
 

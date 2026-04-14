@@ -23,8 +23,8 @@ const Booking = () => {
         </span>
       </header>
 
-      <div className="flex items-center justify-center m-5 gap-3 border-b border-gray-300 pb-10">
-        <div className="flex gap-2 items-center">
+      <div className="flex items-center justify-center mx-5 gap-3  pb-3 md:pb-10">
+        <div className="flex flex-col md:flex-row gap-2 items-center">
           <span
             className={`w-10 h-10 rounded-full   
               ${step == 1 ? "bg-sky-700 text-white" : "bg-gray-200"}
@@ -33,12 +33,12 @@ const Booking = () => {
             {step > 1 ? <Check className="stroke-white w-6 h-6"/> : "1"}
           </span>
           <div className="flex flex-col">
-            <span className="font-bold">Select Provider</span>
-            <span className="text-xs text-gray-500">Choose a provider</span>
+            <span className="font-bold text-center">Select Provider</span>
+            <span className="hidden md:inline text-sm text-gray-500">Choose a provider</span>
           </div>
         </div>
         <div className="bg-gray-200 w-28 h-1"></div>
-        <div className="flex gap-2 items-center">
+        <div className="flex flex-col md:flex-row gap-2 items-center">
           <span
             className={`w-10 h-10 rounded-full 
               ${step == 2 ? "bg-sky-700 text-white" : "bg-gray-200"}
@@ -47,22 +47,22 @@ const Booking = () => {
             {step > 2 ? <Check className="stroke-white w-6 h-6" /> : "2"}
           </span>
           <div className="flex flex-col">
-            <span className="font-bold">Date & Time</span>
-            <span className="text-xs text-gray-500">
+            <span className="font-bold text-center">Date & Time</span>
+            <span className="text-sm hidden md:inline text-gray-500">
               Pick an available slot
             </span>
           </div>
         </div>
         <div className="bg-gray-200 w-28 h-1"></div>
-        <div className="flex gap-2 items-center">
+        <div className="flex flex-col md:flex-row gap-2 items-center">
           <span
             className={`w-10 h-10 rounded-full  py-2 px-4 ${step == 3 ? "bg-sky-700 text-white" : "bg-gray-200"}`}
           >
             3
           </span>
           <div className="flex flex-col">
-            <span className="font-bold">Confirm Booking</span>
-            <span className="text-xs text-gray-500">Review & confirm</span>
+            <span className="font-bold text-center">Confirm Booking</span>
+            <span className="text-sm hidden md:inline text-gray-500">Review & confirm</span>
           </div>
         </div>
       </div>

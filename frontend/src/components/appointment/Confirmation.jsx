@@ -5,7 +5,7 @@ import { reScheduleAppointment } from "../../services/appointment.service";
 import { useLoading } from "../../context/LoadingContext";
 import { showError, showSuccess } from "../../utils/toast";
 import ImageWithLoader from "../common/ImageWithLoader";
-import { Phone, Mail } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 const Confirmation = ({ slot, provider, setStep }) => {
   const { loading, setLoading } = useLoading();
@@ -40,24 +40,24 @@ const Confirmation = ({ slot, provider, setStep }) => {
   return (
     <div className=" rounded-lg mx-5 flex flex-col">
       <h2 className="text-teal-700 text-lg font-bold mb-5">Review Your Booking</h2>
-      <div className="flex justify-between border border-sky-600 rounded-lg bg-sky-50 p-5 ">
+      <div className="flex flex-col md:flex-row md:justify-between border border-sky-600 rounded-lg bg-sky-50 p-3 md:p-5 ">
         
         <div className="flex">
           <ImageWithLoader src={provider?.users?.img_url} alt="profile image" className="w-14 h-14 rounded-full overflow-hidden border border-sky-700"/>
-          <div className="flex flex-col border-r border-sky-300 px-5">
-          <span className="font-bold">{provider?.users?.name}</span>
-          <span className="text-sm text-gray-500">{provider?.specialization}</span>
+          <div className="flex flex-col border-r border-sky-300 px-3 md:px-5">
+          <span className="text-sm md:text-base font-bold">{provider?.users?.name}</span>
+          <span className="text-xs md:text-sm text-gray-500">{provider?.specialization}</span>
         </div>
 
         <div className="flex flex-col px-5">
-          <span className="flex gap-2 items-center"><Phone className="w-4 h-4"/>{provider?.users?.contact}</span>
-          <span className="flex gap-2 items-center"><Mail className="w-4 h-4"/>{provider?.users?.email}</span>
+          <span className="flex text-sm md:text-base gap-2 items-center"><Phone className="md:w-4 md:h-4 w-3 h-3"/>{provider?.users?.contact}</span>
+          <span className="flex text-sm md:text-base gap-2 items-center"><Mail className="md:w-4 md:h-4 w-3 h-3"/>{provider?.users?.email}</span>
         </div>
         </div>
 
-        <div className="flex flex-col">
-          <span>{provider?.experience_years} yrs exp</span>
-          <span>{provider?.area}{", "} {provider?.city}</span>
+        <div className="flex md:flex-col mt-3 gap-5 md:gap-0 md:mt-0">
+          <span className="md:text-base text-sm">{provider?.experience_years} yrs exp</span>
+          <span className="md:text-base text-sm flex gap-1 items-center"><MapPin className="w-4 h-4"/>{provider?.area}{", "} {provider?.city}</span>
         </div>
 
 

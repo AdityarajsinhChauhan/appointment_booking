@@ -41,27 +41,32 @@ const ManageProviders = () => {
       <AddProviderModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
+        users={users}
       />
 
-      <header className='p-5 flex justify-between'>
-        <h1 className='font-bold text-3xl'>Manage Providers</h1>
-        <button
-          onClick={() => setIsOpen(true)}
-          className='bg-black text-white rounded-lg px-3 py-1 '
-        >
-          Add Provider
-        </button>
-      </header>
+      {/* Header */}
+  <div className="flex justify-between items-center mb-6 p-6">
+    <div>
+      <h1 className="text-3xl font-bold text-gray-800">Manage Providers</h1>
+      <p className="text-gray-500 text-sm">
+        Manage all users and providers in one place
+      </p>
+    </div>
+
+    <button onClick={()=>setIsOpen(true)} className="bg-sky-700 text-white px-5 py-2 rounded-lg shadow hover:opacity-90 transition">
+       Add Provider
+    </button>
+  </div>
 
        <div className="px-5 flex gap-3 mb-4">
         {["ALL", "PROVIDER", "USER"].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-1 rounded-lg border transition ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
               activeTab === tab
-                ? "bg-black text-white"
-                : "bg-white text-gray-700"
+                ? "bg-teal-700 text-white shadow"
+                : "bg-gray-100 text-gray-600 hover:bg-teal-50"
             }`}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}

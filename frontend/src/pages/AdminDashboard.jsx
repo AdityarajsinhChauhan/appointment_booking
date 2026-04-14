@@ -55,14 +55,14 @@ const AdminDashboard = () => {
 
       {/* Main cards */}
 
-      <div className="flex gap-5 flex-wrap mx-5">
+      <div className="grid md:grid-cols-4 grid-cols-2 gap-5 flex-wrap mx-5">
         {cardInfo.map((item)=>(<CardWithIcon  title={item.title} text={item.text}  Icon={item.Icon}  darkColor={item.darkColor} lightColor={item.lightColor} />))}
       </div>
 
       {/* Admin cards */}
 
-      <div className="flex my-5 mx-5 gap-5">
-        <div className="flex gap-3 flex-col items-start w-[45%] border transition-all duration-150 border-gray-300 rounded-lg p-5 group hover:border-teal-600">
+      <div className="grid md:grid-cols-2 gird-cols-1  my-5 mx-5 gap-5">
+        <div className="flex gap-3 flex-col items-start border transition-all duration-150 border-gray-300 rounded-lg p-5 group hover:border-teal-600">
           <h2 className="text-lg font-bold text-sky-700">Quick Actions</h2>
           <button
             onClick={() => navigate("/manageProviders")}
@@ -77,7 +77,7 @@ const AdminDashboard = () => {
             View All Appointments
           </button>
         </div>
-        <div className="w-[45%] border border-gray-300 rounded-lg p-5">
+        <div className=" border border-gray-300 rounded-lg p-5">
           <h2 className="text-lg font-bold mb-5 text-sky-700">System Status</h2>
           <div className="flex justify-between my-2">
             <span>API Status</span>
@@ -94,43 +94,7 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Recent Appointments */}
-
-      <h2 className="text-2xl font-bold m-5">Recent Appointments</h2>
-
-      <div className="w-[96%] mx-5 border border-gray-300 rounded-xl flex flex-col p-5 mt-5">
-        <div className="flex justify-between">
-          <div className="flex flex-col">
-            <h3 className="text-lg font-bold">Consultation</h3>
-            <span className="text-gray-500 border-b border-gray-300 pb-5">
-              Dr. Sarah Joshi
-            </span>
-          </div>
-          <span className="bg-blue-100 text-blue-800 rounded-full px-2 h-fit">
-            Scheduled
-          </span>
-        </div>
-        <span className="mt-4 flex gap-2">
-          <Calendar />
-          Nov 15, 2014
-        </span>
-        <span className="mt-4 flex gap-2">
-          <Clock />
-          10:00 to 10:30
-        </span>
-        <span className="mt-4 flex gap-2">
-          <MapPin />
-          Office building A, romm 201
-        </span>
-        <div className="w=96% pt-5 border-t mt-5 border-gray-300">
-          <button className="w-1/2 border border-gray-300 rounded-lg py-1">
-            Reschedule
-          </button>
-          <button className="w-1/2 border border-gray-300 rounded-lg py-1 text-red-600">
-            Cancel
-          </button>
-        </div>
-      </div>
+      
     </div>
   );
 };

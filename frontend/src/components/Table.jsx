@@ -1,61 +1,77 @@
 import { Trash2 } from "lucide-react";
+import { useNavigate } from "react-router";
 
 const Table = ({ data }) => {
+  const navigate = useNavigate();
+
 
   return (
-    <div className="p-5">
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <table className="w-full text-sm text-left">
-          
-          {/* Header */}
-          <thead className="bg-gray-50 border-b border-gray-200">
-            <tr>
-              <th className="px-6 py-3 font-medium text-gray-600">Name</th>
-              <th className="px-6 py-3 font-medium text-gray-600">Email</th>
-              <th className="px-6 py-3 font-medium text-gray-600">Specialization</th> 
-              <th className="px-6 py-3 font-medium text-gray-600">Experience</th>  
-              <th className="px-6 py-3 font-medium text-gray-600">Role</th>
-              <th className="px-6 py-3 font-medium text-gray-600 text-center">Action</th>
-            </tr>
-          </thead>
+    <div className="p-6 w-full">
 
-          {/* Body */}
-          <tbody>
-            {data.map((item) => (
-              
-              <tr
-                key={item.id}
-                className="border-b border-gray-100 hover:bg-gray-50 transition"
-              >
-                <td className="px-6 py-4 font-medium text-gray-800">
-                  {item.name}
-                </td>
-                <td className="px-6 py-4 text-gray-600">
-                  {item.email}
-                </td>
-                <td className="px-6 py-4 text-gray-600">
-                  {/* {item.providers.specialization} */}
-                </td>
-                <td className="px-6 py-4 text-gray-600">
-                  {/* {item.providers.experience_years} */}
-                </td>
-                <td className="px-6 py-4 text-gray-600">
-                  {item.role}
-                </td>
-
-                {/* Delete Action */}
-                <td className="px-6 py-4 flex justify-center">
-                  <button className="p-2 rounded-lg hover:bg-red-50 transition">
-                    <Trash2 className="w-4 h-4 text-red-500" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-
-        </table>
+  {/* Scroll Wrapper */}
+  <div className="overflow-x-auto">
+    
+    <div className="min-w-[700px] bg-white rounded-xl shadow border border-gray-100 overflow-hidden">
+      
+      {/* Table Header */}
+      <div className="grid grid-cols-6 bg-gray-50 px-6 py-3 text-sm font-semibold border-b border-gray-300 text-gray-600">
+        <span>Name</span>
+        <span>Email</span>
+        <span>Contact</span>
+        <span>Role</span>
+        <span className="text-center">View</span>
+        <span className="text-center">Action</span>
       </div>
+
+      {/* Rows */}
+      {data.map((item) => (
+        <div
+          key={item.id}
+          className="grid grid-cols-6 items-center px-6 py-4 hover:bg-gray-50 transition"
+        >
+          <div className="font-medium text-gray-800">{item.name}</div>
+          <div className="text-gray-500 text-sm">{item.email}</div>
+          <div className="text-gray-500 text-sm">{item.contact}</div>
+
+          <div>
+            <span
+              className={`px-3 py-1 text-xs rounded-full font-medium ${
+                item.role === "ADMIN"
+                  ? "bg-purple-100 text-purple-600"
+                  : item.role === "PROVIDER"
+                  ? "bg-teal-100 text-teal-600"
+                  : "bg-sky-100 text-sky-600"
+              }`}
+            >
+              {item.role}
+            </span>
+          </div>
+
+          <div className="text-center">
+            {item.role === "PROVIDER" ? (
+              <button
+                onClick={() =>
+                  navigate(`/provider/${item?.providers?.id}`)
+                }
+                className="text-sky-600 hover:underline text-sm"
+              >
+                View More
+              </button>
+            ) : (
+              <span className="text-gray-400 text-sm">—</span>
+            )}
+          </div>
+
+          <div className="text-center">
+            <button className="text-red-500 hover:text-red-700">
+              <Trash2 />
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
+  </div>
+</div>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CardWithIcon from "../components/common/CardWithIcon";
-import { LockOpen, Calendar, Clock } from "lucide-react";
+import { Calendar } from "lucide-react";
 import BlackButton from "../components/common/BlackButton";
 import SlotForm from "../components/SlotForm";
 import { getSlotsByProvider } from "../services/slot.service";
@@ -51,41 +51,18 @@ const ManageSlots = () => {
 
   const groupedSlots = groupSlotsByDate(slots);
 
-  const cardInfo = [
-    {
-      title: "Total Slots",
-      number: "3",
-      Icon: Calendar,
-    },
-    {
-      title: "Available",
-      number: "5",
-      Icon: LockOpen,
-    },
-    {
-      title: "Booked",
-      number: "8",
-      Icon: Clock,
-    },
-  ];
+  
   return (
     <div>
-      <header className="flex justify-between p-5">
+      <header className="flex gap-3 m-5 items-center border-b pb-3 border-gray-300">
+        <span className="bg-teal-50 rounded-full p-2"><Calendar className="w-7 h-7 stroke-teal-700"/></span>
         <div>
-          <h1 className="font-bold text-3xl ">Manage Slots</h1>
+          <h1 className="font-bold text-3xl text-teal-700 ">Manage Slots</h1>
           <span>Create and manage your availability</span>
         </div>
       </header>
 
-      {loading ? <Spinner/> : <div className="flex w-full gap-5 px-5 mt-10">
-        {cardInfo.map((item) => (
-          <CardWithIcon
-            title={item.title}
-            number={item.number}
-            Icon={item.Icon}
-          />
-        ))}
-      </div>}
+     
 
       <SlotForm />
 

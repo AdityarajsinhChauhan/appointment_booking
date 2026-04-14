@@ -46,8 +46,8 @@ class ProviderService {
     const slots = await providerRepo.getSlotsByProviderId(provider.id);
     const updatedSlots = slots.map((slot) => ({
       ...slot,
-      start_time: convertToIST(slot.start_time),
-      end_time: convertToIST(slot.end_time),
+      start_time: slot.start_time,
+      end_time: slot.end_time,
     }));
 
     return updatedSlots;

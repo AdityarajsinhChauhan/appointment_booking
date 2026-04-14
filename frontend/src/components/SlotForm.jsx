@@ -4,15 +4,16 @@ import WhiteButton from "./common/WhiteButton";
 import { createSlot } from "../services/slot.service";
 import { useLoading } from "../context/LoadingContext";
 import { showSuccess, showError } from "../utils/toast";
+import { Info, Plus, RefreshCcw } from "lucide-react";
 
 const SlotForm = () => {
-  const { loading , setLoading } = useLoading();
+  const { loading, setLoading } = useLoading();
 
   const today = new Date();
-const maxDate = new Date();
-maxDate.setDate(today.getDate() + 30);
+  const maxDate = new Date();
+  maxDate.setDate(today.getDate() + 30);
 
-const formatDate = (date) => date.toISOString().split("T")[0];
+  const formatDate = (date) => date.toISOString().split("T")[0];
   const [mode, setMode] = useState("multi");
 
   const [formData, setFormData] = useState({
@@ -40,14 +41,13 @@ const formatDate = (date) => date.toISOString().split("T")[0];
 
   // submit
   const handleSubmit = async () => {
-
     const today = new Date();
-const maxDate = new Date();
-maxDate.setDate(today.getDate() + 30);
+    const maxDate = new Date();
+    maxDate.setDate(today.getDate() + 30);
 
-const formatDate = (date) => date.toISOString().split("T")[0];
+    const formatDate = (date) => date.toISOString().split("T")[0];
     try {
-      setLoading(true)
+      setLoading(true);
       const startISO = buildISO(formData.date, formData.start_time);
       const endISO = buildISO(formData.date, formData.end_time);
 
@@ -78,11 +78,10 @@ const formatDate = (date) => date.toISOString().split("T")[0];
         end_time: "",
         slot_duration: "",
       });
-
     } catch (err) {
       console.error(err);
       alert(err.message || "Error creating slot");
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -97,19 +96,25 @@ const formatDate = (date) => date.toISOString().split("T")[0];
   };
 
   return (
-    <div className="border border-gray-300 rounded-xl p-6 mx-5 my-5 bg-white">
-      
+    <div className="border transition-all duration-150 group hover:border-sky-700 hover:bg-sky-50 border-gray-300 rounded-xl p-3 md:p-6 mx-3 md:mx-5 my-3 md:my-5 bg-white shadow">
       {/* Header */}
-      <header className="flex justify-between items-center mb-6">
-        <h2 className="text-lg font-semibold">Create New Slot</h2>
+      <header className="flex items-center mb-6 justify-between">
+        <h2 className="text-lg font-medium w-3/4">
+          <div className=" bg-yellow-50 flex items-center gap-2 px-3 py-1 rounded-lg border border-yellow-400 ">
+            <Info className="w-6 h-6 fill-yellow-600 stroke-yellow-50" />
+            <span className="text-xs md:text-sm">
+              Create slots for the next 30 days (including today)
+            </span>
+          </div>
+        </h2>
 
-        <div className="flex">
+        <div className="flex gap-1 md:gap-2">
           <button
             onClick={() => setMode("single")}
-            className={`py-1 px-4 border rounded-l-lg ${
+            className={`transition-all md:text-base text-xs duration-150 py-1 px-2 md:px-4 border-2 font-bold cursor-pointer rounded-lg ${
               mode === "single"
-                ? "bg-black text-white border-black"
-                : "border-gray-300 text-gray-600"
+                ? "bg-white text-sky-700 border-sky-700"
+                : "border-gray-300 bg-gray-100 text-black hover:bg-sky-50"
             }`}
           >
             Single Slot
@@ -117,10 +122,10 @@ const formatDate = (date) => date.toISOString().split("T")[0];
 
           <button
             onClick={() => setMode("multi")}
-            className={`py-1 px-4 border rounded-r-lg ${
+            className={`transition-all md:text-base text-xs duration-150 py-1 px-2 md:px-4 border-2 font-bold rounded-lg cursor-pointer ${
               mode === "multi"
-                ? "bg-black text-white border-black"
-                : "border-gray-300 text-gray-600"
+                ? "bg-white group-hover:bg-sky-50 text-sky-700 border-sky-700"
+                : "border-gray-300 bg-gray-100 text-black hover:bg-sky-50"
             }`}
           >
             Multi Slot
@@ -128,23 +133,19 @@ const formatDate = (date) => date.toISOString().split("T")[0];
         </div>
       </header>
 
-      <p className="text-sm text-gray-500 mb-2">
-  ⚠️ You can only create slots for the next 30 days (including today)
-</p>
-
       {/* Row 1 */}
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="flex flex-col">
           <label className="text-sm mb-1">Date</label>
           <input
-  type="date"
-  name="date"
-  value={formData.date}
-  onChange={handleChange}
-  min={formatDate(today)}
-  max={formatDate(maxDate)}
-  className="border border-gray-300 rounded-lg px-3 py-2"
-/>
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            min={formatDate(today)}
+            max={formatDate(maxDate)}
+            className="transition-all duration-150 group-hover:border-sky-700 border bg-white border-gray-300 rounded-lg px-3 py-2"
+          />
         </div>
 
         <div className="flex flex-col">
@@ -154,7 +155,7 @@ const formatDate = (date) => date.toISOString().split("T")[0];
             name="start_time"
             value={formData.start_time}
             onChange={handleChange}
-            className="border border-gray-300 rounded-lg px-3 py-2"
+            className="transition-all duration-150 bg-white group-hover:border-sky-700 border border-gray-300 rounded-lg px-3 py-2"
           />
         </div>
       </div>
@@ -168,7 +169,7 @@ const formatDate = (date) => date.toISOString().split("T")[0];
             name="end_time"
             value={formData.end_time}
             onChange={handleChange}
-            className="border border-gray-300 rounded-lg px-3 py-2"
+            className="transition-all duration-150 bg-white group-hover:border-sky-700 border border-gray-300 rounded-lg px-3 py-2"
           />
         </div>
 
@@ -179,10 +180,10 @@ const formatDate = (date) => date.toISOString().split("T")[0];
             value={formData.slot_duration}
             onChange={handleChange}
             disabled={mode === "single"}
-            className={`border rounded-lg px-3 py-2 ${
+            className={`transition-all duration-150 group-hover:border-sky-700 border rounded-lg px-3 py-2 ${
               mode === "single"
-                ? "bg-gray-100 border-gray-200"
-                : "border-gray-300"
+                ? "bg-gray-100 cursor-no-drop border-gray-200"
+                : "border-gray-300 bg-white"
             }`}
           >
             <option value="">Select</option>
@@ -196,15 +197,27 @@ const formatDate = (date) => date.toISOString().split("T")[0];
       </div>
 
       {/* Buttons */}
-      <div className="flex gap-4">
-        {loading ? <div className="flex-1">
-            <BlackButton title=".Saving..."/>
-        </div> : <div onClick={handleSubmit} className="flex-1">
-            <BlackButton title="Create Slot"/>
-        </div>}
-        <div onClick={handleReset} className="flex-1">
-          <WhiteButton title="Reset Form" textColor="black" />
-        </div>
+      <div className="flex justify-between">
+        {loading ? (
+          <div className="flex">
+            <button className="transition-all duration-150 bg-white border border-sky-700 text-sky-700 px-7 py-2 rounded-lg cursor-no-drop">Saving...</button>
+          </div>
+        ) : (
+          <button
+            onClick={handleSubmit}
+            className="transition-all duration-150 border cursor-pointer border-sky-700 bg-sky-700 text-white flex items-center gap-1 px-7 py-2 rounded-lg hover:bg-sky-50 hover:text-sky-700"
+          >
+            <Plus className="w-5 h-5"/>
+            <span>Create Slot</span>
+          </button>
+        )}
+        <button
+          onClick={handleReset}
+          className="transition-all duration-150 bg-white-700 text-teal-700 border border-teal-700 flex gap-1 items-center px-7 py-2 rounded-lg cursor-pointer hover:bg-teal-700 hover:text-white"
+        >
+          <RefreshCcw className="w-5 h-5"/>
+          <span>Reset Form</span>
+        </button>
       </div>
     </div>
   );

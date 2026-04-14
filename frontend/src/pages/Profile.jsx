@@ -87,7 +87,7 @@ const Profile = () => {
 
   const { user } = useAuth();
   return (
-    <div className="px-72 bg-gray-50">
+    <div className="md:px-72 px-5 bg-gray-50">
       <header className="p-5">
         <h1 className="font-bold text-3xl text-teal-700">Profile</h1>
         <span>Manage your account information</span>
@@ -230,11 +230,9 @@ const Profile = () => {
       <div className="flex transition-all duration-150 hover:border-sky-600 flex-col border border-red-600 rounded-xl mt-5 p-5 shadow-md hover:bg-linear-to-br from-sky-50 via-white to-white">
         <h2 className="text-xl font-bold text-red-600 mb-5">Danger Zone</h2>
 
-        <WhiteButton
-          title="Delete Account"
-          textColor="red-600"
-          onClick={() => showError("cannot edit details for now")}
-        />
+        <button
+        onClick={()=>showError("Can't delete account for now!")}
+        className="border border-gray-300 py-1 px-3 rounded-lg text-red-700 hover:border-red-700 hover:bg-red-50 cursor-pointer">Delete</button>
       </div>
     </div>
   );

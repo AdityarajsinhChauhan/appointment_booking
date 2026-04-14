@@ -1,83 +1,128 @@
-import React from 'react'
-import { Calendar, Clock, MapPin } from "lucide-react";
-import { formatDate ,formatTimeRange } from '../utils/formatDate';
-import { useAppointments } from '../context/AppointmentContext';
-import { useNavigate } from 'react-router';
-import useAuth from '../hooks/useAuth';
-import { useLoading } from '../context/LoadingContext';
+import React from "react";
+import { Calendar, Clock, MapPin, Phone, Tag, ArrowRight } from "lucide-react";
+import { formatDate, formatTimeRange } from "../utils/formatDate";
+import { useAppointments } from "../context/AppointmentContext";
+import { useNavigate } from "react-router";
+import useAuth from "../hooks/useAuth";
+import { useLoading } from "../context/LoadingContext";
 
 const AppointmentCard = ({ appointment }) => {
-
-
-  const { handleCancelAppointment  } = useAppointments();
+  const { handleCancelAppointment } = useAppointments();
 
   const { loading } = useLoading();
 
   const { user } = useAuth();
 
-  console.log(appointment);
-
   const navigate = useNavigate();
 
   const getStatusStyles = (status) => {
-  switch (status) {
-    case "BOOKED":
-      return "bg-blue-100 text-blue-800";
+    switch (status) {
+      case "BOOKED":
+        return "bg-blue-100 text-blue-800";
 
-    case "COMPLETED":
-      return "bg-green-100 text-green-800";
+      case "COMPLETED":
+        return "bg-green-100 text-green-800";
 
-    case "CANCELLED":
-      return "bg-red-100 text-red-800";
+      case "CANCELLED":
+        return "bg-red-100 text-red-800";
 
-    default:
-      return "bg-gray-100 text-gray-800";
-  }
-};
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
 
-const handleReschedule = (id) => {
-  localStorage.setItem("appointmentId",id);
-  navigate('/booking');
-
-
-}
+  const handleReschedule = (id) => {
+    localStorage.setItem("appointmentId", id);
+    navigate("/booking");
+  };
 
   return (
-    <div className="w-[96%] group mx-5 border border-gray-300 rounded-xl flex flex-col p-5 mt-5 hover:bg-linear-to-br hover:border-sky-700 transition-all duration-150 from-sky-50 via-white to-white shadow hover:shadow-sky-200">
-        <div className="flex justify-between">
-          <div className="flex flex-col">
-            <h3 className="text-lg font-bold group-hover:text-sky-700">{appointment.users.name}</h3>
-          </div>
-          <span
-  className={`rounded-full px-2 h-fit text-sm font-medium ${getStatusStyles(
-    appointment.status
-  )}`}
->
-  {appointment.status}
-</span>
+    <div className="border transition-all duration-150 border-gray-300 shadow-md m-5 p-5 md:p-5 rounded-xl group hover:border-sky-700 hover:bg-sky-50">
+      <div className="flex justify-between border-b border-gray-300 pb-5">
+        <div>
+          <span className="transition-all duration-150 text-lg font-bold group-hover:text-sky-700 ">
+            {appointment?.providers?.users?.name}
+          </span>
+          <span className="transition-all duration-150 flex gap-1 items-center text-gray-500 group-hover:text-black">
+            <Tag className="w-4 h-4" />{" "}
+            <span>{appointment?.providers?.specialization}</span>
+          </span>
+          <span className="transition-all duration-150 flex gap-1 items-center text-gray-500 group-hover:text-black">
+            <MapPin className="w-4 h-4" />
+            <span>
+              {appointment?.providers?.area}
+              {", "}
+              {appointment?.providers?.city}
+            </span>
+          </span>
         </div>
-        <span className="mt-4 flex gap-2">
-          <Calendar />
-          {formatDate(appointment.slot.start_time)}
-        </span>
-        <span className="mt-4 flex gap-2">
-          <Clock />
-          
-    {formatTimeRange(appointment.slot.start_time,
-    appointment.slot.end_time)}
-        </span>
-        { appointment.status !== "CANCELLED" && user.role == "USER" && <div className="w=96% pt-5 border-t mt-5 border-gray-300">
-          <button onClick={()=>handleReschedule(appointment.id)} className="w-1/2 border cursor-pointer border-sky-700 bg-sky-700 text-white rounded-l-lg py-1 hover:bg-white hover:text-sky-700 transition-all duration-150">
-            Reschedule
-          </button>
-          {loading ? <button disabled className=" cursor-no-drop w-1/2 border border-red-600 rounded-r-lg py-1 text-red-600">
-            sending...
-          </button>: <button onClick={() => handleCancelAppointment(appointment.id)} className="w-1/2 border border-red-600 hover:bg-red-50  cursor-pointer rounded-r-lg py-1 text-red-600">
-            Cancel
-          </button>}
-        </div>}
+        <div
+          className={`rounded-full px-2 h-fit text-sm font-medium ${getStatusStyles(
+            appointment.status,
+          )}`}
+        >
+          {appointment.status}
+        </div>
       </div>
-  )
-}
+      <div className="p-2 md:py-5 border-b border-gray-300 flex gap-1 text-sm md:gap-10">
+        <span className="flex gap-2">
+          <Calendar className="stroke-sky-700" />
+          <span>{formatDate(appointment.slot.start_time)}</span>
+        </span>
+        <span className="flex gap-2">
+          <Clock className="stroke-sky-700" />
+          <span>
+            {formatTimeRange(
+              appointment.slot.start_time,
+              appointment.slot.end_time,
+            )}
+          </span>
+        </span>
+        <span className="flex gap-2">
+          <Phone className="stroke-sky-700" />
+          <span>9876543210</span>
+        </span>
+      </div>
 
-export default AppointmentCard
+      <div className="flex justify-end gap-3 pt-2 md:pt-5">
+        { appointment.status !== 'CANCELLED' && <>
+        <button
+          onClick={() => handleReschedule(appointment.id)}
+          className="transition-all items-center duration-150 text-sm md:text-base px-3 py-2 flex gap-2 text-white bg-sky-700 border border-sky-700 rounded-lg md:px-5 md:py-2 hover:bg-sky-50 hover:text-sky-700 cursor-pointer"
+        >
+          <Calendar className="w-5 h-5 md:inline hidden" />
+          <span>Reschdule</span>
+        </button>
+        {loading ? (
+          <button
+            disabled
+            className="transition-all duration-150 border border-e-red-700 text-red-700 px-2 py-1  md:px-5 md:py-2 rounded-lg cursor-no-drop"
+          >
+            Canceling...
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              const confirmed = window.confirm(
+                "Are you sure you want to cancel this appointment?",
+              );
+
+              if (confirmed) {
+                handleCancelAppointment(appointment.id);
+              }
+            }}
+            className="transition-all duration-150 border border-e-red-700 text-red-700 hover:bg-red-100 px-5 py-1 md:py-2 rounded-lg cursor-pointer"
+          >
+            Cancel
+          </button>
+        )}</>}
+        <button className=" transition-all duration-150 flex gap-2 items-center bg-sky-100 text-sky-700 px-5 py-1 md:py-2 rounded-lg cursor-pointer hover:bg-sky-700 hover:text-white">
+          <span>View Provider</span>
+          <ArrowRight className=" md:inline hidden w-5 h-5" />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default AppointmentCard;

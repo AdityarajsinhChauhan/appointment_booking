@@ -1,4 +1,13 @@
-import { Calendar, Clock, User, CheckCircle,BarChart, Users } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  User,
+  CheckCircle,
+  BarChart,
+  Users,
+  List,
+  CalendarPlus2,
+} from "lucide-react";
 import React, { use, useEffect, useMemo, useState } from "react";
 import CardWithIcon from "../components/common/CardWithIcon";
 import BlackButton from "../components/common/BlackButton";
@@ -32,24 +41,45 @@ const Dashboard = () => {
     console.log(appointments);
   }, [appointments]);
 
+  const now = new Date();
+
+// Total bookings (excluding cancelled optional)
+const totalBookings = appointments.filter(
+  (a) => a.status !== "CANCELLED"
+).length;
+
+// Upcoming appointments
+const upcoming = appointments.filter(
+  (a) =>
+    a.status !== "CANCELLED" &&
+    new Date(a.slot.start_time) > now
+).length;
+
+// Completed (past appointments)
+const completed = appointments.filter(
+  (a) =>
+    a.status !== "CANCELLED" &&
+    new Date(a.slot.start_time) < now
+).length;
+
   const cardInfo = [
     {
       Icon: Calendar,
-      title: 5,
+      title: upcoming,
       text: "Upcoming Appointments",
       darkColor: "bg-teal-700",
       lightColor: "bg-teal-50",
     },
     {
       Icon: CheckCircle,
-      title: 5,
+      title: completed,
       text: "Completed Appointments",
       darkColor: "bg-sky-700",
       lightColor: "bg-sky-50",
     },
     {
       Icon: BarChart,
-      title: 5,
+      title: totalBookings,
       text: "Total Bookings",
       darkColor: "bg-indigo-700",
       lightColor: "bg-indigo-50",
@@ -97,7 +127,7 @@ const Dashboard = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="flex w-full gap-5 px-5 mt-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 px-5 mt-10">
           {cardInfo.map((item) => (
             <CardWithIcon
               title={item.title}
@@ -110,23 +140,57 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* Upcoming Appointments */}
-
-      <div className="bg-gray-50 rounded-lg p-5 border border-gray-300 m-5">
-        <h2 className="p-1 font-bold text-lg text-teal-700">Quick Actions</h2>
-        <div className="flex">
-          <span className="w-3/5 p-1">
-          <button className="transiton-all duration-150 bg-sky-700 border border-sky-700 text-white w-full rounded-lg py-1 hover:bg-white hover:text-sky-700 cursor-pointer">Book Appointement</button></span>
-          <span className="w-2/5 p-1">
-          <button className="transiton-all duration-150 border border-teal-700 text-teal-700 rounded-lg w-full py-1 hover:bg-teal-700 hover:text-white cursor-pointer">View All Appointments</button></span>
-        </div>
-      </div>
-
-        <h2 className="text-xl font-bold text-sky-700 m-5">
-          Upcoming Appointments
+      {/* Quick actions */}
+        <h2 className=" pt-10 px-5 font-bold text-lg text-teal-700">
+          Quick Actions
         </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 p-3">
+          <span className=" p-3">
+            <button className="flex items-center gap-3 transition-all duration-150 bg-sky-700 border border-sky-700 text-white w-full rounded-lg px-4 py-3 hover:bg-white hover:text-sky-700 cursor-pointer">
+              <CalendarPlus2 className="w-7 h-7" />
 
-      {appointments && (
+              <div className="flex flex-col items-start text-left">
+                <span className="text font-medium">Book Appointment</span>
+                <span className="text-gray-100 hover:text-sky-600">
+                  Find and book an appointment
+                </span>
+              </div>
+            </button>
+          </span>
+          <span className=" p-3">
+            <button className="flex items-center gap-3 transition-all duration-150 hover:bg-sky-700 border border-sky-700 hover:text-white w-full rounded-lg px-4 py-3 bg-white text-sky-700 cursor-pointer">
+              <List className="w-7 h-7" />
+
+              <div className="flex flex-col items-start text-left">
+                <span className="text font-medium">Your Appointments</span>
+                <span className="text-gray-500">
+                  View upcoming & past bookings
+                </span>
+              </div>
+            </button>
+          </span>
+
+          <span className="p-3">
+            <button className="flex items-center gap-3 transition-all duration-150 hover:bg-sky-700 border border-sky-700 hover:text-white w-full rounded-lg px-4 py-3 bg-white text-sky-700 cursor-pointer">
+              <User className="w-7 h-7" />
+
+              <div className="flex flex-col items-start text-left">
+                <span className="text font-medium">Profile</span>
+                <span className="text-gray-500">
+                  Update your info 
+                </span>
+              </div>
+            </button>
+          </span>
+        </div>
+
+        {/* Upcoming Appointments */}
+
+      <h2 className="text-xl font-bold text-sky-700 m-5">
+        Upcoming Appointments
+      </h2>
+
+      {!appointments && (
         <div className="border font-bold hover:text-sky-700 cursor-pointer border-gray-300 hover:border-sky-600 m-5 rounded-lg p-5 hover:bg-linear-to-br from-sky-50 via-white to-white shadow hover:shadow-sky-100">
           No appointments
         </div>

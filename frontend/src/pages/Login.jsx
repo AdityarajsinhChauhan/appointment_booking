@@ -4,7 +4,8 @@ import { loginUser } from "../services/auth.service";
 import useAuth from "../hooks/useAuth";
 import { useLoading } from "../context/LoadingContext";
 import { showError, showSuccess } from "../utils/toast";
-import BookEaseIcon from "../components/common/BookEaseIcon";
+import { CalendarClock } from "lucide-react";
+
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -67,12 +68,12 @@ const Login = () => {
 };
   return (
     <div className="w-screnn h-screen flex flex-col items-center bg-gray-50 pt-10">
-      <BookEaseIcon size={10}/>
+      <CalendarClock className="stroke-teal-700 w-10 h-10"/>
       <h1 className="text-3xl font-bold mt-3 mb-1"><span className="text-sky-700">Book</span> <span className="text-teal-700">Ease</span></h1>
       <div className="text-gray-600 mb-10">Appointment Scheduling</div>
       <form
         onSubmit={handleSubmit}
-        className="border border-gray-300 rounded-xl flex flex-col p-10 bg-white shadow-lg shadow-sky-100"
+        className="border border-gray-300 rounded-xl flex flex-col md:mx-0 mx-14 p-10 bg-white shadow-lg shadow-sky-100"
       >
         <h2 className="text-lg font-bold text-sky-700">Welcome Back</h2>
         <div className="text-gray-500 mb-7 text-sm">

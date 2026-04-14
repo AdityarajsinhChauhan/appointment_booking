@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/auth.service";
 import { useLoading } from "../context/LoadingContext";
 import { showError, showSuccess } from "../utils/toast";
-import BookEaseIcon from "../components/common/BookEaseIcon";
+import { CalendarClock } from "lucide-react";
 
 import React from "react";
 
@@ -69,13 +69,13 @@ const { loading , setLoading } = useLoading();
 };
 
   return (
-    <div className="w-screnn h-screen flex pt-10 flex-col items-center bg-gray-100">
-      <BookEaseIcon size={10}/>
+    <div className="w-screen min-h-screen flex pt-10 flex-col items-center bg-gray-100">
+      <CalendarClock className="w-10 h-10 stroke-teal-700"/>
       <h1 className="text-3xl font-bold mt-2"><span className="text-sky-700">Book</span> <span className="text-teal-700">Ease</span></h1>
       <div className="text-gray-600">Create your account</div>
       <form
         onSubmit={handleSubmit}
-        className="border border-gray-300 rounded-xl flex flex-col p-10 bg-white w-[30%] my-5 shadow-lg shadow-sky-100"
+        className="border border-gray-300 rounded-xl flex flex-col p-10 bg-white my-5 shadow-lg shadow-sky-100"
       >
         <h2 className='text-lg font-bold text-teal-700'>Get Started</h2>
         <div className='text-gray-500 mb-7 text-sm'>Join our appointment booking platform</div>

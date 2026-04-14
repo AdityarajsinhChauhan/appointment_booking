@@ -6,16 +6,17 @@ import {
   Clock,
   Settings,
   User,
+  X,
+  CalendarClock
 } from "lucide-react";
 import useAuth from "../hooks/useAuth";
 import { sidebarMenu } from "../utils/sidebarConfig";
-import BookEaseIcon from "./common/BookEaseIcon";
 import ImageWithLoader from "./common/ImageWithLoader";
 import { LogOut } from "lucide-react";
 
-const Sidebar = () => {
+const Sidebar = ({ setIsSidebarOpen }) => {
   const navigate = useNavigate();
-  const location = useLocation(); // ✅ NEW
+  const location = useLocation(); 
 
   const { user, logout } = useAuth();
 
@@ -26,7 +27,9 @@ const Sidebar = () => {
   );
 
   const handleClick = (path) => {
-    navigate(path); // ❌ removed setActive
+    setIsSidebarOpen(false);
+    navigate(path);
+
   };
 
   const handleLogout = async () => {
@@ -35,12 +38,15 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="p-5">
-      <h2 className="px-3 text-2xl font-bold flex items-center">
-        <BookEaseIcon size={10} />
+    <div className=" p-5">
+      <div className="flex justify-between items-center px-2">
+        <h2 className="px-3 text-2xl font-bold flex items-center">
+        <CalendarClock className="w-10 h-10"/>
         <span className="text-sky-700 ml-3">Book</span>{" "}
         <span className="text-teal-700">Ease</span>
       </h2>
+      <X onClick={() => setIsSidebarOpen(false)} className="bg-red-100 stroke-red-700 rounded-full p-1 border md:hidden border-red-700"/>
+      </div>
 
       <div className="flex gap-3 my-7">
         <ImageWithLoader
@@ -77,13 +83,15 @@ const Sidebar = () => {
         })}
       </div>
 
-      <button
+      <div className="bottom-0 fixed left-0 w-full p-5">
+        <button
         onClick={handleLogout}
-        className="fixed flex justify-center items-center gap-3 transtiion-all duration-150 bottom-5 left-5 border bg-white font-bold text-red-700 cursor-pointer hover:bg-red-100 border-gray-300 hover:border-red-700 rounded-lg w-[17%] px-3 py-1"
+        className=" flex justify-center items-center gap-3 transtiion-all duration-150  border bg-white font-bold text-red-700 cursor-pointer hover:bg-red-100 border-gray-300 hover:border-red-700 rounded-lg w-full py-1"
       >
         <LogOut className="w-4 h-4"/>
         <span>Logout</span>
       </button>
+      </div>
     </div>
   );
 };

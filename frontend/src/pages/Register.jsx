@@ -75,7 +75,7 @@ const { loading , setLoading } = useLoading();
       <div className="text-gray-600">Create your account</div>
       <form
         onSubmit={handleSubmit}
-        className="border border-gray-300 rounded-xl flex flex-col p-10 bg-white my-5 shadow-lg shadow-sky-100"
+        className="border md:w-1/3 border-gray-300 rounded-xl flex flex-col p-10 bg-white my-5 shadow-lg shadow-sky-100"
       >
         <h2 className='text-lg font-bold text-teal-700'>Get Started</h2>
         <div className='text-gray-500 mb-7 text-sm'>Join our appointment booking platform</div>

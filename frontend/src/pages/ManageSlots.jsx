@@ -64,7 +64,7 @@ const ManageSlots = () => {
 
      
 
-      <SlotForm />
+      <SlotForm slots={slots} setSlots={setSlots} />
 
       <h2 className="m-5 font-bold text-xl">Your Availability Slots</h2>
 

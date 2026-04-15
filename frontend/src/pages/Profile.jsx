@@ -48,6 +48,9 @@ const Profile = () => {
     const data = getUpdatedData(formData);
     try {
       const res = await updateUser(data);
+      if(res){
+        setUser({...user,...data})
+      }
       console.log(res);
       showSuccess("details Updated");
       
@@ -85,7 +88,7 @@ const Profile = () => {
 
   }
 
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   return (
     <div className="md:px-72 px-5 bg-gray-50">
       <header className="p-5">

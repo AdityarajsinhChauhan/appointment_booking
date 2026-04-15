@@ -1,7 +1,7 @@
 const { z } = require("zod");
 
 const createProviderSchema = z.object({
-  email: z.string().email("Invalid email format"),
+  email: z.string().trim().email("Invalid email format"),
   specialization: z
     .string()
     .min(2, "Specialization must be at least 2 characters"),

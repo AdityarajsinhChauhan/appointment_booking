@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import { logoutUser } from "../services/auth.service";
+import { useEffect } from "react";
 
 export const AuthContext = createContext();
 
@@ -8,6 +9,11 @@ export const AuthProvider = ({ children }) => {
     const storedUser = localStorage.getItem("user");
     return storedUser ? JSON.parse(storedUser) : null;
   });
+
+  useEffect(() => {
+    localStorage.setItem("user",JSON.stringify(user));
+  }, [user])
+  
 
   const login = (data) => {
     const payload = data.data
@@ -33,7 +39,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user,setUser,  login, logout }}>
       {children}
     </AuthContext.Provider>
   );

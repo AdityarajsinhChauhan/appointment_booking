@@ -14,7 +14,7 @@ createRoot(document.getElementById("root")).render(
       <BrowserRouter>
       <LoadingProvider>
         <AuthProvider>
-          <AppointmentProvider>
+            <AppointmentProvider>
             <App />
           </AppointmentProvider>
         </AuthProvider>

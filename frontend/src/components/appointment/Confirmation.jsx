@@ -6,9 +6,11 @@ import { useLoading } from "../../context/LoadingContext";
 import { showError, showSuccess } from "../../utils/toast";
 import ImageWithLoader from "../common/ImageWithLoader";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { useNavigate } from "react-router";
 
 const Confirmation = ({ slot, provider, setStep }) => {
   const { loading, setLoading } = useLoading();
+  const navigate = useNavigate();
 
   const appointmentId = localStorage.getItem("appointmentId");
   const handleClick = async () => {
@@ -20,11 +22,16 @@ const Confirmation = ({ slot, provider, setStep }) => {
         res = await reScheduleAppointment(appointmentId, slot.id);
         if (res) {
           localStorage.removeItem("appointmentId");
+          navigate("/appointment")
         }
         showSuccess("Slot Booked")
       } else {
         res = await createAppointment(slot.id);
         showSuccess("Slot Booked")
+        if(res){
+          navigate("/appointment")
+          
+        }
       }
       console.log(res);
     } catch (err) {
@@ -76,20 +83,20 @@ const Confirmation = ({ slot, provider, setStep }) => {
       <div className="flex gap-5 mt-5  p-2 ">
         <button
           onClick={() => setStep(2)}
-          className="w-44 bg-black text-white cursor-pointer py-1 px-5 font-bold rounded-lg"
+          className="w-44 transition-all duration-150 text-teal-700 border border-teal-700 hover:bg-teal-700 hover:text-white cursor-pointer py-1 px-5 font-bold rounded-lg"
         >
           Back
         </button>
         {loading ? (
           <button
             disabled
-            className="w-44 border border-green-600 cursor-no-drop text-green-600  font-bold py-1 px-5 rounded-lg"
+            className="w-44 border border-sky-700 cursor-no-drop text-sky-700  font-bold py-1 px-5 rounded-lg"
           >
             Saving...
           </button>
         ) : (
           <button
-            className="w-44 border border-gray-300  font-bold py-1 px-5 rounded-lg cursor-pointer"
+            className="w-44 border border-sky-700 bg-sky-700 text-white hover:text-sky-700 hover:bg-white  font-bold py-1 px-5 rounded-lg cursor-pointer"
             onClick={() => handleClick()}
           >
             Book slot

@@ -4,6 +4,7 @@ const { convertToIST } = require("../utils/time.js");
 
 class ProviderService {
   async createProvider(dto) {
+    console.log(dto.email)
     const user = await providerRepo.findUserByEmail(dto.email);
 
     if (!user) {

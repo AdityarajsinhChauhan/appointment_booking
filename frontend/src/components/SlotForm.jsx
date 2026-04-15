@@ -6,7 +6,7 @@ import { useLoading } from "../context/LoadingContext";
 import { showSuccess, showError } from "../utils/toast";
 import { Info, Plus, RefreshCcw } from "lucide-react";
 
-const SlotForm = () => {
+const SlotForm = ({ slots, setSlots }) => {
   const { loading, setLoading } = useLoading();
 
   const today = new Date();
@@ -52,7 +52,7 @@ const SlotForm = () => {
       const endISO = buildISO(formData.date, formData.end_time);
 
       if (!startISO || !endISO) {
-        alert("Please fill all required fields");
+        showError("Please fill all required fields");
         return;
       }
 
@@ -61,7 +61,7 @@ const SlotForm = () => {
         end_time: endISO,
       };
 
-      // ✅ Only add slot_duration in multi mode
+      //  Only add slot_duration in multi mode
       if (mode === "multi" && formData.slot_duration) {
         payload.slot_duration = Number(formData.slot_duration);
       }
@@ -80,7 +80,7 @@ const SlotForm = () => {
       });
     } catch (err) {
       console.error(err);
-      alert(err.message || "Error creating slot");
+      showError(err.message || "Error creating slot");
     } finally {
       setLoading(false);
     }
@@ -200,14 +200,16 @@ const SlotForm = () => {
       <div className="flex justify-between">
         {loading ? (
           <div className="flex">
-            <button className="transition-all duration-150 bg-white border border-sky-700 text-sky-700 px-7 py-2 rounded-lg cursor-no-drop">Saving...</button>
+            <button className="transition-all duration-150 bg-white border border-sky-700 text-sky-700 px-7 py-2 rounded-lg cursor-no-drop">
+              Saving...
+            </button>
           </div>
         ) : (
           <button
             onClick={handleSubmit}
             className="transition-all duration-150 border cursor-pointer border-sky-700 bg-sky-700 text-white flex items-center gap-1 px-7 py-2 rounded-lg hover:bg-sky-50 hover:text-sky-700"
           >
-            <Plus className="w-5 h-5"/>
+            <Plus className="w-5 h-5" />
             <span>Create Slot</span>
           </button>
         )}
@@ -215,7 +217,7 @@ const SlotForm = () => {
           onClick={handleReset}
           className="transition-all duration-150 bg-white-700 text-teal-700 border border-teal-700 flex gap-1 items-center px-7 py-2 rounded-lg cursor-pointer hover:bg-teal-700 hover:text-white"
         >
-          <RefreshCcw className="w-5 h-5"/>
+          <RefreshCcw className="w-5 h-5" />
           <span>Reset Form</span>
         </button>
       </div>

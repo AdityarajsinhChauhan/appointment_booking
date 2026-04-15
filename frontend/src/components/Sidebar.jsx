@@ -28,6 +28,17 @@ const Sidebar = ({ setIsSidebarOpen }) => {
 
   const handleClick = (path) => {
     setIsSidebarOpen(false);
+    if (path === "/dashboard") {
+    if (user.role === "ADMIN") {
+      navigate("/adminDashboard");
+      return;
+    }
+
+    if (user.role === "PROVIDER") {
+      navigate("/providerDashboard");
+      return;
+    }
+  }
     navigate(path);
 
   };

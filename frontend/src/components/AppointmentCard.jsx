@@ -9,6 +9,7 @@ import { useLoading } from "../context/LoadingContext";
 const AppointmentCard = ({ appointment }) => {
   const { handleCancelAppointment } = useAppointments();
 
+
   const { loading } = useLoading();
 
   const { user } = useAuth();

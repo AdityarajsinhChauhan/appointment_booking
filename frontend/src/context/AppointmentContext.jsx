@@ -21,6 +21,11 @@ export const AppointmentProvider = ({ children }) => {
     }
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("appointments",JSON.stringify(appointments));
+  }, [appointments])
+  
+
 
   const fetchAppointments = async () => {
     try {
@@ -75,6 +80,7 @@ export const AppointmentProvider = ({ children }) => {
     <AppointmentContext.Provider
       value={{
         appointments,
+        setAppointments,
         setAppointments,
         fetchAppointments,
         handleCancelAppointment,

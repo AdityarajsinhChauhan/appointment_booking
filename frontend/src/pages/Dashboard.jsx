@@ -17,11 +17,32 @@ import { useNavigate } from "react-router";
 import AppointmentCard from "../components/AppointmentCard";
 import { useLoading } from "../context/LoadingContext";
 import Spinner from "../components/common/Spinner";
+import { getProviders } from "../services/appointment.service";
 
 const Dashboard = () => {
   const { loading, setLoading } = useLoading();
 
-  const { appointments, fetchAppointments } = useAppointments();
+  const { appointments, fetchAppointments, setAppointments } = useAppointments();
+
+  
+    const [providers, setProviders] = useState([]);
+
+    useEffect(() => {
+        const fetchProviders = async () => {
+          try {
+            setLoading(true);
+            const res = await getProviders();
+            console.log(res);
+            setProviders(res);
+          } catch (err) {
+            console.error("Error fetching providers:", err);
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchProviders();
+      }, []);
 
   const navigate = useNavigate();
 
@@ -62,6 +83,8 @@ const completed = appointments.filter(
     new Date(a.slot.start_time) < now
 ).length;
 
+const totalProviders = providers?.length;
+
   const cardInfo = [
     {
       Icon: Calendar,
@@ -86,7 +109,7 @@ const completed = appointments.filter(
     },
     {
       Icon: Users,
-      title: 5,
+      title: totalProviders,
       text: "Available Providers",
       darkColor: "bg-cyan-700",
       lightColor: "bg-cyan-50",
@@ -146,24 +169,24 @@ const completed = appointments.filter(
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 p-3">
           <span className=" p-3">
-            <button className="flex items-center gap-3 transition-all duration-150 bg-sky-700 border border-sky-700 text-white w-full rounded-lg px-4 py-3 hover:bg-white hover:text-sky-700 cursor-pointer">
+            <button onClick={()=>navigate("/booking")} className="flex items-center gap-3 transition-all duration-150 bg-sky-700 border border-sky-700 text-white w-full rounded-lg px-4 py-3 hover:bg-white hover:text-sky-700 cursor-pointer">
               <CalendarPlus2 className="w-7 h-7" />
 
               <div className="flex flex-col items-start text-left">
                 <span className="text font-medium">Book Appointment</span>
-                <span className="text-gray-100 hover:text-sky-600">
+                <span className="">
                   Find and book an appointment
                 </span>
               </div>
             </button>
           </span>
           <span className=" p-3">
-            <button className="flex items-center gap-3 transition-all duration-150 hover:bg-sky-700 border border-sky-700 hover:text-white w-full rounded-lg px-4 py-3 bg-white text-sky-700 cursor-pointer">
+            <button onClick={()=>navigate("/appointment")} className="flex items-center gap-3 transition-all duration-150 hover:bg-sky-700 border border-sky-700 hover:text-white w-full rounded-lg px-4 py-3 bg-white text-sky-700 cursor-pointer">
               <List className="w-7 h-7" />
 
               <div className="flex flex-col items-start text-left">
                 <span className="text font-medium">Your Appointments</span>
-                <span className="text-gray-500">
+                <span className="">
                   View upcoming & past bookings
                 </span>
               </div>
@@ -171,12 +194,12 @@ const completed = appointments.filter(
           </span>
 
           <span className="p-3">
-            <button className="flex items-center gap-3 transition-all duration-150 hover:bg-sky-700 border border-sky-700 hover:text-white w-full rounded-lg px-4 py-3 bg-white text-sky-700 cursor-pointer">
+            <button onClick={()=>navigate("/profile")} className="flex items-center gap-3 transition-all duration-150 hover:bg-sky-700 border border-sky-700 hover:text-white w-full rounded-lg px-4 py-3 bg-white text-sky-700 cursor-pointer">
               <User className="w-7 h-7" />
 
               <div className="flex flex-col items-start text-left">
                 <span className="text font-medium">Profile</span>
-                <span className="text-gray-500">
+                <span className="">
                   Update your info 
                 </span>
               </div>
@@ -201,7 +224,7 @@ const completed = appointments.filter(
       ) : (
         <div>
           {appointments.map((appointment) => (
-            <AppointmentCard key={appointment.id} appointment={appointment} />
+            <AppointmentCard key={appointment.id} appointment={appointment}/>
           ))}
         </div>
       )}

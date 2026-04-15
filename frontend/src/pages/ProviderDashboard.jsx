@@ -80,9 +80,9 @@ const ProviderDashboard = () => {
     <div>
       {/* Main Heading */}
 
-      <h1 className="text-3xl mx-5 mt-5 font-bold text-teal-700">Dashboard</h1>
+      <h1 className="text-3xl mx-5 mt-5 font-bold text-teal-700">Provider Dashboard</h1>
       <span className="pl-5 text-gray-500">
-        Manage your appointments and provider schedule
+        Manage your schedule, appointments, and availability
       </span>
 
       <div className="grid md:grid-cols-4 grid-cols-2 w-full gap-5 px-5 mt-10">

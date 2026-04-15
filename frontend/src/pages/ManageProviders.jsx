@@ -5,6 +5,7 @@ import AddProviderModal from "../components/common/AddProviderModal";
 import { getUsers } from "../services/user.service";
 import { useLoading } from "../context/LoadingContext";
 import Spinner from "../components/common/Spinner";
+import useAuth from "../hooks/useAuth";
 
 const ManageProviders = () => {
   const { loading, setLoading } = useLoading();
@@ -13,6 +14,24 @@ const ManageProviders = () => {
   const [activeTab, setActiveTab] = useState("ALL");
   const [searchText, setSearchText] = useState("");
   const [searchType, setSearchType] = useState("name");
+
+  const { user } = useAuth
+
+  if(user?.role == 'ADMIN'){
+    const title = "Appointments"
+    const subTitle = 'View all appointments across the platform'
+  }
+
+  else if(user?.role == 'PROVIDER'){
+    const title = "Appointment Requests"
+    const subTitle = 'View and manage your scheduled appointments'
+  }
+
+  else if(user?.role == 'USER'){
+    const title = "My Appointments"
+    const subTitle = 'View your appointment history'
+  }
+
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -59,9 +78,9 @@ const ManageProviders = () => {
       {/* Header */}
       <div className="flex justify-between items-center mb-6 p-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">Manage Providers</h1>
+          <h1 className="text-3xl font-bold text-gray-800">User & Provider Management</h1>
           <p className="text-gray-500 text-sm">
-            Manage all users and providers in one place
+            View, manage, and organize users and providers
           </p>
         </div>
 

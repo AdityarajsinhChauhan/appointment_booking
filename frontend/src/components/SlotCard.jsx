@@ -3,15 +3,14 @@ import { formatDate , formatTimeRange  } from '../utils/formatDate'
 
 const SlotCard = ({ date, slots}) => {
   return (
-    <div className='border border-gray-300 rounded-xl flex flex-col gap-5 m-5 h-fit p-5'>
+    <div className='border transition-all duration-150 hover:border-sky-600 border-gray-300 rounded-xl flex flex-col gap-5 m-5 h-fit p-5'>
         <div className='flex justify-between'>
             <span>{formatDate(date)}</span>
-            <span>Delete</span>
         </div>
 
         <div className='flex flex-wrap gap-3'>
             {slots.map((slot)=>(
-                <button className={`py-3 px-5 flex flex-col  rounded-lg justify-center items-center ${slot.is_booked ? "bg-gray-200": "bg-gray-200"}`}>
+                <button className={`py-3 transition-all duration-150 border border-transparent hover:border-sky-700 px-5 flex flex-col  rounded-lg justify-center items-center ${slot.is_booked ? "bg-teal-100": "bg-sky-100"}`}>
                 <span>
                     {formatTimeRange(slot.start_time,slot.end_time)}
                 </span>

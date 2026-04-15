@@ -55,7 +55,8 @@ const Profile = () => {
       showSuccess("details Updated");
       
     } catch (error) {
-      showError("Something went wrong while updating");
+      showError("Something went wrong while updating"
+      );
       
     }
   };
@@ -92,8 +93,8 @@ const Profile = () => {
   return (
     <div className="md:px-72 px-5 bg-gray-50">
       <header className="p-5">
-        <h1 className="font-bold text-3xl text-teal-700">Profile</h1>
-        <span>Manage your account information</span>
+        <h1 className="font-bold text-3xl text-teal-700">My Profile</h1>
+        <span>Manage your personal information </span>
       </header>
 
       {/* Main card */}

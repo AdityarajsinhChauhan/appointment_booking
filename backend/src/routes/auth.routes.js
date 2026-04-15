@@ -13,7 +13,7 @@ router.post("/login", async (req, res, next) => {
   await authController.login(req, res, next);
 });
 
-router.post("/logout", authMiddleware, async (req, res, next) => {
+router.post("/logout", async (req, res, next) => {
   await authController.logout(req, res, next);
 });
 

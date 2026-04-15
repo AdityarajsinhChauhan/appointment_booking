@@ -141,9 +141,9 @@ const totalProviders = providers?.length;
       {/* Main Heading */}
 
       <h1 className="text-3xl mx-5 mt-5 font-bold text-teal-700">
-        My Appointments
+        Dashboard
       </h1>
-      <span className="pl-5 text-gray-500">manage and track your bookings</span>
+      <span className="pl-5 text-gray-500">Track your bookings and upcoming appointments</span>
 
       {/* Cards */}
 

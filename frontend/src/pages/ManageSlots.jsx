@@ -57,8 +57,8 @@ const ManageSlots = () => {
       <header className="flex gap-3 m-5 items-center border-b pb-3 border-gray-300">
         <span className="bg-teal-50 rounded-full p-2"><Calendar className="w-7 h-7 stroke-teal-700"/></span>
         <div>
-          <h1 className="font-bold text-3xl text-teal-700 ">Manage Slots</h1>
-          <span>Create and manage your availability</span>
+          <h1 className="font-bold text-3xl text-teal-700 ">Manage Availability</h1>
+          <span>Create your available slots</span>
         </div>
       </header>
 

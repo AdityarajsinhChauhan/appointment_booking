@@ -94,7 +94,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
         })}
       </div>
 
-      <div className="bottom-0 fixed left-0 w-full p-5">
+      <div className="bottom-0 fixed left-0 w-full px-5 md:pb-5 pb-16">
         <button
         onClick={handleLogout}
         className=" flex justify-center items-center gap-3 transtiion-all duration-150  border bg-white font-bold text-red-700 cursor-pointer hover:bg-red-100 border-gray-300 hover:border-red-700 rounded-lg w-full py-1"

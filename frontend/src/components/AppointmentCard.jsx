@@ -85,8 +85,8 @@ const AppointmentCard = ({ appointment }) => {
         </span>
       </div>
 
-      <div className="flex justify-end gap-3 pt-2 md:pt-5">
-        { appointment.status !== 'CANCELLED' && <>
+      <div className="flex md:justify-end gap-3 pt-2 md:pt-5">
+        { appointment.status !== "CANCELLED" && user.role === "USER" && <>
         <button
           onClick={() => handleReschedule(appointment.id)}
           className="transition-all items-center duration-150 text-sm md:text-base px-3 py-2 flex gap-2 text-white bg-sky-700 border border-sky-700 rounded-lg md:px-5 md:py-2 hover:bg-sky-50 hover:text-sky-700 cursor-pointer"
@@ -112,12 +112,12 @@ const AppointmentCard = ({ appointment }) => {
                 handleCancelAppointment(appointment.id);
               }
             }}
-            className="transition-all duration-150 border border-e-red-700 text-red-700 hover:bg-red-100 px-5 py-1 md:py-2 rounded-lg cursor-pointer"
+            className="transition-all duration-150 border border-e-red-700 text-red-700 hover:bg-red-100 px-2 md:px-5 py-1 md:py-2 rounded-lg cursor-pointer"
           >
             Cancel
           </button>
         )}</>}
-        <button className=" transition-all duration-150 flex gap-2 items-center bg-sky-100 text-sky-700 px-5 py-1 md:py-2 rounded-lg cursor-pointer hover:bg-sky-700 hover:text-white">
+        <button className=" transition-all duration-150 flex md:gap-2 items-center bg-sky-100 text-sky-700 px-2 md:px-5 py-1 md:py-2 rounded-lg cursor-pointer hover:bg-sky-700 hover:text-white">
           <span>View Provider</span>
           <ArrowRight className=" md:inline hidden w-5 h-5" />
         </button>

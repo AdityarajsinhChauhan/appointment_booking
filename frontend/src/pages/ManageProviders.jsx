@@ -15,22 +15,7 @@ const ManageProviders = () => {
   const [searchText, setSearchText] = useState("");
   const [searchType, setSearchType] = useState("name");
 
-  const { user } = useAuth
-
-  if(user?.role == 'ADMIN'){
-    const title = "Appointments"
-    const subTitle = 'View all appointments across the platform'
-  }
-
-  else if(user?.role == 'PROVIDER'){
-    const title = "Appointment Requests"
-    const subTitle = 'View and manage your scheduled appointments'
-  }
-
-  else if(user?.role == 'USER'){
-    const title = "My Appointments"
-    const subTitle = 'View your appointment history'
-  }
+  
 
 
   useEffect(() => {
@@ -78,15 +63,15 @@ const ManageProviders = () => {
       {/* Header */}
       <div className="flex justify-between items-center mb-6 p-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">User & Provider Management</h1>
-          <p className="text-gray-500 text-sm">
+          <h1 className="md:text-3xl text-xl font-bold text-teal-700">User & Provider Management</h1>
+          <p className="text-gray-500 text-xs md:text-sm">
             View, manage, and organize users and providers
           </p>
         </div>
 
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-sky-700 text-white px-5 py-2 rounded-lg shadow hover:opacity-90 transition"
+          className="bg-sky-700 text-white px-3 md:px-5 py-2 rounded-lg shadow hover:opacity-90 transition"
         >
           Add Provider
         </button>

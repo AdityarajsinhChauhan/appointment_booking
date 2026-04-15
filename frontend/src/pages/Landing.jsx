@@ -81,10 +81,10 @@ const Landing = () => {
         </div>
       </nav>
 
-      <div className="relative z-10 w-full h-96 mt-22 flex items-center justify-start">
+      <div className="relative z-10 w-full h-72 md:h-96 mt-22 flex items-center justify-start">
         {/* Background Image */}
         <ImageWithLoader
-          src="/dashboard.png" // change to your image path
+          src="/dashboard.png" 
           alt="Background image"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -93,7 +93,7 @@ const Landing = () => {
         <div className="absolute inset-0 bg-black/10"></div>
 
         {/* Content */}
-        <div className="absolute w-1/2 z-10 flex flex-col gap-16 p-14">
+        <div className="absolute w-1/2 z-10 flex flex-col gap-5 md:gap-16 px-7 md:p-14">
           <h2 className="md:text-5xl font-bold text-teal-700">
             <span className="text-sky-700">Smart Appointment Booking</span>{" "}
             Booking Made Easy
@@ -119,7 +119,7 @@ const Landing = () => {
 
       <div
         ref={featureRef}
-        className="bg-sky-50 flex gap-5 flex-col  items-center px-5 py-28 rounded-xl w-full border border-gray-300 "
+        className="bg-sky-50 flex gap-5 flex-col  items-center px-5 py-14 md:py-28 rounded-xl w-full border border-gray-300 "
       >
         <h2 className="font-bold text-2xl">Features Built for Everyone </h2>
 
@@ -167,7 +167,7 @@ const Landing = () => {
 
       <div
         ref={guideRef}
-        className="flex flex-col justify-center items-center py-28 gap-10"
+        className="flex flex-col justify-center items-center py-14 md:py-28 gap-10"
       >
         <h2 className="font-bold text-3xl">How it Works</h2>
         <div className="flex md:flex-row flex-col items-center gap-10">
@@ -204,10 +204,10 @@ const Landing = () => {
       </div>
 
       <div className="flex flex-col justify-center items-center py-10  bg-sky-700 gap-5">
-        <h2 className="font-bold text-4xl text-white">
+        <h2 className="font-bold text-xl md:text-4xl text-white">
           Ready to Get Started ?
         </h2>
-        <button className="bg-white text-sky-700 font-bold rounded-xl hover:bg-sky-100 cursor-pointer px-5 py-2 text-lg">
+        <button className="bg-white text-sky-700 font-bold rounded-xl hover:bg-sky-100 cursor-pointer px-3 md:px-5 py-2 text-lg">
           Create Account
         </button>
       </div>

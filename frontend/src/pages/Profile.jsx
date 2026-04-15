@@ -99,28 +99,28 @@ const Profile = () => {
 
       {/* Main card */}
 
-      <div className="flex border group transition-all duration-150 hover:border-sky-600 border-gray-300 rounded-xl px-8 py-10 items-center bg-white shadow-md hover:bg-linear-to-br from-sky-50 via-white to-white ">
+      <div className="flex border group transition-all duration-150 hover:border-sky-600 border-gray-300 rounded-xl px-3 md:px-8 py-10 items-center bg-white shadow-md hover:bg-linear-to-br from-sky-50 via-white to-white ">
         <div className="flex flex-col items-center">
           <ImageWithLoader
             src={user.img_url}
             alt="user image"
-            className=" transition-all duration-150 overflow-hidden rounded-full w-36 h-36 border-4 group-hover:border-sky-700 border-gray-300"
+            className=" transition-all duration-150 overflow-hidden rounded-full h-24 w-24 md:w-36 md:h-36 border-4 group-hover:border-sky-700 border-gray-300"
           />
-          <span className="transition-all duration-150 mt-3 font-medium group-hover:text-teal-700">
+          <span className="transition-all text-xs md:text-base duration-150 mt-3 font-medium group-hover:text-teal-700">
             {user.role} Account
           </span>
         </div>
         <div className="flex flex-col ml-5 gap-5">
           <span className="flex gap-2 group-hover:text-sky-700 transition-all duration-150">
-            <User className="group-hover:stroke-teal-700 transition-all duration-150" />
+            <User className="group-hover:stroke-teal-700 text-xs md:text-base transition-all duration-150" />
             {user.name}
           </span>
           <span className="flex gap-2 group-hover:text-sky-700 transition-all duration-150">
-            <Mail className="group-hover:stroke-teal-700 transition-all duration-150" />
+            <Mail className="group-hover:stroke-teal-700 text-xs md:text-base transition-all duration-150" />
             {user.email}
           </span>
           <span className="flex gap-2 group-hover:text-sky-700 transition-all duration-150">
-            <Phone className="group-hover:stroke-teal-700 transition-all duration-150" />
+            <Phone className="group-hover:stroke-teal-700 text-xs md:text-base transition-all duration-150" />
             {user.contact}
           </span>
         </div>

@@ -112,7 +112,7 @@ const SelectSlot = ({ providerId, setStep, setSlot }) => {
           >
             <ChevronLeft className="md:w-5 md:h-5 w-3 h-3 " />
           </button>
-          <div className="flex">
+          <div className="flex flex-wrap">
             {visibleDates.map((date, index) => {
               const formattedDate =
                 date.getFullYear() +

@@ -116,7 +116,7 @@ const AddProviderModal = ({ isOpen, onClose, users, setUsers }) => {
 
   return (
     <div
-  className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm px-3 sm:px-4"
+  className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-6 md:p-0 "
   onClick={onClose}
 >
   {/* Modal Box */}

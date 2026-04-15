@@ -51,7 +51,7 @@ const SelectProvider = ({ setProvider, setStep }) => {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="grid md:grid-cols-4 grid-cols-2">
+        <div className="grid md:grid-cols-4 grid-cols-1">
           {providers.map((provider) => (
             <div
               key={provider.id}

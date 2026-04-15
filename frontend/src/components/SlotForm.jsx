@@ -207,7 +207,7 @@ const SlotForm = ({ slots, setSlots }) => {
         ) : (
           <button
             onClick={handleSubmit}
-            className="transition-all duration-150 border cursor-pointer border-sky-700 bg-sky-700 text-white flex items-center gap-1 px-7 py-2 rounded-lg hover:bg-sky-50 hover:text-sky-700"
+            className="transition-all duration-150 border cursor-pointer border-sky-700 bg-sky-700 text-white flex items-center gap-1 px-3 md:px-7 py-2 rounded-lg hover:bg-sky-50 hover:text-sky-700"
           >
             <Plus className="w-5 h-5" />
             <span>Create Slot</span>
@@ -215,7 +215,7 @@ const SlotForm = ({ slots, setSlots }) => {
         )}
         <button
           onClick={handleReset}
-          className="transition-all duration-150 bg-white-700 text-teal-700 border border-teal-700 flex gap-1 items-center px-7 py-2 rounded-lg cursor-pointer hover:bg-teal-700 hover:text-white"
+          className="transition-all duration-150 bg-white-700 text-teal-700 border border-teal-700 flex gap-1 items-center px-3 md:px-7 py-2 rounded-lg cursor-pointer hover:bg-teal-700 hover:text-white"
         >
           <RefreshCcw className="w-5 h-5" />
           <span>Reset Form</span>

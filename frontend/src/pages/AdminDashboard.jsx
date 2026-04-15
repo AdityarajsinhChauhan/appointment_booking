@@ -99,10 +99,10 @@ const AdminDashboard = () => {
         <header className="flex items-center justify-between p-5 ">
           <div>
             <h1 className="font-bold text-3xl text-teal-700">
-              Administration Dashboard
+              Admin Dashboard
             </h1>
             <span className="text-gray-500">
-              Manage providers, appointments, and system settings
+              Monitor users, providers, appointments, and system activity
             </span>
           </div>
           <div className="flex gap-3 items-center border border-gray-300 rounded-lg p-2 text-sky-700 font-bold cursor-default hover:border-teal-700 hover:bg-linear-to-br from-teal-50 via-white to-white hover:shadow">

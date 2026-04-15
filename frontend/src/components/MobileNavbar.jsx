@@ -11,7 +11,7 @@ const MobileNavbar = ({ setIsSidebarOpen }) => {
   };
 
   return (
-    <nav className="flex md:hidden justify-between z-10 py-5 px-5 w-full bg-white/70 backdrop-blur-md shadow-sm fixed top-0 left-0">
+    <nav className="flex lg:hidden justify-between z-10 py-5 px-5 w-full bg-white/70 backdrop-blur-md shadow-sm fixed top-0 left-0">
       <div className="flex gap-2 items-center">
         <Menu
           className="w-10 h-10 rounded-full bg-sky-100 p-2 mx-3 cursor-pointer"
